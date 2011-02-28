@@ -1,0 +1,28 @@
+<html>
+<head> 
+  <title>XBMC Test</title>
+  <script src="vendor/jquery/jquery-1.5.1.js"></script> 
+  <script src="vendor/underscore/underscore.js"></script> 
+  <script src="vendor/backbone/backbone.js"></script> 
+  <script type="text/javascript">
+    $.ajax({
+        type: 'POST'
+      , async: true
+      , url: '/jsonrpc'
+      , cache: false
+      , dataType: 'json'
+      , data: '{"jsonrpc": "2.0", "method": "AudioLibrary.GetArtists", "params": { "start": 0, "sort": { "order": "ascending", "method": "artist" } }, "id": 1}'
+      , success: function(response) {
+        $.each(response.result.artists, function(index,a) {
+          $('<li>'+a.label+'</li>').appendTo('#artists');
+        });
+      }
+    });
+  </script>
+</head>
+<body>  
+  <h1>XMBC Test</h1>
+  <p>List of Artists from XBMC:</p>
+  <ul id="artists"></ul>
+</body>
+</html>
