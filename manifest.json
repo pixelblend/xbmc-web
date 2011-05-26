@@ -1,0 +1,11 @@
+{
+  "name": "XBMC Web",
+  "version": "1.0",
+  "description": "Web Interface for XBMC.",
+  "browser_action": {
+    "popup": "index.html"
+  },
+  "permissions": [
+    "http://xbmc.milo/"
+  ]
+}
