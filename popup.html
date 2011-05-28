@@ -1,0 +1,19 @@
+<a href="#" onclick="openIndex()">Open</a>
+
+<script type="text/javascript" charset="utf-8">	
+	function openIndex() {
+	  window.localStorage.setItem('tabId', undefined); 
+		if(window.localStorage.getItem('tabId') === undefined) {
+			createTab();
+		} else {
+			chrome.tabs.update(parseInt(window.localStorage.getItem('tabId')), {url: 'index.html'});
+		}
+	};
+	
+	function createTab() {
+		chrome.tabs.create({url: 'index.html'}, function(tab){ 
+		  console.log(tab);
+		  window.localStorage.setItem('tabId', tab); 
+		});
+	};
+</script>

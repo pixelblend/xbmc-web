@@ -1,11 +1,15 @@
 {
-  "name": "XBMC Web",
-  "version": "1.0",
-  "description": "Web Interface for XBMC.",
-  "browser_action": {
-    "popup": "index.html"
-  },
-  "permissions": [
-    "http://xbmc.milo/"
-  ]
+		"name": "XBMC Web"
+  ,	"version": "1.0"
+  ,	"description": "Web Interface for XBMC."
+  ,	"browser_action": {
+	  		"default_title": "XBMC-Web"
+    	,	"default_icon": "images/logo.ico"
+    	,	"popup": "popup.html"
+  	}
+  ,	"permissions": [
+    	"http://*/*/"
+  	]
+	,	"background-page": "index.html"
+
 }
