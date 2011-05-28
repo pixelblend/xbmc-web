@@ -1,4 +1,4 @@
-One day this will be an XBMC Web interface. I'm hoping this'll be a good
-excuse to brush up my Javascript skills.
+ChromeXBMC
+==========
 
-We'll see.
+ChromeXBMC is a Chrome Extension to remotely control XBMC using the JSON-RPC interface.
