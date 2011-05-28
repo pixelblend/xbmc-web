@@ -1,3 +1,10 @@
-body {
-  width: 300px;
+@import url("normalize.css");
+
+body { 
+    overflow: hidden;
+    margin: 0;
+    padding: 4px;
+    font-family: tahoma, sans-serif;
+    width: 230px;
+		font-size: 12px;
 }

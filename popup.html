@@ -4,7 +4,9 @@
     <script src="scripts/vendor/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/xbmc.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
+    <script src="scripts/xbmc.view.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
     <title>XBMC Web Popup</title>
   </head>
@@ -14,7 +16,7 @@
       $(function() {
         // $('<ul id="artists"></ul>').appendTo('body');
         // xbmc.listArtists();
-        xbmc.checkConnection();
+        xbmc.view.controls();
       });
     </script>
   </body>
