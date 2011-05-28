@@ -3,7 +3,6 @@
   <head>
     <script src="scripts/vendor/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
-    <script src="scripts/vendor/json2.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
     <script src="scripts/application.js" type="text/javascript" charset="utf-8"></script>
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
@@ -13,7 +12,10 @@
     <noscript>Javascript is not running for some insane reason. It should be.</noscript>
     <script type="text/javascript" charset="utf-8">
       $(function() {
-        // initialise popup menu
+        var xbmc = new Xbmc;
+        $('<ul id="artists"></ul>').appendTo('body');
+        var result = xbmc.checkConnection();
+        $('<h1>JSON Version '+result.version+'</h1>').appendTo('body');
       });
     </script>
   </body>
