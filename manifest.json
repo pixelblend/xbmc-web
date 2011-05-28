@@ -8,6 +8,7 @@
     	,	"popup": "popup.html"
   	}
   ,	"permissions": [
+			"tabs",
     	"http://*/*/"
   	]
 	,	"background-page": "index.html"
