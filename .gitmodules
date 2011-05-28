@@ -1,9 +1,0 @@
-[submodule "vendor/backbone"]
-	path = vendor/backbone
-	url = https://github.com/documentcloud/backbone.git
-[submodule "vendor/underscore"]
-	path = vendor/underscore
-	url = https://github.com/documentcloud/underscore.git
-[submodule "vendor/json"]
-	path = vendor/json
-	url = https://github.com/douglascrockford/JSON-js.git
