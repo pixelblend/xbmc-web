@@ -19,7 +19,7 @@ xbmc.options = {
 			if(typeof newHost == 'string')
 				localStorage.host = newHost;
 				
-			return localStorage.host || 'http://';
+			return localStorage.host || 'http://localhost';
 		}
 	,	port: function(newPort) {
 			if(typeof newPort == 'string')
