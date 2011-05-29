@@ -1,4 +1,5 @@
-window.xbmc = {};
+if(typeof window.xbmc == 'undefined')
+  window.xbmc = {};
 
 xbmc.model = {
 		query: function(method, successCallback, params){
@@ -10,29 +11,30 @@ xbmc.model = {
 
 			$.ajax({
 					type: 'POST'
-				, username: 'xbmc'
-				,	password: 'xbmc'
+				, username: xbmc.options.user()
+				,	password: xbmc.options.password()
 				, async: true
-				, url: 'http://xbmc.milo:8080/jsonrpc'
+				, url: xbmc.options.jsonUrl()
 				, cache: false
 				, dataType: 'json'
 				, data: '{"jsonrpc": "2.0", "method": "'+method+'", "params": '+jsonParams+', "id": 1}'
-				,	error: function(jqXHR, textStatus, errorThrown){ 
-						// alert(textStatus+' - '+errorThrown); // turned off - too noisy
-						return true;
+				,	error: function(xhr, textStatus, errorThrown){ 
+						console.error("XHR Response: " + JSON.stringify(xhr));
 					}
 				, success: function(response){
 						if (typeof successCallback == 'function'){
 							successCallback(response.result);
 						} else {
-							return alert(JSON.stringify(response.result));
+							return console.warn(JSON.stringify(response.result));
 						}
 					}
  			});
 		}
 	,	checkConnection: function(){
 			this.query('JSONRPC.Version', function(result){
-				alert(result.version);
+			  if (typeof result.version != 'undefined'){
+			    return true;
+			  }
 			});
 		}
 };

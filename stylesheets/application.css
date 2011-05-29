@@ -8,3 +8,9 @@ body {
     width: 230px;
 		font-size: 12px;
 }
+
+input, label {
+  width: 200px;
+  display: block;
+  
+}
