@@ -11,12 +11,10 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
     <title>XBMC Web Popup</title>
   </head>
-  <body>
+  <body id="popup">
     <noscript>Javascript is not running for some insane reason. It should be.</noscript>
     <script type="text/javascript" charset="utf-8">
       $(function() {
-        // $('<ul id="artists"></ul>').appendTo('body');
-        // xbmc.listArtists();
         xbmc.view.controls();
       });
     </script>

@@ -5,12 +5,19 @@ body {
     margin: 0;
     padding: 4px;
     font-family: tahoma, sans-serif;
-    width: 230px;
 		font-size: 12px;
+}
+
+body#popup {
+  width: 230px;  
+}
+
+body#index, body#options {
+  width:700px;
+  background:grey;
 }
 
 input, label {
   width: 200px;
   display: block;
-  
 }
