@@ -1,11 +1,9 @@
 xbmc.view = {
 		controls: function(){
-			//draw canvas
 			this._canvas();
-			// create buttons
 			this._buttons();
-			// print current status
 			this._state();
+			this._linkToIndex();
 		}
 	,	_canvas: function(){
 			$('<div/>', {id: 'controls'}).appendTo('body');
@@ -22,5 +20,8 @@ xbmc.view = {
 				$('#state').text(state);
 				$('#play-pause').text(state == 'stopped' ? 'Play' : 'Pause');
 			});
+		}
+	,	_linkToIndex: function(){
+			$('<a/>', {onClick: "chrome.tabs.create({url: 'index.html'})", text: 'Index', href: "#"}).appendTo('body');
 		}
 };
