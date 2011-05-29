@@ -11,6 +11,6 @@
 			"tabs",
     	"http://*/*/"
   	]
-	,	"background-page": "index.html"
+	,	"options_page": "options.html"
 
 }
