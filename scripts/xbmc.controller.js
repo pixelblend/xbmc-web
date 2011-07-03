@@ -9,21 +9,44 @@ xbmc.controller = {
 	      });
 				}, { "start": 0, "sort": { "order": "descending", "method": "artist" } });
 		}
-	,	playerState: function(callback){
-			xbmc.model.query('Player.GetActivePlayers', function(result){
-				var state;
-				
-				if(result.picture == true) {
-					state = 'picture';
-				} else if(result.video == true) {
-					state = 'video';
-				} else if(result.audio == true) {
-					state = 'audio';
-				} else {
-					state = 'stopped';
-				}
-				
-				callback(state);
-			});
+	,	playerState: function(){
+  	  setInterval(function(){
+  	    xbmc.model.query('Player.GetActivePlayers', function(result){
+    				var state;
+
+    				if(result.picture == true) {
+    					state = 'picture';
+    				} else if(result.video == true) {
+    					state = 'video';
+    				} else if(result.audio == true) {
+    					state = 'audio';
+    				} else {
+    					state = 'stopped';
+    				}
+
+            localStorage.state = state;
+  			});
+  	  }, 1000);
 		}
+	, nowPlaying: function(){
+  	  setInterval(function(){
+  	    var stateCall = {
+  	        'video':   'VideoPlaylist.GetItems'
+  	      , 'audio':   'AudioPlaylist.GetItems'
+  	    };
+  	    
+  	    queryType = stateCall[localStorage.state];
+  	    
+  	    if(typeof queryType == 'undefined'){
+  	      localStorage.playList = [];
+  	      localStorage.playing = '';
+  	      return false;
+  	    }
+  	    
+  	    xbmc.model.query(queryType, function(result){
+          // localStorage.playList = result.items;
+  	      localStorage.playing = result.items[result.current].label;
+  	    });
+  	  }, 1000);
+	}
 }
