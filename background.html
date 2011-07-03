@@ -1,0 +1,21 @@
+<html>
+<head> 
+  <title>XBMC</title>
+  <script src="scripts/vendor/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.view.js" type="text/javascript" charset="utf-8"></script>
+  <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
+</head>
+<body id="background">  
+  <h1>XMBC</h1>
+  <noscript>Javascript is not running for some insane reason. It should be.</noscript>
+  <script type="text/javascript" charset="utf-8">
+    xbmc.controller.playerState();
+    xbmc.controller.nowPlaying();
+  </script>
+</body>
+</html>
