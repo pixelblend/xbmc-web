@@ -10,7 +10,7 @@ xbmc.controller = {
 	      });
 				}, { "start": 0, "sort": { "order": "descending", "method": "artist" } });
 		}
-	,	pollForStatus: function(){
+	,	pollForState: function(){
 			clearInterval(this.stateInterval);
 			clearInterval(this.playerInterval);
 			this.stateInterval  = setInterval('xbmc.controller.playerState()', this.pollRate);
@@ -18,19 +18,17 @@ xbmc.controller = {
 		}
 	,	playerState: function(){
  	    xbmc.model.query('Player.GetActivePlayers', function(result){
-   				var state;
-
    				if(result.picture == true) {
-   					state = 'picture';
+   					playerType = 'picture';
    				} else if(result.video == true) {
-   					state = 'video';
+   					playerType = 'video';
    				} else if(result.audio == true) {
-   					state = 'audio';
+   					playerType = 'audio';
    				} else {
-   					state = 'stopped';
+   					playerType = 'stopped';
    				}
-
-           localStorage.state = state;
+					
+          localStorage.playerType = playerType;
  			});
 		}
 	, nowPlaying: function(){
@@ -39,7 +37,7 @@ xbmc.controller = {
  	      , 'audio':   'AudioPlaylist.GetItems'
  	    };
  	    
- 	    queryType = stateCall[localStorage.state];
+ 	    queryType = stateCall[localStorage.playerType];
  	    
  	    if(typeof queryType == 'undefined'){
  	      localStorage.playList = [];
@@ -48,7 +46,17 @@ xbmc.controller = {
  	    }
  	    
  	    xbmc.model.query(queryType, function(result){
-         // localStorage.playList = result.items;
+        // localStorage.playList = result.items;
+				if(result.paused == true) {
+					state = 'paused';
+				} else if(result.playing == true) {
+					state = 'playing';
+				} else {
+					state = 'stopped';
+				}
+				
+				localStorage.state	= state;
+
  	      localStorage.playing = result.items[result.current].label;
  	    });
 	}

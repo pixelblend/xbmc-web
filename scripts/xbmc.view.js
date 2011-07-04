@@ -8,6 +8,12 @@ xbmc.view = {
 			this._state();
 		}
 	,	_canvas: function(){
+			//playlist
+			$('<div/>', {id: 'player-status'}).appendTo('body');
+			$('<h3/>',  {text: 'Now Playing:'}).appendTo('#player-status');
+			$('<div/>', {id: 'now-playing'}).appendTo('#player-status');
+			
+			//interface
 			$('<div/>', {id: 'controls'}).appendTo('body');
 		}
 	,	_buttons: function(){
@@ -18,10 +24,14 @@ xbmc.view = {
 		}
 	,	_state: function(){
   	  var state = localStorage.state;
-	    if(typeof state == 'undefined'){
-	      return;
-	    }
-			$('#play-pause').text(state == 'stopped' ? 'Play' : 'Pause');
-			$('<h3/>', {text: localStorage.playing}).appendTo('body');
+			var playerType = localStorage.playerType;
+			console.log(state);
+	    if(typeof playerType == 'undefined'){
+				$('#play-pause').text('Play');
+				$('#now-playing').text('Could not connect.');
+	    } else {
+				$('#play-pause').text((state == 'stopped' || state == 'paused') ? 'Play' : 'Pause');
+				$('#now-playing').text(localStorage.playing);
+			}
 		}
 };
