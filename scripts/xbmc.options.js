@@ -57,6 +57,10 @@ xbmc.options = {
   	    newValue = $('#'+attr).val();
   	    xbmc.options[attr](newValue);
       });
+
+			//restart polling
+			xbmc.controller.pollForStatus();
+			
       alert('saved!');
 	}
 };
