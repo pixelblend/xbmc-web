@@ -2,16 +2,7 @@ if(typeof window.xbmc == 'undefined')
   window.xbmc = {};
 
 xbmc.controller = {
-		pollRate: 1000
-	,	stateCall: {
-        'video':   'VideoPlaylist.GetItems'
-      , 'audio':   'AudioPlaylist.GetItems'
-    }
-	,	playPauseCall: {
-      'video':   'VideoPlayer.PlayPause'
-    , 'audio':   'AudioPlayer.PlayPause'		
-		}
-	,	listArtists: function(){
+		listArtists: function(){
 			xbmc.model.query('AudioLibrary.GetArtists', function(result){
 	      $.each(result.artists, function(index,a) {
 	        $('<li>'+a.label+'</li>').appendTo('#artists');
@@ -21,28 +12,28 @@ xbmc.controller = {
 	,	pollForState: function(){
 			clearInterval(this.stateInterval);
 			clearInterval(this.playerInterval);
-			this.stateInterval  = setInterval('xbmc.controller.playerState()', this.pollRate);
-			this.playerInterval = setInterval('xbmc.controller.nowPlaying()', this.pollRate);
+			this.stateInterval  = setInterval('xbmc.controller.playerState()', xbmc.store.pollRate);
+			this.playerInterval = setInterval('xbmc.controller.nowPlaying()', xbmc.store.pollRate);
 		}
 	,	playerState: function(){
  	    xbmc.model.query('Player.GetActivePlayers', function(result){
-   				if(result.picture == true) {
-   					playerType = 'picture';
-   				} else if(result.video == true) {
-   					playerType = 'video';
-   				} else if(result.audio == true) {
-   					playerType = 'audio';
-   				} else {
-   					playerType = 'stopped';
-   				}
-					
-          localStorage.playerType = playerType;
+ 				if(result.picture == true) {
+ 					playerType = 'picture';
+ 				} else if(result.video == true) {
+ 					playerType = 'video';
+ 				} else if(result.audio == true) {
+ 					playerType = 'audio';
+ 				} else {
+ 					playerType = 'stopped';
+ 				}
+			
+        localStorage.playerType = playerType;
  			});
 		}
 	,	playPause: function () {
-			queryType = this.playPauseCall[localStorage.playerType];
+			queryType = xbmc.store.playPause();
 			
- 	    if(typeof queryType == 'undefined'){
+ 	    if(queryType === false){
 				return false;
 			}
 			
@@ -54,28 +45,30 @@ xbmc.controller = {
 			});
 		}
 	,	next: function(){
-			queryType = 'AudioPlayer.SkipNext';
+			queryType = xbmc.store.skipNext();
+			
 			xbmc.model.query(queryType, function(result){
 				if(result === 'OK') {
-					//move to next in playlist
+					xbmc.store.incrementCurrent();
+	 	      localStorage.playing = xbmc.store.currentItem().label;
+					xbmc.view.setNowPlaying();					
 				}
 			});
 		}
-	, nowPlaying: function(){ 	    
- 	    queryType = this.stateCall[localStorage.playerType];
- 	    
- 	    if(typeof queryType == 'undefined'){
- 	      localStorage.playList = [];
- 	      localStorage.playing = '';
+	, nowPlaying: function(){ 	
+ 	    queryType = xbmc.store.nowPlaying();
+
+ 	    if(queryType == false){
  	      return false;
  	    }
- 	    
+
  	    xbmc.model.query(queryType, function(result){
-        // xbmc.store.playList JSON.stringify(result.items);
+        xbmc.store.playlist(result.items);
 				state = xbmc.controller.fetchPlayStateFromResult(result);
 				localStorage.state	= state;
+				xbmc.store.currentPosition(result.current);
 
- 	      localStorage.playing = result.items[result.current].label;
+ 	      localStorage.playing = xbmc.store.currentItem().label;
 				xbmc.view.setNowPlaying();
  	    });
 	}
