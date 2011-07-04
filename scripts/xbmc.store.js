@@ -1,3 +1,4 @@
+//localStorage is a nightmare to pull stuff out of. xbmc.store santises this data.
 if(typeof window.xbmc == 'undefined')
   window.xbmc = {};
 
@@ -8,17 +9,12 @@ xbmc.store = {
 		}
 	,	currentPosition: function(newCurrent){
 			if(typeof newCurrent != 'undefined'){
-				localStorage.current = parseInt(newCurrent);
+				localStorage.current = newCurrent;
 			} else if(typeof localStorage.playerType === 'undefined') {
 				localStorage.current = false;
 			}
 			
-			return localStorage.current;
-		}
-	, incrementCurrent: function(){
-			current = this.currentPosition();
-			current = (current == false ? false : current + 1);
-			return this.currentPosition(current);
+			return parseInt(localStorage.current);
 		}
 	,	nowPlaying: function(){
 			switch(this.playerType()){
@@ -64,6 +60,26 @@ xbmc.store = {
 					return 'VideoPlayer.SkipNext';
 				case 'audio':
 					return 'AudioPlayer.SkipNext';
+				default:
+					return false;
+			}		
+		}
+	,	skipPrevious: function(){
+			switch(this.playerType()){
+				case 'video':
+					return 'VideoPlayer.SkipPrevious';
+				case 'audio':
+					return 'AudioPlayer.SkipPrevious';
+				default:
+					return false;
+			}		
+		}
+	,	stop: function(){
+			switch(this.playerType()){
+				case 'video':
+					return 'VideoPlayer.stop';
+				case 'audio':
+					return 'AudioPlayer.stop';
 				default:
 					return false;
 			}		

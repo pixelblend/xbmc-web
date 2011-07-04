@@ -9,11 +9,25 @@ xbmc.view = {
 		}
 	,	setPlayStatus: function(){
 			state = localStorage.state;
-			label = (state == 'stopped' || state == 'paused') ? 'Play' : 'Pause';
-			$('#play-pause').text(label);
+			switch(state){
+			  case 'stopped':
+			    $('#controls').hide();
+			    break;
+  	    case 'paused':
+  	      $('#controls').show();
+  	      $('#play-pause').text('Play');
+  	      break;
+	      default:
+  	      $('#controls').show();
+  	      $('#play-pause').text('Pause');
+			}
 		}
 	, setNowPlaying: function(){
-			$('#now-playing').text(localStorage.playing);
+	    if(localStorage.state === 'stopped') {
+	      $('#now-playing').text("Stopped");
+	    } else {
+	      $('#now-playing').text(localStorage.playing);
+	    }
 		}
 	,	_canvas: function(){
 			//playlist
@@ -33,8 +47,14 @@ xbmc.view = {
 			$('#play-pause').click(function(){
 				xbmc.controller.playPause();
 			});
+			$('#prev').click(function(){
+				xbmc.controller.previous();
+			});
 			$('#next').click(function(){
 				xbmc.controller.next();
+			});
+			$('#stop').click(function(){
+				xbmc.controller.stop();
 			});
 		}
 	,	_state: function(){

@@ -49,9 +49,7 @@ xbmc.controller = {
 			
 			xbmc.model.query(queryType, function(result){
 				if(result === 'OK') {
-					xbmc.store.incrementCurrent();
-	 	      localStorage.playing = xbmc.store.currentItem().label;
-					xbmc.view.setNowPlaying();					
+				  xbmc.controller.nowPlaying();
 				}
 			});
 		}
@@ -72,6 +70,24 @@ xbmc.controller = {
 				xbmc.view.setNowPlaying();
  	    });
 	}
+	, previous: function(){
+  		queryType = xbmc.store.skipPrevious();
+		
+  		xbmc.model.query(queryType, function(result){
+  			if(result === 'OK') {
+  			  xbmc.controller.nowPlaying();
+  			}
+  		});
+	  }
+	, stop: function(){
+  		queryType = xbmc.store.stop();
+
+  		xbmc.model.query(queryType, function(result){
+  			if(result === 'OK') {
+  			  xbmc.controller.nowPlaying();
+  			}
+  		});
+	  }
 	,	fetchPlayStateFromResult: function(result){
 			var state;
 			
