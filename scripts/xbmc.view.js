@@ -21,6 +21,10 @@ xbmc.view = {
 			$.each(buttons, function(id, label){
 				$('<a/>', {id: id, text: label, href: '#'}).appendTo('#controls');
 			});
+			
+			$('#play-pause').click(function(){
+				xbmc.controller.playPause();
+			});
 		}
 	,	_state: function(){
   	  var state = localStorage.state;

@@ -3,6 +3,14 @@ if(typeof window.xbmc == 'undefined')
 
 xbmc.controller = {
 		pollRate: 1000
+	,	stateCall: {
+        'video':   'VideoPlaylist.GetItems'
+      , 'audio':   'AudioPlaylist.GetItems'
+    }
+	,	playPauseCall: {
+      'video':   'VideoPlayer.PlayPause'
+    , 'audio':   'AudioPlayer.PlayPause'		
+		}
 	,	listArtists: function(){
 			xbmc.model.query('AudioLibrary.GetArtists', function(result){
 	      $.each(result.artists, function(index,a) {
@@ -31,13 +39,20 @@ xbmc.controller = {
           localStorage.playerType = playerType;
  			});
 		}
-	, nowPlaying: function(){
- 	    var stateCall = {
- 	        'video':   'VideoPlaylist.GetItems'
- 	      , 'audio':   'AudioPlaylist.GetItems'
- 	    };
- 	    
- 	    queryType = stateCall[localStorage.playerType];
+	,	playPause: function () {
+			queryType = this.playPauseCall[localStorage.playerType];
+			
+ 	    if(typeof queryType == 'undefined'){
+				return false;
+			}
+			
+			xbmc.model.query(queryType, function(result){
+				debugger
+				result
+			});
+		}
+	, nowPlaying: function(){ 	    
+ 	    queryType = this.stateCall[localStorage.playerType];
  	    
  	    if(typeof queryType == 'undefined'){
  	      localStorage.playList = [];
