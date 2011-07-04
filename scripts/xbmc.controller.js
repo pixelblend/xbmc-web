@@ -9,6 +9,13 @@ xbmc.controller = {
 	      });
 				}, { "start": 0, "sort": { "order": "descending", "method": "artist" } });
 		}
+	, popup: function(msg){
+      var views = chrome.extension.getViews({ type: "popup" });
+      if(views.length == 1){
+        var popup = views[0];
+        popup.xbmc.view[msg]();
+      }
+	  }
 	,	pollForState: function(){
 			clearInterval(this.stateInterval);
 			clearInterval(this.playerInterval);
@@ -28,7 +35,7 @@ xbmc.controller = {
  				}
 			
         localStorage.playerType = playerType;
-        xbmc.view.postMessage('setNowPlaying');
+        xbmc.controller.popup('setNowPlaying');
  			});
 		}
 	,	playPause: function () {
@@ -42,7 +49,7 @@ xbmc.controller = {
 				//update view in popup
 				playState = xbmc.controller.fetchPlayStateFromResult(result);
 				localStorage.state = playState;
-				xbmc.view.postMessage('setPlayStatus');
+				xbmc.controller.popup('setPlayStatus');
 			});
 		}
 	,	next: function(){
@@ -68,7 +75,7 @@ xbmc.controller = {
 				xbmc.store.currentPosition(result.current);
 
  	      localStorage.playing = xbmc.store.currentItem().label;
-				xbmc.view.postMessage({method: 'setNowPlaying'});
+				xbmc.controller.popup('setNowPlaying');
  	    });
 	}
 	, previous: function(){

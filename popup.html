@@ -16,14 +16,7 @@
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
     $(function() {
-      port = chrome.extension.connect({name: "playlist"});
-      chrome.extension.onConnect.addListener(function(port) {
-        port.onMessage.addListener(function(msg) {
-          console.log('from background: '+msg);
-          xbmc.view[msg]();
-        });
-      });
-      xbmc.controller = port;
+      xbmc.controller = chrome.extension.connect({name: "playlist"});
       xbmc.view.controls();
     });
   </script>
