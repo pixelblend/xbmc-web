@@ -48,6 +48,17 @@ xbmc.controller = {
 			
 			xbmc.model.query(queryType, function(result){
 				//update view in popup
+				playState = xbmc.controller.fetchPlayStateFromResult(result);
+				localStorage.state = playState;
+				xbmc.view.setPlayStatus();
+			});
+		}
+	,	next: function(){
+			queryType = 'AudioPlayer.SkipNext';
+			xbmc.model.query(queryType, function(result){
+				if(result === 'OK') {
+					//move to next in playlist
+				}
 			});
 		}
 	, nowPlaying: function(){ 	    
@@ -60,18 +71,25 @@ xbmc.controller = {
  	    }
  	    
  	    xbmc.model.query(queryType, function(result){
-        // localStorage.playList = result.items;
-				if(result.paused == true) {
-					state = 'paused';
-				} else if(result.playing == true) {
-					state = 'playing';
-				} else {
-					state = 'stopped';
-				}
-				
+        // xbmc.store.playList JSON.stringify(result.items);
+				state = xbmc.controller.fetchPlayStateFromResult(result);
 				localStorage.state	= state;
 
  	      localStorage.playing = result.items[result.current].label;
+				xbmc.view.setNowPlaying();
  	    });
 	}
+	,	fetchPlayStateFromResult: function(result){
+			var state;
+			
+			if(result.paused == true) {
+				state = 'paused';
+			} else if(result.playing == true) {
+				state = 'playing';
+			} else {
+				state = 'stopped';
+			}
+			
+			return state;
+		}
 }

@@ -7,6 +7,14 @@ xbmc.view = {
 			this._buttons();
 			this._state();
 		}
+	,	setPlayStatus: function(){
+			state = localStorage.state;
+			label = (state == 'stopped' || state == 'paused') ? 'Play' : 'Pause';
+			$('#play-pause').text(label);
+		}
+	, setNowPlaying: function(){
+			$('#now-playing').text(localStorage.playing);
+		}
 	,	_canvas: function(){
 			//playlist
 			$('<div/>', {id: 'player-status'}).appendTo('body');
@@ -17,7 +25,7 @@ xbmc.view = {
 			$('<div/>', {id: 'controls'}).appendTo('body');
 		}
 	,	_buttons: function(){
-			var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play/Pause', 'forward': 'Forward'};
+			var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play', 'next': 'Next'};
 			$.each(buttons, function(id, label){
 				$('<a/>', {id: id, text: label, href: '#'}).appendTo('#controls');
 			});
@@ -25,17 +33,18 @@ xbmc.view = {
 			$('#play-pause').click(function(){
 				xbmc.controller.playPause();
 			});
+			$('#next').click(function(){
+				xbmc.controller.next();
+			});
 		}
 	,	_state: function(){
-  	  var state = localStorage.state;
 			var playerType = localStorage.playerType;
-			console.log(state);
 	    if(typeof playerType == 'undefined'){
 				$('#play-pause').text('Play');
 				$('#now-playing').text('Could not connect.');
 	    } else {
-				$('#play-pause').text((state == 'stopped' || state == 'paused') ? 'Play' : 'Pause');
-				$('#now-playing').text(localStorage.playing);
+				xbmc.view.setPlayStatus();
+				xbmc.view.setNowPlaying();
 			}
 		}
 };
