@@ -47,8 +47,7 @@ xbmc.controller = {
 			}
 			
 			xbmc.model.query(queryType, function(result){
-				debugger
-				result
+				//update view in popup
 			});
 		}
 	, nowPlaying: function(){ 	    
