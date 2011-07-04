@@ -14,6 +14,14 @@
   <h1>XMBC</h1>
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
+    port = chrome.extension.connect({name: "playlist"});
+    chrome.extension.onConnect.addListener(function(port) {
+      port.onMessage.addListener(function(msg) {
+        console.log('from popup: '+msg);
+        xbmc.controller[msg]();
+      });
+    });
+    xbmc.view = port;
     xbmc.controller.pollForState();
   </script>
 </body>

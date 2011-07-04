@@ -28,6 +28,7 @@ xbmc.controller = {
  				}
 			
         localStorage.playerType = playerType;
+        xbmc.view.postMessage('setNowPlaying');
  			});
 		}
 	,	playPause: function () {
@@ -41,7 +42,7 @@ xbmc.controller = {
 				//update view in popup
 				playState = xbmc.controller.fetchPlayStateFromResult(result);
 				localStorage.state = playState;
-				xbmc.view.setPlayStatus();
+				xbmc.view.postMessage('setPlayStatus');
 			});
 		}
 	,	next: function(){
@@ -67,7 +68,7 @@ xbmc.controller = {
 				xbmc.store.currentPosition(result.current);
 
  	      localStorage.playing = xbmc.store.currentItem().label;
-				xbmc.view.setNowPlaying();
+				xbmc.view.postMessage({method: 'setNowPlaying'});
  	    });
 	}
 	, previous: function(){

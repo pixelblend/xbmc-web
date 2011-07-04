@@ -45,16 +45,16 @@ xbmc.view = {
 			});
 			
 			$('#play-pause').click(function(){
-				xbmc.controller.playPause();
+			  xbmc.controller.postMessage('playPause');
 			});
 			$('#prev').click(function(){
-				xbmc.controller.previous();
+			  xbmc.controller.postMessage('previous');
 			});
 			$('#next').click(function(){
-				xbmc.controller.next();
+			  xbmc.controller.postMessage('next');
 			});
 			$('#stop').click(function(){
-				xbmc.controller.stop();
+			  xbmc.controller.postMessage('stop');
 			});
 		}
 	,	_state: function(){

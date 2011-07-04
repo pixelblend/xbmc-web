@@ -4,10 +4,10 @@
   <script src="scripts/vendor/jquery-1.5.1.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.store.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
+  <!-- // <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
+  // <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
+  // <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script> -->
   <script src="scripts/xbmc.view.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
   <title>XBMC Web Popup</title>
@@ -16,6 +16,14 @@
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
     $(function() {
+      port = chrome.extension.connect({name: "playlist"});
+      chrome.extension.onConnect.addListener(function(port) {
+        port.onMessage.addListener(function(msg) {
+          console.log('from background: '+msg);
+          xbmc.view[msg]();
+        });
+      });
+      xbmc.controller = port;
       xbmc.view.controls();
     });
   </script>
