@@ -26,7 +26,7 @@ xbmc.view = {
 	    if(localStorage.state === 'stopped') {
 	      $('#now-playing').text("Stopped");
 	    } else {
-	      $('#now-playing').text(localStorage.playing);
+	      $('#now-playing').text(xbmc.store.nowPlaying());
 	    }
 		}
 	,	_canvas: function(){

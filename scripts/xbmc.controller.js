@@ -20,6 +20,7 @@ xbmc.controller = {
 			clearInterval(this.stateInterval);
 			clearInterval(this.playerInterval);
 			this.stateInterval  = setInterval('xbmc.controller.playerState()', xbmc.store.pollRate);
+			this.playerInterval = setInterval('xbmc.controller.playlist()', xbmc.store.pollRate);
 			this.playerInterval = setInterval('xbmc.controller.nowPlaying()', xbmc.store.pollRate);
 		}
 	,	playerState: function(){
@@ -39,7 +40,7 @@ xbmc.controller = {
  			});
 		}
 	,	playPause: function () {
-			queryType = xbmc.store.buildCall('Player.PlayPause');
+			queryType = xbmc.store.buildMethod('Player.PlayPause');
 			
  	    if(queryType === false){
 				return false;
@@ -61,7 +62,22 @@ xbmc.controller = {
 				}
 			});
 		}
-	, nowPlaying: function(){ 	
+	, nowPlaying: function(){
+			if(xbmc.store.playerType() === 'stopped'){
+				//stopped? dont bother running the request
+				localStorage.playing = 'Stopped';
+				localStorage.state = 'stopped';
+				xbmc.controller.popup('setNowPlaying');
+				return false;
+			}
+			
+			xbmc.model.query('System.GetInfoLabels', function(result){
+				xbmc.store.nowPlaying(result);
+				xbmc.controller.popup('setNowPlaying');
+				
+			}, xbmc.store.nowPlayingFields());
+		}
+	, playlist: function(){ 	
  	    queryType = xbmc.store.buildMethod("Playlist.GetItems");
 
  	    if(queryType == false){
@@ -73,9 +89,6 @@ xbmc.controller = {
 				state = xbmc.controller.fetchPlayStateFromResult(result);
 				localStorage.state	= state;
 				xbmc.store.currentPosition(result.current);
-
- 	      localStorage.playing = xbmc.store.currentItem().label;
-				xbmc.controller.popup('setNowPlaying');
  	    });
 	}
 	, previous: function(){

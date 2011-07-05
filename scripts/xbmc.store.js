@@ -26,6 +26,33 @@ xbmc.store = {
 					return false;
 			}
 		}
+	, nowPlaying: function(result){
+			if(typeof result == 'undefined'){
+				return localStorage.playing;
+			}
+			
+			switch(this.playerType()) {
+				case 'audio':
+					nowPlaying = result['MusicPlayer.Artist'] + ' - ' + result['MusicPlayer.Title'] + ' (' + result['MusicPlayer.Album'] + ')';
+					break;
+				case 'video':
+					nowPlaying = result['VideoPlayer.Title'];
+					break;
+				default:
+					console.error("store.nowPlaying: unexpected playerType "+xbmc.store.playerType());
+			}				
+			localStorage.playing = nowPlaying;
+		}
+	, nowPlayingFields: function(){
+			switch(this.playerType()){
+				case false:
+					return false;
+				case 'video':
+					return ['VideoPlayer.Title'];
+				case 'audio':
+					return ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album'];
+			}
+		}
 	,	playlist: function(newPlaylist){
 			if(typeof newPlaylist != 'undefined'){
 				localStorage.playlist = JSON.stringify(newPlaylist);
