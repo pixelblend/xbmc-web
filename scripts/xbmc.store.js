@@ -23,24 +23,36 @@ xbmc.store = {
 				case 'audio':
 					return 'Audio'+method;
 				default:
+					console.error("store.buildMethod: unexpected playerType "+xbmc.store.playerType());
 					return false;
 			}
 		}
 	, nowPlaying: function(result){
-			if(typeof result == 'undefined'){
+			if(typeof result === 'undefined'){
 				return localStorage.playing;
 			}
+			
+			var nowPlaying;
 			
 			switch(this.playerType()) {
 				case 'audio':
 					nowPlaying = result['MusicPlayer.Artist'] + ' - ' + result['MusicPlayer.Title'] + ' (' + result['MusicPlayer.Album'] + ')';
+					
+					//no data in result set? return blank
+					if(nowPlaying == ' -  ()'){
+						nowPlaying = '';
+					}
 					break;
 				case 'video':
 					nowPlaying = result['VideoPlayer.Title'];
 					break;
+				case 'stopped':
+					nowPlaying = 'Stopped';
+					break;
 				default:
 					console.error("store.nowPlaying: unexpected playerType "+xbmc.store.playerType());
-			}				
+			}
+			
 			localStorage.playing = nowPlaying;
 		}
 	, nowPlayingFields: function(){
@@ -70,5 +82,12 @@ xbmc.store = {
 			}
 			
 			return localStorage.playerType;
+		}
+	, playerState: function(newState){
+			if(typeof newState != 'undefined') {
+				localStorage.state = newState;
+			}
+			
+			return localStorage.state;
 		}
 };

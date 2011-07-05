@@ -58,8 +58,8 @@ xbmc.view = {
 			});
 		}
 	,	_state: function(){
-			var playerType = localStorage.playerType;
-	    if(typeof playerType == 'undefined'){
+			var playerType = xbmc.store.playerType();
+	    if(playerType === false){
 				$('#play-pause').text('Play');
 				$('#now-playing').text('Could not connect.');
 	    } else {

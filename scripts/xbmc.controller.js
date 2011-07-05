@@ -35,7 +35,7 @@ xbmc.controller = {
  					playerType = 'stopped';
  				}
 			
-        localStorage.playerType = playerType;
+        xbmc.store.playerType(playerType);
         xbmc.controller.popup('setNowPlaying');
  			});
 		}
@@ -49,7 +49,7 @@ xbmc.controller = {
 			xbmc.model.query(queryType, function(result){
 				//update view in popup
 				playState = xbmc.controller.fetchPlayStateFromResult(result);
-				localStorage.state = playState;
+				xbmc.store.playerState(playState);
 				xbmc.controller.popup('setPlayStatus');
 			});
 		}
@@ -65,8 +65,8 @@ xbmc.controller = {
 	, nowPlaying: function(){
 			if(xbmc.store.playerType() === 'stopped'){
 				//stopped? dont bother running the request
-				localStorage.playing = 'Stopped';
-				localStorage.state = 'stopped';
+				xbmc.store.nowPlaying();
+				xbmc.store.playerState('stopped');
 				xbmc.controller.popup('setNowPlaying');
 				return false;
 			}
@@ -87,7 +87,7 @@ xbmc.controller = {
  	    xbmc.model.query(queryType, function(result){
         xbmc.store.playlist(result.items);
 				state = xbmc.controller.fetchPlayStateFromResult(result);
-				localStorage.state	= state;
+				xbmc.store.playerState(state);
 				xbmc.store.currentPosition(result.current);
  	    });
 	}
