@@ -63,19 +63,23 @@ xbmc.controller = {
 			});
 		}
 	, nowPlaying: function(){
-			if(xbmc.store.playerType() === 'stopped'){
-				//stopped? dont bother running the request
-				xbmc.store.nowPlaying();
-				xbmc.store.playerState('stopped');
-				xbmc.controller.popup('setNowPlaying');
-				return false;
-			}
-			
-			xbmc.model.query('System.GetInfoLabels', function(result){
-				xbmc.store.nowPlaying(result);
-				xbmc.controller.popup('setNowPlaying');
-				
-			}, xbmc.store.nowPlayingFields());
+	    switch(xbmc.store.playerType()){
+	      case 'stopped':
+  	      //stopped? dont bother running the request
+  				xbmc.store.nowPlaying();
+  				xbmc.store.playerState('stopped');
+  				break;
+  			case 'video':
+  			  xbmc.model.query('VideoPlaylist.GetItems', function(result){
+    				xbmc.store.nowPlaying(result);
+  			  }, { "fields": ["title", "season", "episode", "plot", "duration", "showtitle", "year", "director", "cast"] });
+  			  break;
+				default:
+				  console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
+	    }
+	    
+	    xbmc.controller.popup('setNowPlaying');
+						
 		}
 	, playlist: function(){ 	
  	    queryType = xbmc.store.buildMethod("Playlist.GetItems");

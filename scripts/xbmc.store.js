@@ -45,14 +45,16 @@ xbmc.store = {
 					});
 					break;
 				case 'video':
-				  var moreInfo;
-				  if(result['VideoPlayer.Title'] === ''){
-				    moreInfo = result['VideoPlayer.Year'];
+  			  var moreInfo;
+  				result = result.items[0];
+  				
+				  if(typeof result['showtitle'] === 'undefined'){
+				    moreInfo = 'Dir: '+result['director']+', '+result['year'];
 				  } else {
-				    moreInfo = result['VideoPlayer.TVShowTitle'];
+				    moreInfo = result['showtitle']+' '+result['season']+'x'+result['episode'];
 				  }
-					nowPlaying = '<h1>'+result['VideoPlayer.Title']+'</h1>'+'<h2>'+moreInfo+'</h2>';
-					break;
+				  nowPlaying = '<h1>'+result['title']+'</h1>'+'<h2>'+moreInfo+'</h2><h3>'+(parseInt(result['duration'])/60).toFixed(0)+' Minutes</h3>';
+				  break;
 				case 'stopped':
 					nowPlaying = 'Stopped';
 					break;
