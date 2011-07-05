@@ -39,13 +39,19 @@ xbmc.store = {
 			
 			switch(this.playerType()) {
 				case 'audio':
-					var elements = {'title': 'Title', 'artist': 'Artist', 'album': 'Album'};					
-					$.each(elements,function(css, element){
-						nowPlaying += '<div id="'+css+'">'+result['MusicPlayer.'+element]+'</div>' 
+					var elements = {'h1': 'Title', 'h2': 'Artist', 'h3': 'Album'};					
+					$.each(elements,function(tag, content){
+						nowPlaying += '<'+tag+'>'+result['MusicPlayer.'+content]+'</'+tag+'>' 
 					});
 					break;
 				case 'video':
-					nowPlaying = result['VideoPlayer.Title'];
+				  var moreInfo;
+				  if(result['VideoPlayer.Title'] === ''){
+				    moreInfo = result['VideoPlayer.Year'];
+				  } else {
+				    moreInfo = result['VideoPlayer.TVShowTitle'];
+				  }
+					nowPlaying = '<h1>'+result['VideoPlayer.Title']+'</h1>'+'<h2>'+moreInfo+'</h2>';
 					break;
 				case 'stopped':
 					nowPlaying = 'Stopped';
@@ -61,7 +67,7 @@ xbmc.store = {
 				case false:
 					return false;
 				case 'video':
-					return ['VideoPlayer.Title'];
+					return ['VideoPlayer.TVShowTitle', 'VideoPlayer.Title', 'VideoPlayer.Year'];
 				case 'audio':
 					return ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album'];
 			}

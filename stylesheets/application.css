@@ -21,24 +21,44 @@ input, label {
 }
 
 #now-playing {
-  text-align: center;
+  margin: auto;
+}
+
+#now-playing #now-playing-text {
+  float: left;
+  width: 50%;
 }
 
 #now-playing img {
   float: left;
   display: block;
-  width: 50px;
+  width: 40%;
+  border: 1px solid black;
 }
 
-#now-playing #title {
+#now-playing h1 {
+  padding: 0;
+  margin: 0 0 0 5px;
+  font-size: 100%;
   font-weight: bold;
 }
 
-#now-playing #album {
+#now-playing h2 {
+  margin: 5px 0 0 5px;
+  font-size: 100%;
+  font-weight: normal;
   font-style: italic;
 }
 
+#now-playing h3 {
+  margin: 5px 0 0 5px;
+  font-size: 100%;
+  font-weight: normal;
+}
+
+
 #controls {
+  clear: both;
   left: 50px;
   text-align: center;
 }
