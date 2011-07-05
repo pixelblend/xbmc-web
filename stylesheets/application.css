@@ -1,9 +1,9 @@
 body { 
-    overflow: hidden;
-    margin: 0;
-    padding: 4px;
-    font-family: tahoma, sans-serif;
-		font-size: 12px;
+  overflow: hidden;
+  margin: 0;
+  padding: 4px;
+  font-family: tahoma, sans-serif;
+  font-size: 12px;
 }
 
 body#popup {
@@ -21,25 +21,29 @@ input, label {
 }
 
 #now-playing {
-	text-align: center;
+  text-align: center;
 }
 
 #now-playing img {
-	float: left;
-	display: block;
-	width: 50px;
+  float: left;
+  display: block;
+  width: 50px;
+}
+
+#now-playing #title {
+  font-weight: bold;
+}
+
+#now-playing #album {
+  font-style: italic;
 }
 
 #controls {
-	left: 50px;
-	text-align: center;
+  left: 50px;
+  text-align: center;
 }
 
 #controls a {
-	position: relative;
-	margin-right: 10px;
-}
-
-h3 {
-	margin-top: 0;
+  position: relative;
+  margin-right: 10px;
 }
