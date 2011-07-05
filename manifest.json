@@ -1,16 +1,16 @@
 {
-		"name": "XBMC Web"
+    "name": "XBMC Web"
   ,	"version": "1.0"
   ,	"description": "Web Interface for XBMC."
   ,	"browser_action": {
-	  		"default_title": "XBMC-Web"
-    	,	"default_icon": "images/logo.ico"
-    	,	"popup": "popup.html"
-  	}
+      "default_title": "XBMC-Web"
+    ,	"default_icon": "images/logo.ico"
+    ,	"popup": "popup.html"
+    }
   ,	"permissions": [
-			"tabs",
-    	"http://*/*/"
-  	]
-	,	"options_page": "options.html"
-	, "background_page": "background.html"
+        "tabs"
+      , "http://*/*/"
+    ]
+  ,	"options_page": "options.html"
+  , "background_page": "background.html"
 }
