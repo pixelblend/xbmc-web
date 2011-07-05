@@ -16,12 +16,12 @@ xbmc.store = {
 			
 			return parseInt(localStorage.current);
 		}
-	,	nowPlaying: function(){
+	, buildMethod: function(method){
 			switch(this.playerType()){
 				case 'video':
-					return 'VideoPlaylist.GetItems';
+					return 'Video'+method;
 				case 'audio':
-					return 'AudioPlaylist.GetItems';
+					return 'Audio'+method;
 				default:
 					return false;
 			}
@@ -35,16 +35,6 @@ xbmc.store = {
 			
 			return $.parseJSON(localStorage.playlist);
 		}
-	,	playPause: function(){
-			switch(this.playerType()){
-				case 'video':
-					return 'VideoPlayer.PlayPause';
-				case 'audio':
-					return 'AudioPlayer.PlayPause';
-				default:
-					return false;
-			}		
-		}
 	,	playerType: function(newType){
 			if(typeof newType != 'undefined'){
 				localStorage.playerType = newType;
@@ -53,35 +43,5 @@ xbmc.store = {
 			}
 			
 			return localStorage.playerType;
-		}
-	,	skipNext: function(){
-			switch(this.playerType()){
-				case 'video':
-					return 'VideoPlayer.SkipNext';
-				case 'audio':
-					return 'AudioPlayer.SkipNext';
-				default:
-					return false;
-			}		
-		}
-	,	skipPrevious: function(){
-			switch(this.playerType()){
-				case 'video':
-					return 'VideoPlayer.SkipPrevious';
-				case 'audio':
-					return 'AudioPlayer.SkipPrevious';
-				default:
-					return false;
-			}		
-		}
-	,	stop: function(){
-			switch(this.playerType()){
-				case 'video':
-					return 'VideoPlayer.stop';
-				case 'audio':
-					return 'AudioPlayer.stop';
-				default:
-					return false;
-			}		
 		}
 };

@@ -39,7 +39,7 @@ xbmc.controller = {
  			});
 		}
 	,	playPause: function () {
-			queryType = xbmc.store.playPause();
+			queryType = xbmc.store.buildCall('Player.PlayPause');
 			
  	    if(queryType === false){
 				return false;
@@ -53,7 +53,7 @@ xbmc.controller = {
 			});
 		}
 	,	next: function(){
-			queryType = xbmc.store.skipNext();
+			queryType = xbmc.store.buildMethod('Player.SkipNext');
 			
 			xbmc.model.query(queryType, function(result){
 				if(result === 'OK') {
@@ -62,7 +62,7 @@ xbmc.controller = {
 			});
 		}
 	, nowPlaying: function(){ 	
- 	    queryType = xbmc.store.nowPlaying();
+ 	    queryType = xbmc.store.buildMethod("Playlist.GetItems");
 
  	    if(queryType == false){
  	      return false;
@@ -79,7 +79,7 @@ xbmc.controller = {
  	    });
 	}
 	, previous: function(){
-  		queryType = xbmc.store.skipPrevious();
+  		queryType = xbmc.store.buildMethod('Player.SkipPrevious');
 		
   		xbmc.model.query(queryType, function(result){
   			if(result === 'OK') {
@@ -88,7 +88,7 @@ xbmc.controller = {
   		});
 	  }
 	, stop: function(){
-  		queryType = xbmc.store.stop();
+  		queryType = xbmc.store.buildMethod('Player.stop');
 
   		xbmc.model.query(queryType, function(result){
   			if(result === 'OK') {
