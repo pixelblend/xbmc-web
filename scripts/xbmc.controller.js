@@ -74,6 +74,11 @@ xbmc.controller = {
     				xbmc.store.nowPlaying(result);
   			  }, { "fields": ["title", "season", "episode", "plot", "duration", "showtitle", "year", "director", "cast"] });
   			  break;
+  			case 'audio':
+    			xbmc.model.query('System.GetInfoLabels', function(result){
+    				xbmc.store.nowPlaying(result);
+    			}, xbmc.store.nowPlayingFields());
+    			break;
 				default:
 				  console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
 	    }
