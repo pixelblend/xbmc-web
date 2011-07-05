@@ -1,5 +1,3 @@
-@import url("normalize.css");
-
 body { 
     overflow: hidden;
     margin: 0;
@@ -14,10 +12,34 @@ body#popup {
 
 body#index, body#options {
   width:700px;
-  background:grey;
+  background:gray;
 }
 
 input, label {
   width: 200px;
   display: block;
+}
+
+#now-playing {
+	text-align: center;
+}
+
+#now-playing img {
+	float: left;
+	display: block;
+	width: 50px;
+}
+
+#controls {
+	left: 50px;
+	text-align: center;
+}
+
+#controls a {
+	position: relative;
+	margin-right: 10px;
+}
+
+h3 {
+	margin-top: 0;
 }

@@ -24,9 +24,10 @@ xbmc.view = {
 		}
 	, setNowPlaying: function(){
 	    if(localStorage.state === 'stopped') {
-	      $('#now-playing').text("Stopped");
+	      $('#now-playing').html("Stopped");
 	    } else {
-	      $('#now-playing').text(xbmc.store.nowPlaying());
+	      $('#now-playing').html(xbmc.store.nowPlaying());
+				$('<img>', {src: xbmc.store.currentThumbnail()}).prependTo('#now-playing');
 	    }
 		}
 	,	_canvas: function(){

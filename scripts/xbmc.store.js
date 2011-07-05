@@ -4,6 +4,17 @@ if(typeof window.xbmc == 'undefined')
 
 xbmc.store = {
 		pollRate: 1000
+		, buildMethod: function(method){
+				switch(this.playerType()){
+					case 'video':
+						return 'Video'+method;
+					case 'audio':
+						return 'Audio'+method;
+					default:
+						console.error("store.buildMethod: unexpected playerType "+xbmc.store.playerType());
+						return false;
+				}
+			}
 	,	currentItem: function(){
 			return this.playlist()[this.currentPosition()];
 		}
@@ -16,16 +27,8 @@ xbmc.store = {
 			
 			return parseInt(localStorage.current);
 		}
-	, buildMethod: function(method){
-			switch(this.playerType()){
-				case 'video':
-					return 'Video'+method;
-				case 'audio':
-					return 'Audio'+method;
-				default:
-					console.error("store.buildMethod: unexpected playerType "+xbmc.store.playerType());
-					return false;
-			}
+	,	currentThumbnail: function(){
+			return xbmc.options.url()+'/vfs/'+this.currentItem().thumbnail;
 		}
 	, nowPlaying: function(result){
 			if(typeof result === 'undefined'){
@@ -36,12 +39,7 @@ xbmc.store = {
 			
 			switch(this.playerType()) {
 				case 'audio':
-					nowPlaying = result['MusicPlayer.Artist'] + ' - ' + result['MusicPlayer.Title'] + ' (' + result['MusicPlayer.Album'] + ')';
-					
-					//no data in result set? return blank
-					if(nowPlaying == ' -  ()'){
-						nowPlaying = '';
-					}
+					nowPlaying = result['MusicPlayer.Title'] + '<br/>' + result['MusicPlayer.Artist'] + '<br/><i>' + result['MusicPlayer.Album'] + '</i>';
 					break;
 				case 'video':
 					nowPlaying = result['VideoPlayer.Title'];

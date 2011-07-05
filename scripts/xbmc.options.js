@@ -28,8 +28,11 @@ xbmc.options = {
 			return localStorage.port || '8080';
 		}
 	, jsonUrl: function() {
-	  return  this.host()+':'+this.port()+'/jsonrpc'
+	  	return this.url()+'/jsonrpc';
 	}
+	, url: function(){
+			return this.host()+':'+this.port();
+		}
 	,	buildForm: function() {
 			var form = $('<form/>', {
 					id: 'options'
