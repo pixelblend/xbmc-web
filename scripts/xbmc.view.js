@@ -7,34 +7,40 @@ xbmc.view = {
 			this._buttons();
 			this._state();
 		}
+	, refresh: function(){
+	    this.setPlayStatus();
+	    this.setNowPlaying();
+	  }
 	,	setPlayStatus: function(){
 			state = localStorage.state;
 			switch(state){
 			  case 'stopped':
-			    $('#controls').hide();
+  		    $('#controls').hide();
+  		    $('#thumb').hide();
 			    break;
   	    case 'paused':
+		      $('#thumb').show();
   	      $('#controls').show();
   	      $('#play-pause').text('Play');
   	      break;
 	      default:
+  	      $('#thumb').show();
   	      $('#controls').show();
   	      $('#play-pause').text('Pause');
 			}
 		}
 	, setNowPlaying: function(){
-	    if(localStorage.state === 'stopped') {
-	      $('#now-playing').html("Stopped");
-	    } else {
-	      $('#now-playing').html(xbmc.store.nowPlaying());
-				$('<img>', {src: xbmc.store.currentThumbnail()}).prependTo('#now-playing');
-	    }
+      $('#now-playing-text').html(xbmc.store.nowPlaying());
+      $('#thumb').attr('src',xbmc.store.currentThumbnail());
 		}
 	,	_canvas: function(){
 			//playlist
 			$('<div/>', {id: 'player-status'}).appendTo('body');
-			$('<h3/>',  {text: 'Now Playing:'}).appendTo('#player-status');
+			
+			//now playing			
 			$('<div/>', {id: 'now-playing'}).appendTo('#player-status');
+			$('<img/>', {id: 'thumb'}).appendTo('#now-playing');
+			$('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
 			
 			//interface
 			$('<div/>', {id: 'controls'}).appendTo('body');

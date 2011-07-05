@@ -3,7 +3,7 @@ if(typeof window.xbmc == 'undefined')
   window.xbmc = {};
 
 xbmc.store = {
-		pollRate: 1000
+		pollRate: 2000
 		, buildMethod: function(method){
 				switch(this.playerType()){
 					case 'video':
@@ -35,11 +35,14 @@ xbmc.store = {
 				return localStorage.playing;
 			}
 			
-			var nowPlaying;
+			var nowPlaying = '';
 			
 			switch(this.playerType()) {
 				case 'audio':
-					nowPlaying = result['MusicPlayer.Title'] + '<br/>' + result['MusicPlayer.Artist'] + '<br/><i>' + result['MusicPlayer.Album'] + '</i>';
+					var elements = {'title': 'Title', 'artist': 'Artist', 'album': 'Album'};					
+					$.each(elements,function(css, element){
+						nowPlaying += '<div id="'+css+'">'+result['MusicPlayer.'+element]+'</div>' 
+					});
 					break;
 				case 'video':
 					nowPlaying = result['VideoPlayer.Title'];
