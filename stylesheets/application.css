@@ -1,17 +1,16 @@
 body { 
   overflow: hidden;
   margin: 0;
-  padding: 4px;
-  font-family: tahoma, sans-serif;
+  padding: 0;
+  font-family: arial, sans-serif;
   font-size: 12px;
 }
 
-body#popup {
-  width: 230px;  
-}
 
 body#index, body#options {
   width:700px;
+  padding: 4px;
+  
   background:gray;
 }
 
@@ -20,21 +19,37 @@ input, label {
   display: block;
 }
 
-#now-playing {
+body#popup {
+  width: 150px;
+  position: relative;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+#popup #now-playing {
+  font-size: 11px;
   margin: auto;
 }
+
+#now-playing #thumb {
+  float: left;
+  width: 40%;
+  height: 50px;
+}
+
+#now-playing #thumb img {
+  border: 1px solid black;
+  width: 100%;
+}
+
 
 #now-playing #now-playing-text {
   float: left;
   width: 50%;
+  height: 50px;
+  padding-top: 2px;
 }
 
-#now-playing img {
-  float: left;
-  display: block;
-  width: 40%;
-  border: 1px solid black;
-}
 
 #now-playing h1 {
   padding: 0;
@@ -58,8 +73,7 @@ input, label {
 
 
 #controls {
-  clear: both;
-  left: 50px;
+  margin-bottom: 5px;
   text-align: center;
 }
 

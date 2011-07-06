@@ -36,6 +36,8 @@ xbmc.view = {
 	,	_canvas: function(){
 			//playlist
 			$('<div/>', {id: 'player-status'}).appendTo('body');
+			//interface
+			$('<div/>', {id: 'controls'}).appendTo('#player-status');
 			
 			//now playing			
 			$('<div/>', {id: 'now-playing'}).appendTo('#player-status');
@@ -43,8 +45,6 @@ xbmc.view = {
 			$('<img/>').appendTo('#thumb');
 			$('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
 			
-			//interface
-			$('<div/>', {id: 'controls'}).appendTo('body');
 		}
 	,	_buttons: function(){
 			var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play', 'next': 'Next'};
