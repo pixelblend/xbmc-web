@@ -6,6 +6,7 @@ xbmc.view = {
       this._canvas();
       this._buttons();
       this._state();
+      this._animateTitles();
     }
   , refresh: function(){
       this.setPlayStatus();
@@ -30,11 +31,25 @@ xbmc.view = {
       }
     }
   , setNowPlaying: function(){
-      $('#thumb img').attr('src', xbmc.store.currentThumbnail());
       nowPlaying = xbmc.store.nowPlaying();
-      $('#now-playing-text h1').html(nowPlaying[0]);
-      $('#now-playing-text h2').html(nowPlaying[1]);
-      $('#now-playing-text h3').html(nowPlaying[2]);
+    
+      $('#thumb img').attr('src', xbmc.store.currentThumbnail());
+
+      $('#now-playing-text h1 span').html(nowPlaying[0]);
+      $('#now-playing-text h2 span').html(nowPlaying[1]);
+      $('#now-playing-text h3 span').html(nowPlaying[2]);
+    }
+  , _animateTitles: function(){
+      var maxWidth = $('#now-playing-text').width();
+    
+      $('#now-playing-text span').each(function(){
+        if($(this).width() > maxWidth) {     
+          console.warn();
+          $(this).animate({
+            left: '-'+($(this).width()-maxWidth)
+          }, {duration: ($(this).width()/maxWidth)*2000, queue: false}, 'linear', $(this).css('left','0'));
+        }
+      });
     }
   , _canvas: function(){
       //playlist
@@ -46,10 +61,11 @@ xbmc.view = {
       $('<div/>', {id: 'now-playing'}).appendTo('#player-status');
       $('<div/>', {id: 'thumb'}).appendTo('#now-playing');
       $('<img/>').appendTo('#thumb');
+
       $('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
-      $('<h1/>').appendTo('#now-playing-text');
-      $('<h2/>').appendTo('#now-playing-text');
-      $('<h3/>').appendTo('#now-playing-text');
+      $('<h1><span></span></h1>').appendTo('#now-playing-text');
+      $('<h2><span></span></h2>').appendTo('#now-playing-text');
+      $('<h3><span></span></h3>').appendTo('#now-playing-text');
     }
   , _buttons: function(){
       var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play', 'next': 'Next'};

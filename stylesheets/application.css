@@ -51,23 +51,29 @@ body#popup {
 }
 
 
-#now-playing h1 {
+#now-playing h1,h2,h3 {
   padding: 0;
   margin: 0 0 0 5px;
   font-size: 100%;
   font-weight: bold;
+  height: 14px;
+  overflow: hidden;
+  width: 100000%;
+}
+
+#now-playing span {
+  position: relative;
+  left: 0;
 }
 
 #now-playing h2 {
   margin: 5px 0 0 5px;
-  font-size: 100%;
   font-weight: normal;
   font-style: italic;
 }
 
 #now-playing h3 {
   margin: 5px 0 0 5px;
-  font-size: 100%;
   font-weight: normal;
 }
 
