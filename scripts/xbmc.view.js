@@ -31,7 +31,7 @@ xbmc.view = {
 		}
 	, setNowPlaying: function(){
       $('#now-playing-text').html(xbmc.store.nowPlaying());
-      $('#thumb').attr('src',xbmc.store.currentThumbnail());
+      $('#thumb img').attr('src',xbmc.store.currentThumbnail());
 		}
 	,	_canvas: function(){
 			//playlist
@@ -39,7 +39,8 @@ xbmc.view = {
 			
 			//now playing			
 			$('<div/>', {id: 'now-playing'}).appendTo('#player-status');
-			$('<img/>', {id: 'thumb'}).appendTo('#now-playing');
+			$('<div/>', {id: 'thumb'}).appendTo('#now-playing');
+			$('<img/>').appendTo('#thumb');
 			$('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
 			
 			//interface
