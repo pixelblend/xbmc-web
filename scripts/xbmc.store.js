@@ -72,16 +72,6 @@ xbmc.store = {
       
       localStorage.playing = JSON.stringify(nowPlaying);
     }
-  , nowPlayingFields: function(){
-      switch(this.playerType()){
-        case false:
-          return false;
-        case 'video':
-          return ['VideoPlayer.TVShowTitle', 'VideoPlayer.Title', 'VideoPlayer.Year'];
-        case 'audio':
-          return ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album'];
-      }
-    }
   , playlist: function(newPlaylist){
       if(typeof newPlaylist != 'undefined'){
         localStorage.playlist = JSON.stringify(newPlaylist);

@@ -77,7 +77,7 @@ xbmc.controller = {
         case 'audio':
           xbmc.model.query('System.GetInfoLabels', function(result){
             xbmc.store.nowPlaying(result);
-          }, xbmc.store.nowPlayingFields());
+          }, ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album']);
           break;
         default:
           console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
