@@ -36,7 +36,7 @@ xbmc.controller = {
  				}
 			
         xbmc.store.playerType(playerType);
-        xbmc.controller.popup('setNowPlaying');
+        xbmc.controller.popup('refresh');
  			});
 		}
 	,	playPause: function () {
@@ -83,7 +83,7 @@ xbmc.controller = {
 				  console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
 	    }
 	    
-	    xbmc.controller.popup('setNowPlaying');
+	    xbmc.controller.popup('refresh');
 						
 		}
 	, playlist: function(){ 	
