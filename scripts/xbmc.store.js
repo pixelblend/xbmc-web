@@ -28,7 +28,11 @@ xbmc.store = {
 			return parseInt(localStorage.current);
 		}
 	,	currentThumbnail: function(){
-			return xbmc.options.url()+'/vfs/'+this.currentItem().thumbnail;
+	    thumbnail = this.currentItem().thumbnail;
+	    if(thumbnail == 'DefaultAlbumCover.png'){
+  	    return '/images/'+thumbnail;
+	    }
+			return xbmc.options.url()+'/vfs/'+thumbnail;
 		}
 	, nowPlaying: function(result){
 			if(typeof result === 'undefined'){

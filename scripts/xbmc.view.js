@@ -30,8 +30,8 @@ xbmc.view = {
 			}
 		}
 	, setNowPlaying: function(){
+  	  $('#thumb img').attr('src', xbmc.store.currentThumbnail());      
       $('#now-playing-text').html(xbmc.store.nowPlaying());
-      $('#thumb img').attr('src',xbmc.store.currentThumbnail());
 		}
 	,	_canvas: function(){
 			//playlist
