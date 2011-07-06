@@ -33,21 +33,18 @@ xbmc.store = {
         return '/images/'+thumbnail;
       }
     
-      return xbmc.options.url()+'/vfs/'+this.currentItem().thumbnail;
+      return xbmc.options.url()+'/vfs/'+thumbnail;
     }
   , nowPlaying: function(result){
       if(typeof result === 'undefined'){
-        return localStorage.playing;
+        return $.parseJSON(localStorage.playing);
       }
       
-      var nowPlaying = '';
+      var nowPlaying = [];
       
       switch(this.playerType()) {
         case 'audio':
-          var elements = {'h1': 'Title', 'h2': 'Artist', 'h3': 'Album'};          
-          $.each(elements,function(tag, content){
-            nowPlaying += '<'+tag+'>'+result['MusicPlayer.'+content]+'</'+tag+'>' 
-          });
+          nowPlaying = [result['MusicPlayer.Title'], result['MusicPlayer.Artist'], result['MusicPlayer.Album']];
           break;
         case 'video':
           var moreInfo;
@@ -55,7 +52,7 @@ xbmc.store = {
           
           //no title? not a library file, just display label
           if(typeof result['title'] === 'undefined'){
-            nowPlaying = '<h1>'+result['label']+'</h1>';
+            nowPlaying = [result['label']];
             break;
           }
           
@@ -64,16 +61,16 @@ xbmc.store = {
           } else {
             moreInfo = result['showtitle']+' '+result['season']+'x'+result['episode'];
           }
-          nowPlaying = '<h1>'+result['title']+'</h1>'+'<h2>'+moreInfo+'</h2><h3>'+(parseInt(result['duration'])/60).toFixed(0)+' Minutes</h3>';
+          nowPlaying = [result['title'], moreInfo, (parseInt(result['duration'])/60).toFixed(0)+' Minutes'];
           break;
         case 'stopped':
-          nowPlaying = 'Stopped';
+          nowPlaying = ['Stopped'];
           break;
         default:
           console.error("store.nowPlaying: unexpected playerType "+xbmc.store.playerType());
       }
       
-      localStorage.playing = nowPlaying;
+      localStorage.playing = JSON.stringify(nowPlaying);
     }
   , nowPlayingFields: function(){
       switch(this.playerType()){

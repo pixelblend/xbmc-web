@@ -30,8 +30,11 @@ xbmc.view = {
       }
     }
   , setNowPlaying: function(){
-      $('#thumb img').attr('src', xbmc.store.currentThumbnail());      
-      $('#now-playing-text').html(xbmc.store.nowPlaying());
+      $('#thumb img').attr('src', xbmc.store.currentThumbnail());
+      nowPlaying = xbmc.store.nowPlaying();
+      $('#now-playing-text h1').html(nowPlaying[0]);
+      $('#now-playing-text h2').html(nowPlaying[1]);
+      $('#now-playing-text h3').html(nowPlaying[2]);
     }
   , _canvas: function(){
       //playlist
@@ -44,7 +47,9 @@ xbmc.view = {
       $('<div/>', {id: 'thumb'}).appendTo('#now-playing');
       $('<img/>').appendTo('#thumb');
       $('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
-      
+      $('<h1/>').appendTo('#now-playing-text');
+      $('<h2/>').appendTo('#now-playing-text');
+      $('<h3/>').appendTo('#now-playing-text');
     }
   , _buttons: function(){
       var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play', 'next': 'Next'};
