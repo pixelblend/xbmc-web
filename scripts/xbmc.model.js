@@ -17,7 +17,7 @@ xbmc.model = {
 				, url: xbmc.options.jsonUrl()
 				, cache: false
 				, dataType: 'json'
-				, data: '{"jsonrpc": "2.0", "method": "'+method+'", "params": '+jsonParams+', "id": 1}'
+				, data: '{"jsonrpc": "2.0", "method": "'+method+'", "params": '+jsonParams+', "id": '+this.id()+'}'
 				,	error: function(xhr, textStatus, errorThrown){ 
 						console.error("XHR Response: " + JSON.stringify(xhr));
 					}
@@ -37,4 +37,9 @@ xbmc.model = {
 			  }
 			});
 		}
+	, id: function(){
+	    this._id += 1;
+	    return this._id;
+	  }
+	, _id: 0
 };
