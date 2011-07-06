@@ -28,11 +28,12 @@ xbmc.store = {
 			return parseInt(localStorage.current);
 		}
 	,	currentThumbnail: function(){
-	    thumbnail = this.currentItem().thumbnail;
-	    if(thumbnail == 'DefaultAlbumCover.png'){
-  	    return '/images/'+thumbnail;
-	    }
-			return xbmc.options.url()+'/vfs/'+thumbnail;
+      thumbnail = this.currentItem().thumbnail;
+      if(thumbnail == 'DefaultAlbumCover.png'){
+        return '/images/'+thumbnail;
+      }
+    
+			return xbmc.options.url()+'/vfs/'+this.currentItem().thumbnail;
 		}
 	, nowPlaying: function(result){
 			if(typeof result === 'undefined'){
@@ -51,6 +52,12 @@ xbmc.store = {
 				case 'video':
   			  var moreInfo;
   				result = result.items[0];
+  				
+  				//no title? not a library file, just display label
+  				if(typeof result['title'] === 'undefined'){
+  				  nowPlaying = '<h1>'+result['label']+'</h1>';
+  				  break;
+  				}
   				
 				  if(typeof result['showtitle'] === 'undefined'){
 				    moreInfo = 'Dir: '+result['director']+', '+result['year'];
