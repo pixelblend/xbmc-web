@@ -3,7 +3,11 @@ if(typeof window.xbmc == 'undefined')
   window.xbmc = {};
 
 xbmc.store = {
-    pollRate: 2000
+      pollRate: 2000
+    , _playlistFields: {
+          'audio': ['artist', 'title', 'album', 'cover']
+        , 'video': ['title', 'season', 'episode', 'plot', 'duration', 'showtitle', 'year', 'director', 'cast']
+      }
     , buildMethod: function(method){
         switch(this.playerType()){
           case 'video':
@@ -40,23 +44,16 @@ xbmc.store = {
     
       return xbmc.options.url()+'/vfs/'+thumbnail;
     }
-  , nowPlaying: function(result){
-      wasPlaying = localStorage.playing;
-      
-      if(typeof result === 'undefined'){
-        return $.parseJSON(wasPlaying);
-      }
-      
+  , nowPlaying: function(){
       var nowPlaying = [];
+      var result = this.currentItem();
       
       switch(this.playerType()) {
         case 'audio':
-          nowPlaying = [result['MusicPlayer.Title'], result['MusicPlayer.Artist'], result['MusicPlayer.Album']];
+          nowPlaying = [result['title'], result['artist'], result['album']];
           break;
         case 'video':
           var moreInfo;
-          result = result.items[0];
-          
           //no title? not a library file, just display label
           if(typeof result['title'] === 'undefined'){
             nowPlaying = [result['label']];
@@ -76,18 +73,22 @@ xbmc.store = {
         default:
           console.error("store.nowPlaying: unexpected playerType "+xbmc.store.playerType());
       }
-      
-      localStorage.playing = JSON.stringify(nowPlaying);
-      return(localStorage.playing != wasPlaying)
+      return nowPlaying;
     }
-  , playlist: function(newPlaylist){
-      if(typeof newPlaylist != 'undefined'){
-        localStorage.playlist = JSON.stringify(newPlaylist);
+  , playlist: function(newPlaylist){      
+      if(typeof newPlaylist === 'undefined'){
+        return $.parseJSON(localStorage.playlist);
       } else if(typeof localStorage.playlist === 'undefined') {
         localStorage.playlist = JSON.stringify([]);
       }
       
-      return $.parseJSON(localStorage.playlist);
+      currentPlaylist = localStorage.playlist;
+      localStorage.playlist = JSON.stringify(newPlaylist);
+      
+      return (currentPlaylist!=localStorage.playlist);
+    }
+  , playlistFields: function(){
+      return this._playlistFields[this.playerType()];
     }
   , playerType: function(newType){
       currentType = localStorage.playerType;
@@ -107,13 +108,22 @@ xbmc.store = {
         return false;
       }
     }
-  , playerState: function(newState){
+  , playerState: function(result){
       oldState = localStorage.state;
-      if(typeof newState == 'undefined'){
+      
+      if(typeof result == 'undefined'){
         return oldState;
-      } else {
-        localStorage.state = newState;
-        return (oldState != newState);
       }
+      
+      if(result.paused == true) {
+        newState = 'paused';
+      } else if(result.playing == true) {
+        newState = 'playing';
+      } else {
+        newState = 'stopped';
+      }
+        
+      localStorage.state = newState;
+      return (oldState != newState);
     }
 };

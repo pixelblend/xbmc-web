@@ -22,7 +22,6 @@ xbmc.controller = {
       clearInterval(this.playerInterval);
       this.stateInterval  = setInterval('xbmc.controller.playerState()', xbmc.store.pollRate);
       this.playerInterval = setInterval('xbmc.controller.playlist()', xbmc.store.pollRate);
-      this.playerInterval = setInterval('xbmc.controller.nowPlaying()', xbmc.store.pollRate);
     }
   , playerState: function(){
       xbmc.model.query('Player.GetActivePlayers', function(result){
@@ -51,8 +50,7 @@ xbmc.controller = {
       
       xbmc.model.query(queryType, function(result){
         //update view in popup
-        playState = xbmc.controller.fetchPlayStateFromResult(result);
-        xbmc.store.playerState(playState);
+        xbmc.store.playerState(result);
         xbmc.controller.popup('setPlayStatus');
       });
     }
@@ -65,33 +63,6 @@ xbmc.controller = {
         }
       });
     }
-  , nowPlaying: function(){
-      switch(xbmc.store.playerType()){
-        case 'stopped':
-          //stopped? dont bother running the request
-          xbmc.store.nowPlaying();
-          xbmc.store.playerState('stopped');
-          break;
-        case 'video':
-          xbmc.model.query('VideoPlaylist.GetItems', function(result){
-            refreshRequired = xbmc.store.nowPlaying(result);
-            if(refreshRequired === true) {
-              xbmc.controller.popup('refresh');
-            }
-          }, { "fields": ["title", "season", "episode", "plot", "duration", "showtitle", "year", "director", "cast"] });
-          break;
-        case 'audio':
-          xbmc.model.query('System.GetInfoLabels', function(result){
-            refreshRequired = xbmc.store.nowPlaying(result);
-            if(refreshRequired === true) {
-              xbmc.controller.popup('refresh');
-            }
-          }, ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album']);
-          break;
-        default:
-          console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
-      }            
-    }
   , playlist: function(){   
       queryType = xbmc.store.buildMethod("Playlist.GetItems");
 
@@ -100,19 +71,18 @@ xbmc.controller = {
       }
 
       xbmc.model.query(queryType, function(result){
-        xbmc.store.playlist(result.items);
-        state = xbmc.controller.fetchPlayStateFromResult(result);
+        newPlaylist = xbmc.store.playlist(result.items);
         
         newCurrent = xbmc.store.currentPosition(result.current);
-        if(newCurrent === true){
+        if(newPlaylist || newCurrent){
           xbmc.controller.popup('setNowPlaying');
         }
         
-        stateChange = xbmc.store.playerState(state);
-        if(stateChange === true){
+        stateChange = xbmc.store.playerState(result);
+        if(stateChange){
           xbmc.controller.popup('setPlayStatus');
         }
-      });
+      }, {'fields': xbmc.store.playlistFields()});
   }
   , previous: function(){
       queryType = xbmc.store.buildMethod('Player.SkipPrevious');
@@ -131,18 +101,5 @@ xbmc.controller = {
           xbmc.controller.nowPlaying();
         }
       });
-    }
-  , fetchPlayStateFromResult: function(result){
-      var state;
-      
-      if(result.paused == true) {
-        state = 'paused';
-      } else if(result.playing == true) {
-        state = 'playing';
-      } else {
-        state = 'stopped';
-      }
-      
-      return state;
     }
 }
