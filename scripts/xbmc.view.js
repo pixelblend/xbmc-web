@@ -6,11 +6,12 @@ xbmc.view = {
       this._canvas();
       this._buttons();
       this._state();
-      this._animateTitles();
+      this.animateTitles();
     }
   , refresh: function(){
       this.setPlayStatus();
       this.setNowPlaying();
+      this.animateTitles();
     }
   , setPlayStatus: function(){
       state = localStorage.state;
@@ -39,15 +40,13 @@ xbmc.view = {
       $('#now-playing-text h2 span').html(nowPlaying[1]);
       $('#now-playing-text h3 span').html(nowPlaying[2]);
     }
-  , _animateTitles: function(){
+  , animateTitles: function(){
       var maxWidth = $('#now-playing-text').width();
     
       $('#now-playing-text span').each(function(){
+        $(this).css('left','0');
         if($(this).width() > maxWidth) {     
-          console.warn();
-          $(this).animate({
-            left: '-'+($(this).width()-maxWidth)
-          }, {duration: ($(this).width()/maxWidth)*2000, queue: false}, 'linear', $(this).css('left','0'));
+          $(this).animate({left: '-'+($(this).width()-maxWidth)}, {duration: ($(this).width()/maxWidth)*2000}, 'linear');          
         }
       });
     }
