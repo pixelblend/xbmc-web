@@ -42,16 +42,17 @@ xbmc.view = {
     }
   , animateTitles: function(){
       var maxWidth = $('#now-playing-text').width();
-    
+
       $('#now-playing-text span').each(function(){
-        $(this).stop();
-        $(this).css('left',0);
-        if($(this).width() > maxWidth) {     
-          scrollLength = '-'+($(this).width()-maxWidth);
-          $(this).everyTime(5, function(){
-            $(this).animate({left: scrollLength}, {duration: ($(this).width()/maxWidth)*2000}, 'linear').animate({left: scrollLength}, 1000).animate({left:0}, 0);          
-          });
-        }
+        $(this).everyTime(5, function(){
+          if($(this).width() > maxWidth+10) {     
+            var scrollLength = '-'+($(this).width()-maxWidth);
+            var scrollDuration = ($(this).width()/maxWidth)*2000;
+            $(this).animate({left: scrollLength}, {duration: scrollDuration}).animate({left: scrollLength}, 1000).animate({left:0}, scrollDuration);          
+          } else {
+            $(this).stop(true).animate({left:0},0);
+          }
+        });
       });
     }
   , _canvas: function(){

@@ -42,41 +42,42 @@ body#popup {
   width: 100%;
 }
 
-
 #now-playing #now-playing-text {
   float: left;
   width: 50%;
   height: 50px;
   padding-top: 2px;
+  margin: 0 0 0 5px;
+  overflow: hidden;
 }
 
-
 #now-playing h1,h2,h3 {
+  margin: 0;
   padding: 0;
-  margin: 0 0 0 5px;
   font-size: 100%;
-  font-weight: bold;
+  font-weight: normal;
   height: 14px;
-  overflow: hidden;
-  width: 100000%;
+  position: relative;
+  width: 1000%;
 }
 
 #now-playing span {
-  position: relative;
   left: 0;
+  padding: 0;
+  margin: 0;
+  display: block;
+  overflow: hidden;
+  height: 100%;
+  position: absolute;
+}
+
+#now-playing h1 {
+  font-weight: bold;
 }
 
 #now-playing h2 {
-  margin: 5px 0 0 5px;
-  font-weight: normal;
   font-style: italic;
 }
-
-#now-playing h3 {
-  margin: 5px 0 0 5px;
-  font-weight: normal;
-}
-
 
 #controls {
   margin-bottom: 5px;
