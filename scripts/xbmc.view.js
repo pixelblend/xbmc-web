@@ -44,9 +44,13 @@ xbmc.view = {
       var maxWidth = $('#now-playing-text').width();
     
       $('#now-playing-text span').each(function(){
-        $(this).css('left','0');
+        $(this).stop();
+        $(this).css('left',0);
         if($(this).width() > maxWidth) {     
-          $(this).animate({left: '-'+($(this).width()-maxWidth)}, {duration: ($(this).width()/maxWidth)*2000}, 'linear');          
+          scrollLength = '-'+($(this).width()-maxWidth);
+          $(this).everyTime(5, function(){
+            $(this).animate({left: scrollLength}, {duration: ($(this).width()/maxWidth)*2000}, 'linear').animate({left: scrollLength}, 1000).animate({left:0}, 0);          
+          });
         }
       });
     }
