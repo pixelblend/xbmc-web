@@ -76,7 +76,7 @@ xbmc.view = {
       $('<h2><span></span></h2>').appendTo('#now-playing-text');
       $('<h3><span></span></h3>').appendTo('#now-playing-text');
 
-      $('<div/>', {id: 'playlist'}).appendTo('body');
+      // $('<div/>', {id: 'playlist'}).appendTo('body');
       
     }
   , _buttons: function(){
