@@ -88,3 +88,10 @@ body#popup {
   position: relative;
   margin-right: 10px;
 }
+
+#playlist {
+  clear: both;
+  border: 1px solid back;
+  background-color: red;
+  height: 300px;
+}
