@@ -90,23 +90,29 @@ xbmc.store = {
   , playlistFields: function(){
       return this._playlistFields[this.playerType()];
     }
-  , playerType: function(newType){
+  , playerType: function(result){
       currentType = localStorage.playerType;
       
       if(typeof currentType === 'undefined') {
-        localStorage.playerType = false;
+        localStorage.playerType = 'stopped';
       }
     
-      if(typeof newType === 'undefined'){
+      if(typeof result === 'undefined'){
         return localStorage.playerType;
       }
       
-      if(newType != currentType){
-        localStorage.playerType = newType;
-        return true
+      if(result.picture == true) {
+        newType = 'picture';
+      } else if(result.video == true) {
+        newType = 'video';
+      } else if(result.audio == true) {
+        newType = 'audio';
       } else {
-        return false;
+        newType = 'stopped';
       }
+      
+      localStorage.playerType = newType;
+      return (newType != currentType);
     }
   , playerState: function(result){
       oldState = localStorage.state;

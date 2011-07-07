@@ -26,19 +26,9 @@ xbmc.controller = {
       });
     }
   , playerState: function(){
-      xbmc.model.query('Player.GetActivePlayers', function(result){
-        if(result.picture == true) {
-          playerType = 'picture';
-        } else if(result.video == true) {
-          playerType = 'video';
-        } else if(result.audio == true) {
-          playerType = 'audio';
-        } else {
-          playerType = 'stopped';
-        }
-      
+      xbmc.model.query('Player.GetActivePlayers', function(result){      
         refreshRequired = xbmc.store.playerType(playerType);
-        if(refreshRequired == true){
+        if(refreshRequired){
           xbmc.controller.popup('refresh');
         }
       });
