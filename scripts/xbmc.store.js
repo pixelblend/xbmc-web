@@ -58,7 +58,7 @@ xbmc.store = {
           var moreInfo;
           //no title? not a library file, just display label
           if(typeof result['title'] === 'undefined'){
-            nowPlaying = [result['label']];
+            nowPlaying = [result['label'], '', ''];
             break;
           }
           
