@@ -3,8 +3,7 @@ if(typeof window.xbmc == 'undefined')
   window.xbmc = {};
 
 xbmc.store = {
-      pollRate: 2000
-    , _playlistFields: {
+      _playlistFields: {
           'audio': ['artist', 'title', 'album', 'cover']
         , 'video': ['title', 'season', 'episode', 'plot', 'duration', 'showtitle', 'year', 'director', 'cast']
       }

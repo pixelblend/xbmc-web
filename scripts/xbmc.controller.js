@@ -18,10 +18,10 @@ xbmc.controller = {
       }
     }
   , pollForState: function(){
-      clearInterval(this.stateInterval);
-      clearInterval(this.playerInterval);
-      this.stateInterval  = setInterval('xbmc.controller.playerState()', xbmc.store.pollRate);
-      this.playerInterval = setInterval('xbmc.controller.playlist()', xbmc.store.pollRate);
+      $(self).everyTime(1, function(){
+        xbmc.controller.playerState();
+        xbmc.controller.playlist();
+      });
     }
   , playerState: function(){
       xbmc.model.query('Player.GetActivePlayers', function(result){
