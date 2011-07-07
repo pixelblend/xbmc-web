@@ -1,6 +1,7 @@
 //localStorage is a nightmare to pull stuff out of. xbmc.store santises this data.
-if(typeof window.xbmc == 'undefined')
+if(typeof window.xbmc == 'undefined'){
   window.xbmc = {};
+}
 
 xbmc.store = {
       _playlistFields: {

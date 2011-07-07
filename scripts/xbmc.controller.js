@@ -1,5 +1,6 @@
-if(typeof window.xbmc == 'undefined')
+if(typeof window.xbmc == 'undefined'){
   window.xbmc = {};
+}
 
 xbmc.controller = {
     listArtists: function(){

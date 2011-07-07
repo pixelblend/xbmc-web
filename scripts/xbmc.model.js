@@ -1,5 +1,6 @@
-if(typeof window.xbmc == 'undefined')
+if(typeof window.xbmc == 'undefined'){
   window.xbmc = {};
+}
 
 xbmc.model = {
     query: function(method, successCallback, params){
