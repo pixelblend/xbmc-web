@@ -43,7 +43,7 @@ xbmc.controller = {
       xbmc.model.query(queryType, function(result){
         //update view in popup
         xbmc.store.playerState(result);
-        xbmc.controller.popup('setPlayStatus');
+        xbmc.controller.popup('setPlayState');
       });
     }
   , next: function(){
@@ -51,7 +51,7 @@ xbmc.controller = {
       
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.popup('setPlayStatus');
+          xbmc.controller.popup('setPlayState');
         }
       });
     }
@@ -72,7 +72,7 @@ xbmc.controller = {
         
         stateChange = xbmc.store.playerState(result);
         if(stateChange){
-          xbmc.controller.popup('setPlayStatus');
+          xbmc.controller.popup('setPlayState');
         }
       }, {'fields': xbmc.store.playlistFields()});
   }
@@ -81,7 +81,7 @@ xbmc.controller = {
     
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.popup('setPlayStatus');
+          xbmc.controller.popup('setPlayState');
         }
       });
     }
@@ -90,7 +90,7 @@ xbmc.controller = {
 
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.popup('setPlayStatus');
+          xbmc.controller.popup('setPlayState');
         }
       });
     }

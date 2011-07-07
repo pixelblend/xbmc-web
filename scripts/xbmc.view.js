@@ -9,10 +9,10 @@ xbmc.view = {
       this._state();
     }
   , refresh: function(){
-      this.setPlayStatus();
+      this.setPlayState();
       this.setNowPlaying();
     }
-  , setPlayStatus: function(){
+  , setPlayState: function(){
       state = localStorage.state;
       switch(state){
         case 'stopped':
@@ -62,12 +62,12 @@ xbmc.view = {
     }
   , _canvas: function(){
       //playlist
-      $('<div/>', {id: 'player-status'}).appendTo('body');
+      $('<div/>', {id: 'player-state'}).appendTo('body');
       //interface
-      $('<div/>', {id: 'controls'}).appendTo('#player-status');
+      $('<div/>', {id: 'controls'}).appendTo('#player-state');
       
       //now playing     
-      $('<div/>', {id: 'now-playing'}).appendTo('#player-status');
+      $('<div/>', {id: 'now-playing'}).appendTo('#player-state');
       $('<div/>', {id: 'thumb'}).appendTo('#now-playing');
       $('<img/>').appendTo('#thumb');
 
@@ -104,7 +104,7 @@ xbmc.view = {
         $('#play-pause').text('Play');
         $('#now-playing').text('Could not connect.');
       } else {
-        xbmc.view.setPlayStatus();
+        xbmc.view.setPlayState();
         xbmc.view.setNowPlaying();
       }
     }
