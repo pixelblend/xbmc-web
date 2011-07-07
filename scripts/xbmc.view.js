@@ -7,12 +7,10 @@ xbmc.view = {
       this._canvas();
       this._buttons();
       this._state();
-      this.animateTitles();
     }
   , refresh: function(){
       this.setPlayStatus();
       this.setNowPlaying();
-      this.animateTitles();
     }
   , setPlayStatus: function(){
       state = localStorage.state;
@@ -40,6 +38,7 @@ xbmc.view = {
       $('#now-playing-text h1 span').html(nowPlaying[0]);
       $('#now-playing-text h2 span').html(nowPlaying[1]);
       $('#now-playing-text h3 span').html(nowPlaying[2]);
+      this.animateTitles();
     }
   , animateTitles: function(){
       var maxWidth = $('#now-playing-text').width();
@@ -75,7 +74,7 @@ xbmc.view = {
       $('<div/>', {id: 'now-playing-text'}).appendTo('#now-playing');
       $('<h1><span></span></h1>').appendTo('#now-playing-text');
       $('<h2><span></span></h2>').appendTo('#now-playing-text');
-      $('<h3><span></span></h3>').appendTo('#now-playing-text');
+      $('<h3><span></span></h3>').appendTo('#now-playing-text');      
     }
   , _buttons: function(){
       var buttons = {'prev': 'Back', 'stop': 'Stop', 'play-pause':'Play', 'next': 'Next'};
