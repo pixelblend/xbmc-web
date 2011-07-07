@@ -27,7 +27,7 @@ xbmc.controller = {
     }
   , playerState: function(){
       xbmc.model.query('Player.GetActivePlayers', function(result){      
-        refreshRequired = xbmc.store.playerType(playerType);
+        refreshRequired = xbmc.store.playerType(result);
         if(refreshRequired){
           xbmc.controller.popup('refresh');
         }
