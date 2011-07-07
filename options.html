@@ -4,8 +4,6 @@
   <script src="scripts/vendor/jquery-1.6.2.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
-
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
 </head>
 <body id="options">
@@ -14,6 +12,7 @@
   
   <script type="text/javascript" charset="utf-8">
     $(function() {
+      xbmc.controller = chrome.extension.connect({name: "playlist"});
       xbmc.options.buildForm();
     });
   </script>

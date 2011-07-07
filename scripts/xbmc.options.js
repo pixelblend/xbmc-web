@@ -63,7 +63,7 @@ xbmc.options = {
       });
 
       //restart polling
-      xbmc.controller.pollForStatus();
+      xbmc.controller.postMessage('pollForState');
       
       alert('saved!');
   }
