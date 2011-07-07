@@ -20,7 +20,7 @@ xbmc.model = {
         , dataType: 'json'
         , data: '{"jsonrpc": "2.0", "method": "'+method+'", "params": '+jsonParams+', "id": '+this.id()+'}'
         , error: function(xhr, textStatus, errorThrown){ 
-            console.error("XHR Response: " + JSON.stringify(xhr));
+            console.error(method+" failed. XHR Response: " + JSON.stringify(xhr));
           }
         , success: function(response){
             if (typeof successCallback == 'function'){
