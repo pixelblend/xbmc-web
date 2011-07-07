@@ -5,9 +5,11 @@
   <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/jquery.timers-1.2.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.port.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.store.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.view.js" type="text/javascript" charset="utf-8"></script>
+
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
   <title>XBMC Web Popup</title>
 </head>
@@ -15,7 +17,7 @@
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
     $(function() {
-      xbmc.controller = chrome.extension.connect({name: "playlist"});
+      xbmc.port.publish();
       xbmc.view.controls();
     });
   </script>
