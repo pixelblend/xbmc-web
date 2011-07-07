@@ -32,7 +32,7 @@ xbmc.view = {
     }
   , setNowPlaying: function(){
       nowPlaying = xbmc.store.nowPlaying();
-    
+
       $('#thumb img').attr('src', xbmc.store.currentThumbnail());
 
       $('#now-playing-text h1 span').html(nowPlaying[0]);

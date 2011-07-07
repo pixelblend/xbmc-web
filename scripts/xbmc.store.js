@@ -14,8 +14,10 @@ xbmc.store = {
             return 'Video'+method;
           case 'audio':
             return 'Audio'+method;
+          case 'stopped':
+            return false;
           default:
-            console.error("store.buildMethod: unexpected playerType "+xbmc.store.playerType());
+            console.error("store.buildMethod: unexpected playerType "+xbmc.store.playerType()+" for "+method);
             return false;
         }
       }
@@ -68,7 +70,7 @@ xbmc.store = {
           nowPlaying = [result['title'], moreInfo, (parseInt(result['duration'])/60).toFixed(0)+' Minutes'];
           break;
         case 'stopped':
-          nowPlaying = ['Stopped'];
+          nowPlaying = ['Stopped', '', ''];
           break;
         default:
           console.error("store.nowPlaying: unexpected playerType "+xbmc.store.playerType());

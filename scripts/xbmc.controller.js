@@ -51,7 +51,7 @@ xbmc.controller = {
       
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.nowPlaying();
+          xbmc.controller.popup('setPlayStatus');
         }
       });
     }
@@ -81,7 +81,7 @@ xbmc.controller = {
     
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.nowPlaying();
+          xbmc.controller.popup('setPlayStatus');
         }
       });
     }
@@ -90,7 +90,7 @@ xbmc.controller = {
 
       xbmc.model.query(queryType, function(result){
         if(result === 'OK') {
-          xbmc.controller.nowPlaying();
+          xbmc.controller.popup('setPlayStatus');
         }
       });
     }
