@@ -45,18 +45,18 @@ xbmc.view = {
       var maxWidth = $('#now-playing-text').width();
 
       $('#now-playing-text span').each(function(){
-        $(this).stop(true).animate({left:0},0);
+        $(this).stop(true).css('left',0);
         
         var offset = 5;
         var scrollTime = 3000;
         var holdTime = 1000;
         
         $(this).everyTime(5, function(){
-          if($(this).width() > maxWidth-offset) {     
+          if($(this).width() > maxWidth-offset) {
             var scrollLength = '-'+(($(this).width()-maxWidth)+offset);
             $(this).animate({left: scrollLength}, scrollTime).animate({left: scrollLength}, holdTime).animate({left:0}, scrollTime).animate({left:0}, holdTime);
           } else {
-            $(this).stop(true).animate({left:0},0);
+            $(this).stop(true).css('left',0);
           }
         });
       });
