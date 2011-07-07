@@ -19,13 +19,18 @@ xbmc.store = {
       return this.playlist()[this.currentPosition()];
     }
   , currentPosition: function(newCurrent){
-      if(typeof newCurrent != 'undefined'){
-        localStorage.current = newCurrent;
-      } else if(typeof localStorage.playerType === 'undefined') {
+      if(typeof localStorage.playerType === 'undefined') {
         localStorage.current = false;
       }
       
-      return parseInt(localStorage.current);
+      oldCurrent = localStorage.current;
+      
+      if(typeof newCurrent === 'undefined'){
+        return parseInt(oldCurrent);
+      } else {
+        localStorage.current = newCurrent;
+        return (oldCurrent != newCurrent);
+      }
     }
   , currentThumbnail: function(){
       thumbnail = this.currentItem().thumbnail;
@@ -36,8 +41,10 @@ xbmc.store = {
       return xbmc.options.url()+'/vfs/'+thumbnail;
     }
   , nowPlaying: function(result){
+      wasPlaying = localStorage.playing;
+      
       if(typeof result === 'undefined'){
-        return $.parseJSON(localStorage.playing);
+        return $.parseJSON(wasPlaying);
       }
       
       var nowPlaying = [];
@@ -71,6 +78,7 @@ xbmc.store = {
       }
       
       localStorage.playing = JSON.stringify(nowPlaying);
+      return(localStorage.playing != wasPlaying)
     }
   , playlist: function(newPlaylist){
       if(typeof newPlaylist != 'undefined'){
@@ -82,19 +90,30 @@ xbmc.store = {
       return $.parseJSON(localStorage.playlist);
     }
   , playerType: function(newType){
-      if(typeof newType != 'undefined'){
-        localStorage.playerType = newType;
-      } else if(typeof localStorage.playerType === 'undefined') {
+      currentType = localStorage.playerType;
+      
+      if(typeof currentType === 'undefined') {
         localStorage.playerType = false;
       }
-      
-      return localStorage.playerType;
-    }
-  , playerState: function(newState){
-      if(typeof newState != 'undefined') {
-        localStorage.state = newState;
+    
+      if(typeof newType === 'undefined'){
+        return localStorage.playerType;
       }
       
-      return localStorage.state;
+      if(newType != currentType){
+        localStorage.playerType = newType;
+        return true
+      } else {
+        return false;
+      }
+    }
+  , playerState: function(newState){
+      oldState = localStorage.state;
+      if(typeof newState == 'undefined'){
+        return oldState;
+      } else {
+        localStorage.state = newState;
+        return (oldState != newState);
+      }
     }
 };

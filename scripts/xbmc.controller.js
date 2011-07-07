@@ -9,6 +9,7 @@ xbmc.controller = {
         });
         }, { "start": 0, "sort": { "order": "descending", "method": "artist" } });
     }
+
   , popup: function(msg){
       var views = chrome.extension.getViews({ type: "popup" });
       if(views.length == 1){
@@ -35,8 +36,10 @@ xbmc.controller = {
           playerType = 'stopped';
         }
       
-        xbmc.store.playerType(playerType);
-        xbmc.controller.popup('refresh');
+        refreshRequired = xbmc.store.playerType(playerType);
+        if(refreshRequired == true){
+          xbmc.controller.popup('refresh');
+        }
       });
     }
   , playPause: function () {
@@ -71,20 +74,23 @@ xbmc.controller = {
           break;
         case 'video':
           xbmc.model.query('VideoPlaylist.GetItems', function(result){
-            xbmc.store.nowPlaying(result);
+            refreshRequired = xbmc.store.nowPlaying(result);
+            if(refreshRequired === true) {
+              xbmc.controller.popup('refresh');
+            }
           }, { "fields": ["title", "season", "episode", "plot", "duration", "showtitle", "year", "director", "cast"] });
           break;
         case 'audio':
           xbmc.model.query('System.GetInfoLabels', function(result){
-            xbmc.store.nowPlaying(result);
+            refreshRequired = xbmc.store.nowPlaying(result);
+            if(refreshRequired === true) {
+              xbmc.controller.popup('refresh');
+            }
           }, ['MusicPlayer.Artist', 'MusicPlayer.Title', 'MusicPlayer.Album']);
           break;
         default:
           console.error('controller.nowPlaying: no response for '+xbmc.store.playerType());
-      }
-      
-      xbmc.controller.popup('refresh');
-            
+      }            
     }
   , playlist: function(){   
       queryType = xbmc.store.buildMethod("Playlist.GetItems");
@@ -96,8 +102,16 @@ xbmc.controller = {
       xbmc.model.query(queryType, function(result){
         xbmc.store.playlist(result.items);
         state = xbmc.controller.fetchPlayStateFromResult(result);
-        xbmc.store.playerState(state);
-        xbmc.store.currentPosition(result.current);
+        
+        newCurrent = xbmc.store.currentPosition(result.current);
+        if(newCurrent === true){
+          xbmc.controller.popup('setNowPlaying');
+        }
+        
+        stateChange = xbmc.store.playerState(state);
+        if(stateChange === true){
+          xbmc.controller.popup('setPlayStatus');
+        }
       });
   }
   , previous: function(){
