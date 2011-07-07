@@ -9,19 +9,13 @@
   <script src="scripts/xbmc.store.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.port.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
 </head>
 <body id="background">  
   <h1>XMBC</h1>
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
-    port = chrome.extension.connect({name: "playlist"});
-    chrome.extension.onConnect.addListener(function(port) {
-      port.onMessage.addListener(function(msg) {
-        xbmc.controller[msg]();
-      });
-    });
-    xbmc.view = port;
     xbmc.controller.pollForState();
   </script>
 </body>
