@@ -18,7 +18,8 @@ xbmc.controller = {
       }
     }
   , pollForState: function(){
-      $(self).everyTime(1, function(){
+      $(self).stop(true);
+      $(self).everyTime(1000, function(){
         xbmc.controller.playerState();
         xbmc.controller.playlist();
       });
