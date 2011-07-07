@@ -44,9 +44,12 @@ xbmc.view = {
       var maxWidth = $('#now-playing-text').width();
 
       $('#now-playing-text span').each(function(){
+        $(this).stop(true).animate({left:0},0);
+        
+        var offset = 5;        
         $(this).everyTime(5, function(){
-          if($(this).width() > maxWidth+10) {     
-            var scrollLength = '-'+($(this).width()-maxWidth);
+          if($(this).width() > maxWidth-offset) {     
+            var scrollLength = '-'+(($(this).width()-maxWidth)+offset);
             var scrollDuration = ($(this).width()/maxWidth)*2000;
             $(this).animate({left: scrollLength}, {duration: scrollDuration}).animate({left: scrollLength}, 1000).animate({left:0}, scrollDuration);          
           } else {
