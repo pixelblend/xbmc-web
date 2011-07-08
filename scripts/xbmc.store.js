@@ -14,6 +14,12 @@ xbmc.store = {
             return 'Video'+method;
           case 'audio':
             return 'Audio'+method;
+          case 'picture':
+            if(method.search('Playlist') == -1){
+              return 'Picture'+method;
+            } else {
+              return false;
+            }
           case 'stopped':
             return false;
           default:
@@ -69,6 +75,9 @@ xbmc.store = {
           }
           nowPlaying = [result['title'], moreInfo, (parseInt(result['duration'])/60).toFixed(0)+' Minutes'];
           break;
+        case 'picture':
+          nowPlaying= ['Picture Slideshow', '', ''];
+          break;
         case 'stopped':
           nowPlaying = ['Stopped', '', ''];
           break;
@@ -87,7 +96,7 @@ xbmc.store = {
       currentPlaylist = localStorage.playlist;
       localStorage.playlist = JSON.stringify(newPlaylist);
       
-      return (currentPlaylist!=localStorage.playlist);
+      return (currentPlaylist != localStorage.playlist);
     }
   , playlistFields: function(){
       return this._playlistFields[this.playerType()];
@@ -103,14 +112,18 @@ xbmc.store = {
         return localStorage.playerType;
       }
       
-      if(result.picture == true) {
-        newType = 'picture';
-      } else if(result.video == true) {
-        newType = 'video';
-      } else if(result.audio == true) {
-        newType = 'audio';
-      } else {
-        newType = 'stopped';
+      switch(true) {
+        case result.video:
+          newType = 'video';
+          break;
+        case result.audio:
+          newType = 'audio';
+          break;
+        case result.picture:
+          newType = 'picture';
+          break;
+        default:
+          newType = 'stopped';
       }
       
       localStorage.playerType = newType;
@@ -119,8 +132,12 @@ xbmc.store = {
   , playerState: function(result){
       oldState = localStorage.state;
       
-      if(typeof result == 'undefined'){
-        return oldState;
+      if(typeof result === 'undefined'){
+        if(this.playerType() === 'picture'){
+          return 'playing';
+        } else {
+          return oldState;
+        }
       }
       
       if(result.paused == true) {

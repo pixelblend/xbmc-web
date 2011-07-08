@@ -13,20 +13,16 @@ xbmc.view = {
       this.setNowPlaying();
     }
   , setPlayState: function(){
-      state = localStorage.state;
+      state = xbmc.store.playerState();
+
       switch(state){
         case 'stopped':
-          $('#controls').hide();
-          $('#thumb').hide();
-          break;
         case 'paused':
-          $('#thumb').show();
-          $('#controls').show();
           $('#play-pause').text('Play');
+          $('#player-state').attr('class', state+' '+xbmc.store.playerType());
           break;
         default:
-          $('#thumb').show();
-          $('#controls').show();
+          $('#player-state').attr('class', 'playing '+xbmc.store.playerType());
           $('#play-pause').text('Pause');
       }
     }

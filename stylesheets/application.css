@@ -26,23 +26,23 @@ body#popup {
   margin-right:auto;
 }
 
-#popup #now-playing {
+#now-playing {
   font-size: 11px;
   margin: auto;
 }
 
-#now-playing #thumb {
+#thumb {
   float: left;
   width: 40%;
   height: 50px;
 }
 
-#now-playing #thumb img {
+#thumb img {
   border: 1px solid black;
   width: 100%;
 }
 
-#now-playing #now-playing-text {
+#now-playing-text {
   float: left;
   width: 50%;
   height: 50px;
@@ -79,6 +79,15 @@ body#popup {
   font-style: italic;
 }
 
+.picture #thumb, .picture h2, .picture h3 {
+  display: none;
+}
+
+.picture #now-playing-text {
+  width: 100%;
+}
+
+
 #controls {
   margin-bottom: 5px;
   text-align: center;
@@ -87,11 +96,4 @@ body#popup {
 #controls a {
   position: relative;
   margin-right: 10px;
-}
-
-#playlist {
-  clear: both;
-  border: 1px solid back;
-  background-color: red;
-  height: 300px;
 }
