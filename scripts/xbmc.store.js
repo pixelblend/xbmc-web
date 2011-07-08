@@ -132,22 +132,21 @@ xbmc.store = {
   , playerState: function(result){
       oldState = localStorage.state;
       
-      if(typeof result === 'undefined'){
-        if(this.playerType() === 'picture'){
+      switch(true){
+        case (typeof result === 'undefined') && this.playerType() === 'picture':
           return 'playing';
-        } else {
+        case (typeof result === 'undefined'):
           return oldState;
-        }
+        case result.paused:
+          newState = 'paused';
+          break;
+        case result.playing:
+          newState = 'playing';
+          break;
+        default:
+          newState = 'stopped';
       }
       
-      if(result.paused == true) {
-        newState = 'paused';
-      } else if(result.playing == true) {
-        newState = 'playing';
-      } else {
-        newState = 'stopped';
-      }
-        
       localStorage.state = newState;
       return (oldState != newState);
     }
