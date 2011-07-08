@@ -145,6 +145,8 @@ xbmc.store = {
           break;
         default:
           newState = 'stopped';
+          //empty playlist
+          this.playlist([]);
       }
       
       localStorage.state = newState;
