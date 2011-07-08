@@ -79,13 +79,6 @@ body#popup {
   font-style: italic;
 }
 
-.picture #thumb, .picture h2, .picture h3 {
-  display: none;
-}
-
-.picture #now-playing-text {
-  width: 100%;
-}
 
 
 #controls {
@@ -97,3 +90,12 @@ body#popup {
   position: relative;
   margin-right: 10px;
 }
+
+.stopped #thumb, .picture #thumb, .stopped h2, .picture h2, .stopped h3, .picture h3, .stopped #controls {
+  display: none;
+}
+
+.picture #now-playing-text {
+  width: 100%;
+}
+
