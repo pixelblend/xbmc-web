@@ -19,7 +19,12 @@ xbmc.controller = {
       }
     }
   , pollForState: function(){
+      //stop previous polling
       $(self).stop(true);
+
+      //clear playlist
+      xbmc.store.clear();
+
       $(self).everyTime(1000, function(){
         xbmc.controller.playerState();
         xbmc.controller.playlist();

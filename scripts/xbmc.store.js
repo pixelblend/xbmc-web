@@ -27,11 +27,16 @@ xbmc.store = {
             return false;
         }
       }
+  , clear: function() {
+      this.playlist([]);
+      this.playerState('stopped');
+      this.playerType('stopped');
+    }
   , currentItem: function(){
-      return this.playlist()[this.currentPosition()];
+      return (this.playlist()[this.currentPosition()] || {});
     }
   , currentPosition: function(newCurrent){
-      if(typeof localStorage.playerType === 'undefined') {
+      if(this.playerType() === 'stopped') {
         localStorage.current = false;
       }
       
