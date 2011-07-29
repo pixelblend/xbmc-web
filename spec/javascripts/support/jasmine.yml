@@ -11,7 +11,13 @@
 #   - dist/**/*.js
 #
 src_files:
-    - public/scripts/**/*.js
+  - public/scripts/vendor/underscore.js
+  - public/scripts/vendor/backbone.js
+  - public/scripts/vendor/jquery-*.js
+  - public/scripts/vendor/jquery.timers-*.js
+  - public/scripts/xbmc.backbone.js
+  - public/scripts/xbmc.media.js
+  - public/scripts/xbmc.playlist.js
 
 # stylesheets
 #

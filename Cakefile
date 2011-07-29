@@ -9,7 +9,7 @@ task 'assets:watch', 'Watch source files and build JS & CSS', (options) ->
     proc.on          'exit', (status) -> process.exit(1) if status isnt 0
   #runCommand 'sass',   ['--watch', 'public/css/sass:public/css']
   runCommand 'coffee', '-o', 'public/scripts', '-wc', 'lib'
-  runCommand 'coffee', '-wc', 'spec/javascripts'
+  runCommand 'coffee', '-o', 'spec/javascripts', '-wc', 'spec/lib'
 
 # Alternately, compile CoffeeScript programmatically
 # CoffeeScript = require "coffee-script"
