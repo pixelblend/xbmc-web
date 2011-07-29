@@ -2,6 +2,7 @@
 begin
   require 'bundler/setup'
   require 'jasmine'
+  
   load 'jasmine/tasks/jasmine.rake'
 rescue LoadError
   task :jasmine do
