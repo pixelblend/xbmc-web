@@ -29,7 +29,7 @@ XBMCResponse = {
         "paused" : false,
         "playing" : true,
         "start" : 0,
-        "total" : 8
+        "total" : 2
       }
     }
   }
