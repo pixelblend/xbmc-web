@@ -2,6 +2,11 @@ class window.Media extends Backbone.Model
   
 class window.Music extends Media
   thumbnail: () ->
-    "#{this.get('title')} - #{this.get('artist')}.jpg"
+    thumbnail = this.get('thumbnail')
+    if thumbnail == 'DefaultAlbumCover.png'
+      "/images/#{thumbnail}"
+    else
+    "http://xbmc:xbmc@localhost:8080/vfs/#{thumbnail}"
+    
 
 class window.Video extends Media

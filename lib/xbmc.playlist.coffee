@@ -7,6 +7,7 @@ class window.PlaylistCollection extends Backbone.Collection
   now_playing: () ->
     this.models[this.current]
   current: 0
+  state: 'stopped'
 
 class window.AudioPlaylist extends PlaylistCollection
   media: 'Audio'

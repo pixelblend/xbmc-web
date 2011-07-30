@@ -8,7 +8,7 @@ describe 'Player', () ->
   describe "when XBMC is playing music", () ->
     beforeEach () ->
       spyOn($, "ajax").andCallFake (options) ->
-        options.success(XBMCResponse.audio_player.responseText)
+        options.success(XBMCResponse.audio_player)
       @player.fetch()
     
     it "detects an active audio player", () ->

@@ -31,6 +31,10 @@ Backbone.playlist_sync = (method, playlist, options) =>
   options.success = (result) ->
     options.default_success(result.items)
     playlist.current = result.current
+    playlist.state = switch true
+      when result.paused  then 'paused' 
+      when result.playing then 'playing'
+      else 'stopped'
     
   Backbone.xbmc_call(method, playlist, options)
 
