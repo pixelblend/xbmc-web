@@ -8,9 +8,12 @@ class window.PlaylistCollection extends Backbone.Collection
     this.models[this.current]
   current: 0
 
-class window.VideoPlaylist extends PlaylistCollection
-  media: 'Video'
-
 class window.AudioPlaylist extends PlaylistCollection
   media: 'Audio'
+  model: Music
   fields: ['artist', 'title', 'album', 'cover']
+
+class window.VideoPlaylist extends PlaylistCollection
+  media: 'Video'
+  model: Video
+  fields: ['title', 'season', 'episode', 'plot', 'duration', 'showtitle', 'year', 'director', 'cast']

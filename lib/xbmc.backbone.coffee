@@ -15,7 +15,8 @@ Backbone.playlist_sync = (method, playlist, options) ->
           """
             
     error: (xhr, textStatus, errorThrown) ->
-      console.error(playlist.method()+" failed. XHR Response: " + JSON.stringify(xhr));
+      options.error(xhr, textStatus, errorThrown)
     success: (response) ->
       options.success(response.result.items)
       playlist.current = response.result.current
+      
