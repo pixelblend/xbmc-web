@@ -1,4 +1,16 @@
 XBMCResponse = {
+  audio_player: {
+    status: 200,
+    responseText: {
+      "id" : 1,
+      "jsonrpc" : "2.0",
+      "result" : {
+        "audio" : true,
+        "picture" : false,
+        "video" : false
+      }
+    }    
+  },
   audio_playlist: {
     status: 200,
     responseText: {
