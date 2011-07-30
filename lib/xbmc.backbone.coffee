@@ -7,10 +7,15 @@ Backbone.playlist_sync = (method, playlist, options) ->
     url: 'http://localhost:8080/jsonrpc'
     cache: false
     dataType: 'json'
-    data: "{\"jsonrpc\": \"2.0\", \"method\": \"#{playlist.method()}\", \"params\": {\"fields\": #{JSON.stringify(playlist.fields)}}, \"id\": 1}"
+    data: """
+          {"jsonrpc": "2.0", "method": "#{playlist.method()}", 
+            "params": 
+              {"fields": #{JSON.stringify(playlist.fields)}}, 
+            "id": 1}"
+          """
+            
     error: (xhr, textStatus, errorThrown) ->
       console.error(playlist.method()+" failed. XHR Response: " + JSON.stringify(xhr));
     success: (response) ->
-      debugger
       options.success(response.result.items)
       playlist.current = response.result.current
