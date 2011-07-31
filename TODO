@@ -1,3 +1,2 @@
 * Migrate options page
-* Move old popup content to new view
 * Move popup events (play/pause, etc) to new view
