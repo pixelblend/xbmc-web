@@ -30,6 +30,8 @@
     };
     AppController.prototype.background = function() {
       console.log('background');
+      window.settings = new Settings;
+      settings.fetch();
       window.playlist = new AudioPlaylist;
       return setInterval(function() {
         return playlist.fetch();

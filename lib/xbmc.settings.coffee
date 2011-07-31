@@ -12,6 +12,3 @@ class window.Settings extends Backbone.Model
     #load from localStorage
   save: () ->
     #write to localStorage
-
-window.settings = new Settings
-settings.fetch()
