@@ -5,10 +5,10 @@ Backbone.sync_id = () ->
 Backbone.xbmc_call = (method, model, options) ->
   $.ajax
     type: 'POST'
-    username: 'xbmc'
-    password: 'xbmc'
+    username: settings.get('username')
+    password: settings.get('password')
     async: true
-    url: 'http://localhost:8080/jsonrpc'
+    url: settings.json_url()
     cache: false
     dataType: 'json'
     data: """

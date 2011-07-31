@@ -5,13 +5,13 @@ class window.Music extends Media
     title: ''
     artist: ''
     album: ''
-    thumbnail: 'DefaultAlbumCover.png'
+    thumbnail: ''
   thumbnail: () ->
     thumbnail = this.get('thumbnail')
     if thumbnail == 'DefaultAlbumCover.png'
       "/images/#{thumbnail}"
     else
-    "http://xbmc:xbmc@localhost:8080/vfs/#{thumbnail}"
+    "#{settings.url()}/vfs/#{thumbnail}"
   to_view: () ->
     attrs = this.attributes
     attrs.thumbnail = this.thumbnail()

@@ -35,7 +35,7 @@ describe 'Popup', () ->
       expect(@canvas.find('h2').text()).toBe('Van Morrison')
     
     it "renders a thumbnail of album cover", () ->
-      expect(@canvas.find('img').attr('src')).toBe('http://xbmc:xbmc@localhost:8080/vfs/cover.jpg')
+      expect(@canvas.find('img').attr('src')).toBe('http://localhost:8080/vfs/cover.jpg')
     
     it "animates the canvas", () ->
       expect(@popup.animate_titles).toHaveBeenCalled();
