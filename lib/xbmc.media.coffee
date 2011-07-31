@@ -8,5 +8,4 @@ class window.Music extends Media
     else
     "http://xbmc:xbmc@localhost:8080/vfs/#{thumbnail}"
     
-
 class window.Video extends Media
