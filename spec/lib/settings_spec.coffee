@@ -22,7 +22,7 @@ describe 'Settings', () ->
       
       new_settings = new Settings
       new_settings.fetch()
-      
+
       new_values   = _.values(new_settings.attributes)
       saved_values = _.values(@settings.attributes)
       

@@ -9,6 +9,8 @@ class window.Settings extends Backbone.Model
   json_url: () =>
     "#{this.url()}/jsonrpc"
   fetch: () ->
-    #load from localStorage
+    this.attributes = JSON.parse(localStorage.options) if localStorage.options
+    this
   save: () ->
-    #write to localStorage
+    localStorage.options = JSON.stringify(this.attributes)
+    this
