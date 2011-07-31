@@ -5,21 +5,21 @@
   <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/jquery.timers-1.2.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.port.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.store.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.view.js" type="text/javascript" charset="utf-8"></script>
-
+  <script src="scripts/xbmc.popup.js" type="text/javascript" charset="utf-8"></script>
+  
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
   <title>XBMC Web Popup</title>
 </head>
 <body id="popup">
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
-    $(function() {
-      xbmc.port.publish();
-      xbmc.view.controls();
+    $(function(){    
+      window.xbmc = chrome.extension.getBackgroundPage();
+      window.popup = new Popup({
+        collection: xbmc.playlist
+      });
     });
   </script>
+  <h1 id="playing"></h1>
 </body>
 </html>

@@ -20,17 +20,30 @@ Backbone.xbmc_call = (method, model, options) ->
             
     error: (xhr, textStatus, errorThrown) ->
       options.error(xhr, textStatus, errorThrown)
-    success: (response) ->
-      options.success(response.result)
+    success: (response, status, xhr) ->
+      options.success(response.result, status, xhr)
   
 Backbone.playlist_sync = (method, playlist, options) =>
   options.default_success = options.success
   options.method = playlist.method()
   options.params = {"fields": playlist.fields}
 
-  options.success = (result) ->
-    options.default_success(result.items)
-    playlist.current = result.current
+  options.success = (result, status, xhr) ->
+    old_titles = playlist.pluck('title')
+    options.default_success(result.items, status, xhr)
+    
+    # changed == new position in playlist
+    #            new titles in playlist
+    #            or new first item in playlist
+    if playlist.current != result.current
+      playlist.current = result.current
+      playlist.trigger('changed')
+      
+    new_titles = playlist.pluck('title')
+    
+    if _.difference(old_titles, new_titles).length > 0 || old_titles[0] != new_titles[0]
+      playlist.trigger('changed')
+      
     playlist.state = switch true
       when result.paused  then 'paused' 
       when result.playing then 'playing'

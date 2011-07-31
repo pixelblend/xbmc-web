@@ -16,8 +16,13 @@
   <h1>XMBC</h1>
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
-    window.playlist = new AudioPlaylist;
-    playlist.fetch();
+    $(function(){
+      window.port = chrome.extension.connect({name: "playlist"});
+      window.playlist = new AudioPlaylist;
+      setInterval(function(){
+        playlist.fetch();
+      }, 1000);
+    })
   </script>
 </body>
 </html>
