@@ -1,102 +1,50 @@
-if(typeof window.xbmc == 'undefined'){
-  window.xbmc = {};
-}
-
-xbmc.controller = {
-    listArtists: function(){
-      xbmc.model.query('AudioLibrary.GetArtists', function(result){
-        $.each(result.artists, function(index,a) {
-          $('<li>'+a.label+'</li>').appendTo('#artists');
-        });
-        }, { "start": 0, "sort": { "order": "descending", "method": "artist" } });
+(function() {
+  var __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; }, __hasProp = Object.prototype.hasOwnProperty, __extends = function(child, parent) {
+    for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; }
+    function ctor() { this.constructor = child; }
+    ctor.prototype = parent.prototype;
+    child.prototype = new ctor;
+    child.__super__ = parent.prototype;
+    return child;
+  };
+  window.AppController = (function() {
+    __extends(AppController, Backbone.Router);
+    function AppController() {
+      this.background = __bind(this.background, this);
+      AppController.__super__.constructor.apply(this, arguments);
     }
-
-  , popup: function(msg){
-      var views = chrome.extension.getViews({ type: "popup" });
-      if(views.length == 1){
-        var popup = views[0];
-        popup.xbmc.view[msg]();
+    AppController.prototype.routes = {
+      '': 'index',
+      'popup': 'popup',
+      'background': 'background'
+    };
+    AppController.prototype.initialize = function() {
+      var location;
+      location = $('body').attr('id');
+      if (location) {
+        return this.navigate(location, true);
       }
-    }
-  , pollForState: function(){
-      //stop previous polling
-      $(self).stop(true);
-
-      //clear playlist
-      xbmc.store.clear();
-
-      $(self).everyTime(1000, function(){
-        xbmc.controller.playerState();
-        xbmc.controller.playlist();
+    };
+    AppController.prototype.index = function() {
+      return console.error('#index - Nothing to happen here yet');
+    };
+    AppController.prototype.background = function() {
+      console.log('background');
+      window.playlist = new AudioPlaylist;
+      return setInterval(function() {
+        return playlist.fetch();
+      }, 1000);
+    };
+    AppController.prototype.popup = function() {
+      console.log('popup');
+      window.popup = new Popup({
+        collection: chrome.extension.getBackgroundPage().playlist
       });
-    }
-  , playerState: function(){
-      xbmc.model.query('Player.GetActivePlayers', function(result){      
-        refreshRequired = xbmc.store.playerType(result);
-        if(refreshRequired){
-          xbmc.controller.popup('refresh');
-        }
-      });
-    }
-  , playPause: function () {
-      queryType = xbmc.store.buildMethod('Player.PlayPause');
-      
-      if(queryType === false){
-        return false;
-      }
-      
-      xbmc.model.query(queryType, function(result){
-        //update view in popup
-        xbmc.store.playerState(result);
-        xbmc.controller.popup('setPlayState');
-      });
-    }
-  , next: function(){
-      queryType = xbmc.store.buildMethod('Player.SkipNext');
-      
-      xbmc.model.query(queryType, function(result){
-        if(result === 'OK') {
-          xbmc.controller.popup('setPlayState');
-        }
-      });
-    }
-  , playlist: function(){   
-      queryType = xbmc.store.buildMethod("Playlist.GetItems");
-
-      if(queryType == false){
-        return false;
-      }
-
-      xbmc.model.query(queryType, function(result){
-        newPlaylist = xbmc.store.playlist(result.items);
-        
-        newCurrent = xbmc.store.currentPosition(result.current);
-        if(newPlaylist || newCurrent){
-          xbmc.controller.popup('setNowPlaying');
-        }
-        
-        stateChange = xbmc.store.playerState(result);
-        if(stateChange){
-          xbmc.controller.popup('setPlayState');
-        }
-      }, {'fields': xbmc.store.playlistFields()});
-  }
-  , previous: function(){
-      queryType = xbmc.store.buildMethod('Player.SkipPrevious');
-    
-      xbmc.model.query(queryType, function(result){
-        if(result === 'OK') {
-          xbmc.controller.popup('setPlayState');
-        }
-      });
-    }
-  , stop: function(){
-      queryType = xbmc.store.buildMethod('Player.stop');
-
-      xbmc.model.query(queryType, function(result){
-        if(result === 'OK') {
-          xbmc.controller.popup('setPlayState');
-        }
-      });
-    }
-}
+      return popup.render();
+    };
+    return AppController;
+  })();
+  $(function() {
+    return window.controller = new AppController;
+  });
+}).call(this);

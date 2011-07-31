@@ -2,24 +2,18 @@
 <html>
 <head>
   <script src="scripts/vendor/jquery-1.6.2.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/jquery.timers-1.2.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/vendor/jquery.timers-1.2.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.popup.js" type="text/javascript" charset="utf-8"></script>
+  
+  <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
   
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
   <title>XBMC Web Popup</title>
 </head>
 <body id="popup">
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
-  <script type="text/javascript" charset="utf-8">
-    $(function(){    
-      window.popup = new Popup({
-        collection: chrome.extension.getBackgroundPage().playlist
-      });
-      popup.render();
-    });
-  </script>
   <h1 id="playing"></h1>
 </body>
 </html>
