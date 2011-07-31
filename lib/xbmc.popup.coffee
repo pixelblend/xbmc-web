@@ -7,6 +7,7 @@ class window.Popup extends Backbone.View
     now_playing = this.collection.now_playing()
     if now_playing
       title = now_playing.get('title')
-      $(this.el).html(title)
+      console.log(title)
+      $(this.el).html(title).appendTo('body#popup')
       
     this
