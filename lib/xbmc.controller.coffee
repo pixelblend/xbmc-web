@@ -3,15 +3,12 @@ class window.AppController extends Backbone.Router
     '': 'index'
     'popup': 'popup'
     'background': 'background'
-  
   initialize: () ->
     location = $('body').attr('id')
     if location
       this.navigate(location, true)
-  
   index: () ->
     console.error('#index - Nothing to happen here yet')
-  
   background: () =>
     console.log('background')
     window.settings = new Settings
@@ -21,7 +18,6 @@ class window.AppController extends Backbone.Router
     setInterval () ->
       playlist.fetch()
     , 1000
-    
   popup: () ->
     console.log('popup')
     window.popup = new Popup
