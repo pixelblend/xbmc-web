@@ -17,7 +17,6 @@
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
     $(function(){
-      window.port = chrome.extension.connect({name: "playlist"});
       window.playlist = new AudioPlaylist;
       setInterval(function(){
         playlist.fetch();

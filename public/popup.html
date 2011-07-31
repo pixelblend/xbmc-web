@@ -14,10 +14,10 @@
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
   <script type="text/javascript" charset="utf-8">
     $(function(){    
-      window.xbmc = chrome.extension.getBackgroundPage();
       window.popup = new Popup({
-        collection: xbmc.playlist
+        collection: chrome.extension.getBackgroundPage().playlist
       });
+      popup.render();
     });
   </script>
   <h1 id="playing"></h1>
