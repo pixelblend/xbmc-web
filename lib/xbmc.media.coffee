@@ -4,6 +4,7 @@ class window.Music extends Media
   defaults: () ->
     title: ''
     artist: ''
+    album: ''
     thumbnail: 'DefaultAlbumCover.png'
   thumbnail: () ->
     thumbnail = this.get('thumbnail')

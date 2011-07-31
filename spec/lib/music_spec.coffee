@@ -4,7 +4,7 @@ describe "Music", () ->
       @music = new Music
     
     it "has default attributes", () ->
-      expect(_.keys(@music.attributes)).toEqual ['title', 'artist', 'thumbnail']
+      expect(_.keys(@music.attributes)).toEqual ['title', 'artist', 'album', 'thumbnail']
       
   describe "a complete object", () ->
     beforeEach () ->
@@ -17,4 +17,4 @@ describe "Music", () ->
       expect(@music.thumbnail()).toEqual('http://xbmc:xbmc@localhost:8080/vfs/special://masterprofile/Thumbnails/Music/b/bba74b1e.tbn')
   
     it "produces a view-friendly object", () ->
-      expect(_.keys(@music.to_view())).toEqual [ 'title', 'artist', 'thumbnail', 'album', 'fanart', 'file', 'label' ]
+      expect(_.keys(@music.to_view())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label']
