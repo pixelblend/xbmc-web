@@ -3,22 +3,26 @@ describe 'Popup', () ->
     loadFixtures('popup.html')
     @popup = new Popup
       collection: new AudioPlaylist
-  
+    
   describe "with no music", () ->
-    it "renders an empty tag", () ->
+    it "renders an empty view", () ->
       @popup.render()
       @canvas = $(@popup.el)
-          
+      
       expect(@popup.el.nodeName).toEqual('DIV')
-      expect(@popup.el.id).toBe('now_playing')
+      expect(@popup.el.id).toBe('now-playing')
+      
       expect(@canvas.find('h1').text()).toBe('')
       expect(@canvas.find('h2').text()).toBe('')
       
   describe "with music playing", () ->
     beforeEach () ->
+      spyOn(@popup, 'animate_titles')
+      
       @track = new Music
         title: 'Moondance'
         artist: 'Van Morrison'
+        thumbnail: 'cover.jpg'
       
       @popup.collection.models = [@track]
       @popup.render()
@@ -29,4 +33,10 @@ describe 'Popup', () ->
     
     it "renders the current artist", () ->
       expect(@canvas.find('h2').text()).toBe('Van Morrison')
+    
+    it "renders a thumbnail of album cover", () ->
+      expect(@canvas.find('img').attr('src')).toBe('http://xbmc:xbmc@localhost:8080/vfs/cover.jpg')
+    
+    it "animates the canvas", () ->
+      expect(@popup.animate_titles).toHaveBeenCalled();
       

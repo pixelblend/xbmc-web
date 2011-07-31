@@ -14,9 +14,12 @@
 </head>
 <body id="popup">
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
-  <script type="text/template" id="now_playing">
-    <h1><%= title %></h1>
-    <h2><%= artist %></h2>
+  <script type="text/template" id="now-playing">
+    <div id="thumb"><img src="<%= thumbnail %>" /></div>
+    <div id="now-playing-text">
+      <h1><span><%= title %></span></h1>
+      <h2><span><%= artist %></span></h2>
+    </div>
   </script>
 </body>
 </html>
