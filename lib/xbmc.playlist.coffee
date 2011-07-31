@@ -12,7 +12,7 @@ class window.PlaylistCollection extends Backbone.Collection
 class window.AudioPlaylist extends PlaylistCollection
   media: 'Audio'
   model: Music
-  fields: ['artist', 'title', 'album', 'cover']
+  fields: ['artist', 'title', 'album']
 
 class window.VideoPlaylist extends PlaylistCollection
   media: 'Video'
