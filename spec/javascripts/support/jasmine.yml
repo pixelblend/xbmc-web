@@ -11,10 +11,10 @@
 #   - dist/**/*.js
 #
 src_files:
-  - public/scripts/vendor/underscore.js
-  - public/scripts/vendor/backbone.js
   - public/scripts/vendor/jquery-*.js
   - public/scripts/vendor/jquery.timers-*.js
+  - public/scripts/vendor/underscore.js
+  - public/scripts/vendor/backbone.js
   - public/scripts/xbmc.*.js
 
 # stylesheets
