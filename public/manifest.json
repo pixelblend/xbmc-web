@@ -10,6 +10,7 @@
   , "permissions": [
         "tabs"
       , "http://*/*/"
+      , "https://*/*/"
     ]
   , "options_page": "options.html"
   , "background_page": "background.html"
