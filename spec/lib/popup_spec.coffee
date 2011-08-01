@@ -22,7 +22,7 @@ describe 'Popup', () ->
       @track = new Music
         title: 'Moondance'
         artist: 'Van Morrison'
-        thumbnail: 'cover.jpg'
+        thumbnail: 'cover.tbn'
       
       @popup.collection.models = [@track]
       @popup.render()
@@ -35,7 +35,7 @@ describe 'Popup', () ->
       expect(@canvas.find('h2').text()).toBe('Van Morrison')
     
     it "renders a thumbnail of album cover", () ->
-      expect(@canvas.find('img').attr('src')).toBe('http://localhost:8080/vfs/cover.jpg')
+      expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/cover.tbn')
     
     it "animates the canvas", () ->
       expect(@popup.animate_titles).toHaveBeenCalled();

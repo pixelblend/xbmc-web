@@ -7,7 +7,7 @@ describe 'Settings', () ->
     expect(values).toEqual(['user', 'password', 'host', 'port'])
   
   it "produces the JSON-RPC URL", () ->
-    expect(@settings.json_url()).toEqual('http://localhost:8080/jsonrpc')
+    expect(@settings.json_url()).toEqual('http://example.com:8080/jsonrpc')
   
   describe 'localStorage', () ->
     beforeEach () ->

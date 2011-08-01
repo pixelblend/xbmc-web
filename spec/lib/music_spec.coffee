@@ -14,7 +14,7 @@ describe "Music", () ->
       expect(@music.get('title')).toEqual("Baba O'Riley")
   
     it "generates a thumbnail", () ->
-      expect(@music.thumbnail()).toMatch('bba74b1e.tbn')
+      expect(@music.thumbnail_url()).toMatch('bba74b1e.tbn')
   
     it "produces a view-friendly object", () ->
-      expect(_.keys(@music.to_view())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label']
+      expect(_.keys(@music.to_view())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label', 'thumbnail_url']

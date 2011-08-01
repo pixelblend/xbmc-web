@@ -49,10 +49,7 @@ Backbone.playlist_sync = (method, playlist, options) =>
       when result.playing then 'playing'
       else 'stopped'
   
-  console.log('fetch playlist')
-  $(this).stop true
-  $(this).everyTime 1000, () ->
-    Backbone.xbmc_call(method, playlist, options)
+  Backbone.xbmc_call(method, playlist, options)
   
 
 Backbone.player_sync = (method, player, options) =>

@@ -2,7 +2,7 @@ class window.Settings extends Backbone.Model
   defaults: () ->
     user: 'xbmc'
     password: 'xbmc'
-    host: 'http://localhost'
+    host: 'http://example.com'
     port: '8080'
   url: () ->
     "#{this.get('host')}:#{this.get('port')}"

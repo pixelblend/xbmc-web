@@ -34,7 +34,11 @@
       window.settings = new Settings;
       settings.fetch();
       window.playlist = new AudioPlaylist;
-      return playlist.fetch();
+      $(this).stop(true);
+      return $(this).everyTime(1000, __bind(function() {
+        console.log('polling');
+        return playlist.fetch();
+      }, this));
     };
     AppController.prototype.options = function() {
       console.log('options');

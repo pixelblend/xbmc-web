@@ -16,7 +16,11 @@ class window.AppController extends Backbone.Router
     settings.fetch()
     
     window.playlist = new AudioPlaylist
-    playlist.fetch()
+    $(this).stop true
+    $(this).everyTime 1000, () =>
+      console.log('polling')
+      playlist.fetch()
+    
   options: () ->
     console.log('options')
     window.settings = new Settings
