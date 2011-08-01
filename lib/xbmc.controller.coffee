@@ -13,12 +13,13 @@ class window.AppController extends Backbone.Router
   background: () ->
     console.log('background')
     window.settings = new Settings    
+    settings.fetch()
     window.playlist = new AudioPlaylist
     
     port = chrome.extension.connect name: 'background'
     chrome.extension.onConnect.addListener (port) =>
       port.onMessage.addListener (msg) =>
-        this.poll_playlist()
+        settings.fetch()
     
     this.poll_playlist()
   options: () ->
@@ -34,11 +35,8 @@ class window.AppController extends Backbone.Router
       collection: chrome.extension.getBackgroundPage().playlist
     popup.render()
   poll_playlist: () ->
-    settings.fetch()
-    # console.log('polled on '+settings.get('host'))
     $(window).stop true
     $(window).everyTime 1000, () =>
-      # console.log('polling '+settings.get('host'))
       playlist.fetch()
 
 $ () ->
