@@ -23,7 +23,7 @@ Backbone.xbmc_call = (method, model, options) ->
     success: (response, status, xhr) ->
       options.success(response.result, status, xhr)
   
-Backbone.playlist_sync = (method, playlist, options) ->
+Backbone.playlist_sync = (method, playlist, options) =>
   options.default_success = options.success
   options.method = playlist.method()
   options.params = {"fields": playlist.fields}
@@ -48,9 +48,10 @@ Backbone.playlist_sync = (method, playlist, options) ->
       when result.paused  then 'paused' 
       when result.playing then 'playing'
       else 'stopped'
-      
-  $(self).stop true
-  $(self).everyTime 1000, () ->
+  
+  console.log('fetch playlist')
+  $(this).stop true
+  $(this).everyTime 1000, () ->
     Backbone.xbmc_call(method, playlist, options)
   
 
