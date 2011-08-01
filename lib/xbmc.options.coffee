@@ -8,6 +8,8 @@ class window.Options extends Backbone.View
     canvas = $(this.el)
     canvas.html(this.template(this.model)).appendTo('body#options')
     form = canvas.find('form')
+    # debugger
+    background = chrome.extension.connect name: 'background'
     
     form.submit (event) => 
       event.preventDefault()
@@ -21,8 +23,7 @@ class window.Options extends Backbone.View
       this.model.set(new_attributes)
       this.model.save()
       
-      # restart polling on background page
-      this.options.background.controller.background()
+      background.postMessage()
       
       form.find('#flash').fadeOut('fast').fadeIn('slow')
     this

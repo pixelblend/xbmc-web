@@ -7,17 +7,15 @@ describe 'Options', () ->
       password: 'obviouspass'
       host: 'localhost'
       port: 8080
-    
-    @background_spy = jasmine.createSpy()
-    spied_background = 
-      controller:
-        background: @background_spy
+
+    window.chrome = 
+        extension: 
+          connect: jasmine.createSpy().andReturn(postMessage: () ->)
     
     @options = new Options
       model: @settings
-      background: spied_background
     @options.render()
-    
+        
     @canvas = $(@options.el)
     @form = @canvas.find('form')
   
@@ -56,4 +54,4 @@ describe 'Options', () ->
     
     it "triggers a refresh of the background page", () ->
       @form.submit()
-      expect(@background_spy).toHaveBeenCalled()
+      expect(window.chrome.extension.connect).toHaveBeenCalled()
