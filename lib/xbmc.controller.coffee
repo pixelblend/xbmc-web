@@ -10,14 +10,14 @@ class window.AppController extends Backbone.Router
       this.navigate(location, true)
   index: () ->
     console.error('#index - Nothing to happen here yet')
-  background: () =>
+  background: () ->
     console.log('background')
     window.settings = new Settings
     settings.fetch()
     
     window.playlist = new AudioPlaylist
-    $(this).stop true
-    $(this).everyTime 1000, () =>
+    $(Backbone).stop true
+    $(Backbone).everyTime 1000, () =>
       console.log('polling')
       playlist.fetch()
     
