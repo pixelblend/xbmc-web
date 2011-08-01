@@ -13,17 +13,20 @@ class window.AppController extends Backbone.Router
   background: () ->
     console.log('background')
     window.settings = new Settings    
-    settings.fetch()
     window.playlist = new AudioPlaylist
+    window.player   = new Player
+    
+    settings.fetch()
         
-    $(window).stop true
     $(window).everyTime 1000, () =>
+      player.fetch()
       playlist.fetch()
     
     port = chrome.extension.connect name: 'background'
     chrome.extension.onConnect.addListener (port) =>
       port.onMessage.addListener (msg) =>
         settings.fetch()
+        playlist.reset()
   options: () ->
     console.log('options')
     window.settings = new Settings
