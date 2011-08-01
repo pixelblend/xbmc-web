@@ -1,6 +1,8 @@
 class window.Popup extends Backbone.View
   id: 'now-playing'
   tagName: 'div'
+  events:
+    'click #controls a': 'notify_playlist'
   initialize: () =>
     this.collection.bind('changed', this.render)
     this.template = _.template($("#now-playing").html())
@@ -18,16 +20,20 @@ class window.Popup extends Backbone.View
     maxWidth = $('#now-playing-text').width()
 
     $('#now-playing-text span').each () ->
-      $(this).stop(true).css('left',0)
+      try
+        offset = 5
+        scrollTime = 3000
+        holdTime = 1000
 
-      offset = 5
-      scrollTime = 3000
-      holdTime = 1000
-
-      $(this).everyTime 5, () ->
-        if $(this).width() > maxWidth-offset
-          scrollLength = '-'+(($(this).width()-maxWidth)+offset)
-          $(this).animate({left: scrollLength}, scrollTime).animate({left: scrollLength}, holdTime)
-            .animate({left:0}, scrollTime).animate({left:0}, holdTime)
-        else
-          $(this).stop(true).css('left',0)
+        $(this).everyTime 5, () ->
+          if $(this).width() > maxWidth-offset
+            scrollLength = '-'+(($(this).width()-maxWidth)+offset)
+            $(this).animate({left: scrollLength}, scrollTime).animate({left: scrollLength}, holdTime)
+              .animate({left:0}, scrollTime).animate({left:0}, holdTime)
+      catch error
+        console.error(error)
+  notify_playlist: (event) ->
+    event.preventDefault()
+    clicked = $(event.target)
+    # console.log('POP: '+clicked.attr('id'))
+    this.collection.trigger('action:'+clicked.attr('id'))

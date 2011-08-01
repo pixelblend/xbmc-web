@@ -11,33 +11,37 @@ class window.AppController extends Backbone.Router
   index: () ->
     console.error('#index - Nothing to happen here yet')
   background: () ->
-    console.log('background')
-    window.settings = new Settings    
+    # console.log('background')
+    window.settings = new Settings
     window.playlist = new AudioPlaylist
-    window.player   = new Player
+    window.player   = new Player playlist
     
     settings.fetch()
-        
-    $(window).everyTime 1000, () =>
-      player.fetch()
-      playlist.fetch()
     
+    #poll for xbmc data
+    $(this).everyTime 1000, () =>
+      try
+        player.fetch()
+      catch error
+        console.error(error)
+    
+    #open port to communicate between options page and background
     port = chrome.extension.connect name: 'background'
     chrome.extension.onConnect.addListener (port) =>
       port.onMessage.addListener (msg) =>
         settings.fetch()
-        playlist.reset()
+        player.playlist.reset()
   options: () ->
-    console.log('options')
+    # console.log('options')
     window.settings = new Settings
     settings.fetch()
     window.options = new Options
       model: settings
     options.render()
   popup: () ->
-    console.log('popup')
+    # console.log('popup')
     window.popup = new Popup
-      collection: chrome.extension.getBackgroundPage().playlist
+      collection: chrome.extension.getBackgroundPage().player.playlist
     popup.render()
 
 $ () ->

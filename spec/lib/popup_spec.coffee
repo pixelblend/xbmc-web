@@ -39,4 +39,9 @@ describe 'Popup', () ->
     
     it "animates the canvas", () ->
       expect(@popup.animate_titles).toHaveBeenCalled();
-      
+    
+    describe "controls", () ->
+      it "calls a trigger on the collection when clicked", () ->
+        spyOn(@popup.collection, 'trigger')
+        @canvas.find('a#play-pause').click()
+        expect(@popup.collection.trigger).toHaveBeenCalledWith('action:play-pause')

@@ -1,10 +1,20 @@
 describe 'Player', () ->
   beforeEach () ->
-    @player = new Player
+    @playlist = new PlaylistCollection
+    spyOn(@playlist, 'bind')
+    @player = new Player @playlist
   
   it "should be stopped when XBMC is not running", () ->
-    expect(@player.get('media')).toEqual('stopped')
+    expect(@player.get('state')).toEqual('stopped')
+  
+  it "should bind triggers to the playlist", () ->
+    expect(@playlist.bind).toHaveBeenCalled
+    expect(@playlist.bind.callCount).toBe(4)
     
+    arguments = _.map @playlist.bind.argsForCall, (arg) -> arg[0]
+    
+    expect(arguments).toEqual(['action:prev', 'action:next', 'action:play-pause', 'action:stop'])
+  
   describe "when XBMC is playing music", () ->
     beforeEach () ->
       spyOn($, "ajax").andCallFake (options) ->

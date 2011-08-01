@@ -3,6 +3,7 @@ Backbone.sync_id = () ->
   @id++
   
 Backbone.xbmc_call = (method, model, options) ->
+  # console.log(options.method)
   $.ajax
     type: 'POST'
     username: settings.get('user')
@@ -14,14 +15,20 @@ Backbone.xbmc_call = (method, model, options) ->
     data: """
           {"jsonrpc": "2.0", "method": "#{options.method}", 
             "params": 
-              #{JSON.stringify(options.params)}, 
+              #{JSON.stringify(options.params || '')}, 
             "id": #{Backbone.sync_id()}}"
           """
             
     error: (xhr, textStatus, errorThrown) ->
-      options.error(xhr, textStatus, errorThrown)
+      if options.error
+        options.error(xhr, textStatus, errorThrown)
+      else
+        console.error("#{options.method} - #{textStatus}")
     success: (response, status, xhr) ->
-      options.success(response.result, status, xhr)
+      if options.success
+        options.success(response.result, status, xhr)
+      else
+        console.log("#{options.method} OK")
   
 Backbone.playlist_sync = (method, playlist, options) =>
   options.default_success = options.success
@@ -53,8 +60,18 @@ Backbone.playlist_sync = (method, playlist, options) =>
   
 
 Backbone.player_sync = (method, player, options) =>
-  options.method = player.url
-  options.params = ''
+  options.action ?= 'player_type'
+  
+  switch options.action
+    when 'player_type'
+      Backbone.player_type_sync(method, player, options)
+    else 
+      options.method = options.action
+      options.success = () ->
+      Backbone.xbmc_call(method, player, options)
+
+Backbone.player_type_sync = (method, player, options) =>
+  options.method = 'Player.GetActivePlayers'
   
   options.success = (result) ->    
     new_state = switch true 
@@ -64,5 +81,6 @@ Backbone.player_sync = (method, player, options) =>
       else 'stopped'
     
     player.set({media: new_state})
+    player.playlist.fetch()
 
   Backbone.xbmc_call(method, player, options)
