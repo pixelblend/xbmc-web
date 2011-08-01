@@ -20,5 +20,9 @@ class window.Options extends Backbone.View
         
       this.model.set(new_attributes)
       this.model.save()
-      form.find('#flash').fadeIn('slow')
+      
+      # restart polling on background page
+      this.options.background.controller.background()
+      
+      form.find('#flash').fadeOut('fast').fadeIn('slow')
     this

@@ -1,4 +1,3 @@
-* Refresh polling on options save
 * Move popup events (play/pause, etc) to new view
 * Support video playlists
 * Apply liberal styling and animation

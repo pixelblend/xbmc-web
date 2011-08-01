@@ -18,14 +18,15 @@ class window.AppController extends Backbone.Router
     window.playlist = new AudioPlaylist
     $(this).stop true
     $(this).everyTime 1000, () =>
-      # console.log('polling')
       playlist.fetch()
     
   options: () ->
     console.log('options')
     window.settings = new Settings
     settings.fetch()
-    window.options = new Options model: settings
+    window.options = new Options
+      model: settings
+      background: chrome.extension.getBackgroundPage()
     options.render()
   popup: () ->
     console.log('popup')

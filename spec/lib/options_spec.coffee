@@ -7,8 +7,15 @@ describe 'Options', () ->
       password: 'obviouspass'
       host: 'localhost'
       port: 8080
-      
-    @options = new Options model: @settings
+    
+    @background_spy = jasmine.createSpy()
+    spied_background = 
+      controller:
+        background: @background_spy
+    
+    @options = new Options
+      model: @settings
+      background: spied_background
     @options.render()
     
     @canvas = $(@options.el)
@@ -46,3 +53,7 @@ describe 'Options', () ->
       
       @form.submit()
       expect(flash.css('display') == 'none').toBeFalsy()
+    
+    it "triggers a refresh of the background page", () ->
+      @form.submit()
+      expect(@background_spy).toHaveBeenCalled()
