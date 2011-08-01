@@ -28,13 +28,21 @@ describe 'Options', () ->
   it "hides password in a password field", () ->
     expect(@form.find('input#password').attr('type')).toEqual('password')
   
-  it "saves submitted information to the model", () ->
-    @form.find('input#password').val('pass123')
-    @form.submit()
+  describe 'submitted form', () ->
+    it "saves information to the model", () ->
+      @form.find('input#password').val('pass123')
+      @form.submit()
+      
+      @settings.fetch()
     
-    @settings.fetch()
-    
-    expect(@settings.get('user')).toEqual('xbmc')
-    expect(@settings.get('password')).toEqual('pass123')
-    expect(@settings.get('host')).toEqual('localhost')
-    expect(@settings.get('port')).toEqual('8080')
+      expect(@settings.get('user')).toEqual('xbmc')
+      expect(@settings.get('password')).toEqual('pass123')
+      expect(@settings.get('host')).toEqual('localhost')
+      expect(@settings.get('port')).toEqual('8080')
+  
+    it "displays flash message confirming save", () ->
+      flash = @form.find('#flash')
+      expect(flash.css('display') == 'none').toBeTruthy()
+      
+      @form.submit()
+      expect(flash.css('display') == 'none').toBeFalsy()

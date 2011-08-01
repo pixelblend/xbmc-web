@@ -15,6 +15,7 @@
   <script type="text/template" id="options-form">
     <h1>XBMC Options</h1>
     <form action="post" method="#options">
+      <div id="flash" style="display:none;">Settings Saved.</div>
       <dl>
       <% _.each(attributes, function(value, key) { %>
         <dt><label for="<%= key %>"><%= key %></label></dt>

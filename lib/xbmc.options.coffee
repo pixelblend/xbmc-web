@@ -20,4 +20,5 @@ class window.Options extends Backbone.View
         
       this.model.set(new_attributes)
       this.model.save()
+      form.find('#flash').fadeIn('slow')
     this

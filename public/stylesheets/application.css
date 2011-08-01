@@ -99,3 +99,7 @@ body#popup {
   width: 100%;
 }
 
+#options #flash {
+  background: silver;
+  display: inline;
+}
