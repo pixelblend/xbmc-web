@@ -1,8 +1,9 @@
 class window.AppController extends Backbone.Router  
   routes:
     '': 'index'
-    'popup': 'popup'
     'background': 'background'
+    'options': 'options'
+    'popup': 'popup'
   initialize: () ->
     location = $('body').attr('id')
     if location
@@ -15,9 +16,13 @@ class window.AppController extends Backbone.Router
     settings.fetch()
     
     window.playlist = new AudioPlaylist
-    setInterval () ->
-      playlist.fetch()
-    , 1000
+    playlist.fetch()
+  options: () ->
+    console.log('options')
+    window.settings = new Settings
+    settings.fetch()
+    window.options = new Options model: settings
+    options.render()
   popup: () ->
     console.log('popup')
     window.popup = new Popup

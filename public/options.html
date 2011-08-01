@@ -2,20 +2,26 @@
 <head> 
   <title>XBMC Options</title>
   <script src="scripts/vendor/jquery-1.6.2.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.port.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/jquery.timers-1.2.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/underscore.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/vendor/backbone.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.settings.js" type="text/javascript" charset="utf-8"></script>
   <script src="scripts/xbmc.options.js" type="text/javascript" charset="utf-8"></script>
-  <script src="scripts/xbmc.model.js" type="text/javascript" charset="utf-8"></script>
+  <script src="scripts/xbmc.controller.js" type="text/javascript" charset="utf-8"></script>
   <link rel="stylesheet" type="text/css" href="stylesheets/application.css" />
 </head>
 <body id="options">
-  <h1>XMBC Options</h1>
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
-  
-  <script type="text/javascript" charset="utf-8">
-    $(function() {
-      xbmc.port.publish();
-      xbmc.options.buildForm();
-    });
+  <script type="text/template" id="options-form">
+    <h1>XBMC Options</h1>
+    <form action="post" method="#options">
+      <dl>
+      <% _.each(attributes, function(value, key) { %>
+        <dt><label for="<%= key %>"><%= key %></label></dt>
+        <dd><input id="<%= key %>" name="<%= key %>" type="<%= (key == 'password' ? key : 'text') %>" value="<%= value %>" /></dd>
+      <% }); %>
+      </dl>
+      <button type="submit">Save</button>
   </script>
 </body>
 </html>

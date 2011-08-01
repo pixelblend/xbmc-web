@@ -10,7 +10,6 @@ class window.Popup extends Backbone.View
     now_playing = new this.collection.model() if !now_playing
 
     canvas.html(this.template(now_playing.to_view())).appendTo('body#popup')
-    canvas.appendTo('body#popup')
     
     this.animate_titles()
     

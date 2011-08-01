@@ -15,8 +15,9 @@
     }
     AppController.prototype.routes = {
       '': 'index',
-      'popup': 'popup',
-      'background': 'background'
+      'background': 'background',
+      'options': 'options',
+      'popup': 'popup'
     };
     AppController.prototype.initialize = function() {
       var location;
@@ -33,9 +34,16 @@
       window.settings = new Settings;
       settings.fetch();
       window.playlist = new AudioPlaylist;
-      return setInterval(function() {
-        return playlist.fetch();
-      }, 1000);
+      return playlist.fetch();
+    };
+    AppController.prototype.options = function() {
+      console.log('options');
+      window.settings = new Settings;
+      settings.fetch();
+      window.options = new Options({
+        model: settings
+      });
+      return options.render();
     };
     AppController.prototype.popup = function() {
       console.log('popup');
