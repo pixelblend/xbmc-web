@@ -15,6 +15,7 @@ class window.Music extends Media
   to_view: () ->
     attrs = this.attributes
     attrs.thumbnail_url = this.thumbnail_url()
+    attrs.title = this.attributes.title || this.attributes.label
     attrs
-    
+
 class window.Video extends Media
