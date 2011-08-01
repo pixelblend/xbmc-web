@@ -7,14 +7,16 @@ class window.Options extends Backbone.View
   render: () =>
     canvas = $(this.el)
     canvas.html(this.template(this.model)).appendTo('body#options')
+    form = canvas.find('form')
     
-    canvas.find('form').submit (event) => 
+    form.submit (event) => 
       event.preventDefault()
+      
       new_attributes = {}
       keys = _.keys(this.model.attributes)
       
       _.each keys, (attr) =>
-        new_attributes[attr] = $('input#'+attr).val()
+        new_attributes[attr] = form.find('input#'+attr).val()
         
       this.model.set(new_attributes)
       this.model.save()
