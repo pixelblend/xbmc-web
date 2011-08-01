@@ -5,16 +5,16 @@ class window.Music extends Media
     title: ''
     artist: ''
     album: ''
-    thumbnail: ''
-  thumbnail: () ->
+    thumbnail: 'DefaultAlbumCover.png'
+  thumbnail_url: () ->
     thumbnail = this.get('thumbnail')
-    if thumbnail == 'DefaultAlbumCover.png'
-      "/images/#{thumbnail}"
+    if thumbnail.indexOf('.tbn') > -1
+      "#{settings.url()}/vfs/#{thumbnail}"
     else
-    "#{settings.url()}/vfs/#{thumbnail}"
+      "/images/#{thumbnail}"
   to_view: () ->
     attrs = this.attributes
-    attrs.thumbnail = this.thumbnail()
+    attrs.thumbnail_url = this.thumbnail_url()
     attrs
     
 class window.Video extends Media
