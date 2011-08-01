@@ -24,7 +24,9 @@ describe 'Popup', () ->
         artist: 'Van Morrison'
         thumbnail: 'cover.tbn'
       
+      @popup.collection.state = 'playing'
       @popup.collection.models = [@track]
+
       @popup.render()
       @canvas = $(@popup.el)
     
@@ -43,5 +45,13 @@ describe 'Popup', () ->
     describe "controls", () ->
       it "calls a trigger on the collection when clicked", () ->
         spyOn(@popup.collection, 'trigger')
-        @canvas.find('a#play-pause').click()
-        expect(@popup.collection.trigger).toHaveBeenCalledWith('action:play-pause')
+        @canvas.find('a#next').click()
+        expect(@popup.collection.trigger).toHaveBeenCalledWith('action:next')
+      
+      it "updates play / pause button with state", () ->
+        expect(@canvas.find('a#play-pause').text()).toBe('Pause')
+        
+        @popup.collection.state = 'paused'
+        @popup.collection.trigger('changed:state')
+        
+        expect(@canvas.find('a#play-pause').text()).toBe('Play')

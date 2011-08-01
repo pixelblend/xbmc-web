@@ -13,13 +13,15 @@
 </head>
 <body id="popup">
   <noscript>Javascript is not running for some insane reason. It should be.</noscript>
-  <script type="text/template" id="now-playing">
+  <script type="text/template" id="controls">
     <div id="controls">
       <a id="prev" href="#">Back</a>
       <a id="stop" href="#">Stop</a>
-      <a id="play-pause" href="#">Pause</a>
+      <a id="play-pause" href="#"><%= play_pause_label %></a>
       <a id="next" href="#">Next</a>
     </div>
+  </script>
+  <script type="text/template" id="now-playing">
     <div id="info-panel">
       <div id="thumb"><img src="<%= thumbnail_url %>" /></div>
       <div id="now-playing-text">

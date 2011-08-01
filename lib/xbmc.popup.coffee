@@ -4,17 +4,33 @@ class window.Popup extends Backbone.View
   events:
     'click #controls a': 'notify_playlist'
   initialize: () =>
-    this.collection.bind('changed', this.render)
-    this.template = _.template($("#now-playing").html())
+    this.play_template = _.template($("#now-playing").html())
+    this.control_template = _.template($("#controls").html())
+    @canvas = $(this.el)
+    $('<div />', id: 'controls').appendTo @canvas
+    $('<div />', id: 'play-details').appendTo @canvas
+    @canvas.appendTo('body#popup')
+    
+    this.collection.bind('changed:playlist', this.render_playlist)
+    this.collection.bind('changed:state', this.render_controls)
   render: () =>
-    canvas = $(this.el)
+    this.render_playlist().render_controls()
+    this
+  render_controls: () =>
+    console.log('controls')
+    console.log(this.collection.state)
+    control_attrs = 
+      play_pause_label: if this.collection.state == 'playing' then 'Pause' else 'Play'
+    @canvas.find('#controls').html(this.control_template(control_attrs))
+    this
+  render_playlist: () =>
     now_playing = this.collection.now_playing()
     now_playing = new this.collection.model() if !now_playing
+    now_playing_attrs = now_playing.to_view()
 
-    canvas.html(this.template(now_playing.to_view())).appendTo('body#popup')
-    
+    @canvas.find('#play-details').html(this.play_template(now_playing_attrs))
+
     this.animate_titles()
-    
     this
   animate_titles: () =>
     maxWidth = $('#now-playing-text').width()
@@ -35,5 +51,5 @@ class window.Popup extends Backbone.View
   notify_playlist: (event) ->
     event.preventDefault()
     clicked = $(event.target)
-    # console.log('POP: '+clicked.attr('id'))
-    this.collection.trigger('action:'+clicked.attr('id'))
+    clicked_id = clicked.attr('id')
+    this.collection.trigger('action:'+clicked_id)

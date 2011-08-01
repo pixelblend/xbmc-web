@@ -44,17 +44,21 @@ Backbone.playlist_sync = (method, playlist, options) =>
     #            or new first item in playlist
     if playlist.current != result.current
       playlist.current = result.current
-      playlist.trigger('changed')
+      playlist.trigger('changed:playlist')
 
     new_titles = playlist.pluck('title')
 
     if _.difference(old_titles, new_titles).length > 0 || old_titles[0] != new_titles[0]
-      playlist.trigger('changed')
-
+      playlist.trigger('changed:playlist')
+    
+    old_state = playlist.state
+    
     playlist.state = switch true
       when result.paused  then 'paused' 
       when result.playing then 'playing'
       else 'stopped'
+  
+    playlist.trigger('changed:state') if playlist.state != old_state
   
   Backbone.xbmc_call(method, playlist, options)
   
