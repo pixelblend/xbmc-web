@@ -4,7 +4,7 @@ describe 'Popup', () ->
     @popup = new Popup
       collection: new AudioPlaylist
     
-    spyOn(@popup, 'animate_titles')
+    spyOn(@popup, 'animateTitles')
     
     @track = new Music
       title: 'Moondance'
@@ -62,7 +62,7 @@ describe 'Popup', () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/cover.tbn')
     
     it "animates the canvas", () ->
-      expect(@popup.animate_titles).toHaveBeenCalled();
+      expect(@popup.animateTitles).toHaveBeenCalled();
     
   describe "with video playing", () ->
     beforeEach () ->    
@@ -93,5 +93,5 @@ describe 'Popup', () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/a379b384.tbn')
   
     it "animates the canvas", () ->
-      expect(@popup.animate_titles).toHaveBeenCalled();
+      expect(@popup.animateTitles).toHaveBeenCalled();
   

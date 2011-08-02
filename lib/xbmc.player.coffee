@@ -1,7 +1,7 @@
 class window.Player extends Backbone.Model
   defaults:
     state: 'stopped'
-  sync: Backbone.player_sync
+  sync: Backbone.playerSync
   initialize: () ->
     this.bind 'change:state', () ->
       this.playlist = switch this.get('state')
@@ -14,16 +14,16 @@ class window.Player extends Backbone.Model
         else
           console.error "Player: unknown state #{this.get('state')}"
           new PlaylistCollection
-      this.bind_playlist()
+      this.bindPlaylist()
 
-  bind_playlist: () ->
-    current_state = this.get('state')
-    return false if current_state == 'stopped'
+  bindPlaylist: () ->
+    currentState = this.get('state')
+    return false if currentState == 'stopped'
     this.playlist.bind 'action:prev', () =>
-      this.fetch action: current_state+'Player.SkipPrevious'
+      this.fetch action: currentState+'Player.SkipPrevious'
     this.playlist.bind 'action:next', () =>
-      this.fetch action: current_state+'Player.SkipNext'
+      this.fetch action: currentState+'Player.SkipNext'
     this.playlist.bind 'action:play-pause', () =>
-      this.fetch action: current_state+'Player.PlayPause'
+      this.fetch action: currentState+'Player.PlayPause'
     this.playlist.bind 'action:stop', () =>
-      this.fetch action: current_state+'Player.stop'
+      this.fetch action: currentState+'Player.stop'

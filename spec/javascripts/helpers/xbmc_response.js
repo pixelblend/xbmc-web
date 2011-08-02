@@ -1,5 +1,5 @@
 XBMCResponse = {
-  audio_player: {
+  audioPlayer: {
     "id" : 1,
     "jsonrpc" : "2.0",
     "result" : {
@@ -8,7 +8,7 @@ XBMCResponse = {
       "video" : false
     }
   },
-  video_player: {
+  videoPlayer: {
     "id" : 1,
     "jsonrpc" : "2.0",
     "result" : {
@@ -17,7 +17,7 @@ XBMCResponse = {
       "video" : true
     }
   },
-  audio_playlist: {
+  audioPlaylist: {
     "id" : 0,
     "jsonrpc" : "2.0",
     "result" : {
@@ -49,7 +49,7 @@ XBMCResponse = {
       "total" : 1
     }
   },
-  video_playlist: {
+  videoPlaylist: {
     "id" : 71,
     "jsonrpc" : "2.0",
     "result" : {

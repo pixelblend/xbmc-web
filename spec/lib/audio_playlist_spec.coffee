@@ -11,7 +11,7 @@ describe "AudioPlaylist", () ->
   describe "Collection", () ->
     beforeEach () ->
       spyOn($, "ajax").andCallFake (options) ->
-        options.success(XBMCResponse.audio_playlist)
+        options.success(XBMCResponse.audioPlaylist)
         
       @playlist.fetch()
     

@@ -6,7 +6,7 @@ class window.Settings extends Backbone.Model
     port: '8080'
   url: () ->
     "#{this.get('host')}:#{this.get('port')}"
-  json_url: () =>
+  jsonUrl: () =>
     "#{this.url()}/jsonrpc"
   fetch: () ->
     this.attributes = JSON.parse(localStorage.options) if localStorage.options

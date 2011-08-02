@@ -2,39 +2,37 @@ class window.Popup extends Backbone.View
   id: 'now-playing'
   tagName: 'div'
   events:
-    'click #controls a': 'notify_playlist'
+    'click #controls a': 'notifyPlaylist'
   initialize: () =>
-    this.audio_template = _.template($("#audio-template").html())
-    this.video_template = _.template($("#video-template").html())
-    this.control_template = _.template($("#controls-template").html())
+    this.audioTemplate = _.template($("#audio-template").html())
+    this.videoTemplate = _.template($("#video-template").html())
+    this.controlTemplate = _.template($("#controls-template").html())
     @canvas = $(this.el)
     $('<div />', id: 'controls').appendTo @canvas
     $('<div />', id: 'play-details').appendTo @canvas
     @canvas.appendTo('body#popup')
     
-    this.collection.bind('changed:playlist', this.render_playlist)
-    this.collection.bind('changed:state', this.render_controls)
+    this.collection.bind('changed:playlist', this.renderPlaylist)
+    this.collection.bind('changed:state', this.renderControls)
   render: () =>
-    this.render_controls().render_playlist()
-  render_controls: () =>
-    # console.log('controls')
-    # console.log(this.collection.state)
-    control_attrs = 
-      play_pause_label: if this.collection.state == 'playing' then 'Pause' else 'Play'
-    @canvas.find('#controls').html(this.control_template(control_attrs))
+    this.renderControls().renderPlaylist()
+  renderControls: () =>
+    controlAttrs = 
+      playPauseLabel: if this.collection.state == 'playing' then 'Pause' else 'Play'
+    @canvas.find('#controls').html(this.controlTemplate(controlAttrs))
     this
-  render_playlist: () =>
-    now_playing = this.collection.now_playing()
-    now_playing = new this.collection.model() if !now_playing
-    now_playing_attrs = now_playing.to_view()
+  renderPlaylist: () =>
+    nowPlaying = this.collection.nowPlaying()
+    nowPlaying = new this.collection.model() if !nowPlaying
+    nowPlayingAttrs = nowPlaying.toView()
     
-    play_template = this["#{this.collection.media.toLowerCase()}_template"]
+    playingTemplate = this["#{this.collection.media.toLowerCase()}Template"]
     
-    @canvas.find('#play-details').html(play_template(now_playing_attrs))
+    @canvas.find('#play-details').html(playingTemplate(nowPlayingAttrs))
 
-    this.animate_titles()
+    this.animateTitles()
     this
-  animate_titles: () =>
+  animateTitles: () =>
     maxWidth = $('#now-playing-text').width()
 
     $('#now-playing-text span').each () ->
@@ -50,8 +48,8 @@ class window.Popup extends Backbone.View
               .animate({left:0}, scrollTime).animate({left:0}, holdTime)
       catch error
         console.error(error)
-  notify_playlist: (event) ->
+  notifyPlaylist: (event) ->
     event.preventDefault()
     clicked = $(event.target)
-    clicked_id = clicked.attr('id')
-    this.collection.trigger('action:'+clicked_id)
+    clickedId = clicked.attr('id')
+    this.collection.trigger('action:'+clickedId)

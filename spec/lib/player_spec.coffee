@@ -8,13 +8,13 @@ describe 'Player', () ->
   describe "when XBMC is playing music", () ->
     beforeEach () ->
       spyOn($, "ajax").andCallFake (options) ->
-        options.success(XBMCResponse.audio_player)
+        options.success(XBMCResponse.audioPlayer)
 
-      spyOn(@player, 'bind_playlist')
+      spyOn(@player, 'bindPlaylist')
       @player.fetch()
   
     it "should bind triggers to the playlist", () ->
-      expect(@player.bind_playlist.callCount).toBe(1)
+      expect(@player.bindPlaylist.callCount).toBe(1)
     
     it "detects an active audio player", () ->
       expect(@player.playlist.media).toBe('Audio')
@@ -23,7 +23,7 @@ describe 'Player', () ->
     describe "when detecting a new playlist type", () ->
       beforeEach () ->
         $.ajax.andCallFake (options) ->
-          options.success(XBMCResponse.video_player)
+          options.success(XBMCResponse.videoPlayer)
 
       it "changes to relevant playlist", () ->
         @player.fetch()

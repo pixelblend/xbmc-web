@@ -3,24 +3,24 @@ class window.Options extends Backbone.View
   tagName: 'div'
   model: Settings
   events:
-    'submit form': 'submit_form'
+    'submit form': 'submitForm'
   initialize: () =>
     this.template = _.template($("#options-form").html())
   render: () =>
     canvas = $(this.el)
     canvas.html(this.template(this.model)).appendTo('body#options')
     this
-  submit_form: (event) ->
+  submitForm: (event) ->
     form = $(this.el)
     event.preventDefault()
     
-    new_attributes = {}
+    newAttributes = {}
     keys = _.keys(this.model.attributes)
     
     _.each keys, (attr) =>
-      new_attributes[attr] = form.find('input#'+attr).val()
+      newAttributes[attr] = form.find('input#'+attr).val()
       
-    this.model.set(new_attributes)
+    this.model.set(newAttributes)
     this.model.save()
     
     background = chrome.extension.connect name: 'background'

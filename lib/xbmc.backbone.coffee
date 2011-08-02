@@ -1,22 +1,22 @@
-Backbone.sync_id = () ->
+Backbone.syncId = () ->
   @id = @id || 0
   @id++
   
-Backbone.xbmc_call = (method, model, options) ->
+Backbone.xbmcCall = (method, model, options) ->
   # console.log(options.method)
   $.ajax
     type: 'POST'
     username: settings.get('user')
     password: settings.get('password')
     async: true
-    url: settings.json_url()
+    url: settings.jsonUrl()
     cache: false
     dataType: 'json'
     data: """
           {"jsonrpc": "2.0", "method": "#{options.method}", 
             "params": 
               #{JSON.stringify(options.params || '')}, 
-            "id": #{Backbone.sync_id()}}"
+            "id": #{Backbone.syncId()}}"
           """
             
     error: (xhr, textStatus, errorThrown) ->
@@ -30,14 +30,14 @@ Backbone.xbmc_call = (method, model, options) ->
       else
         console.log("#{options.method} OK")
   
-Backbone.playlist_sync = (method, playlist, options) =>
-  options.default_success = options.success
+Backbone.playlistSync = (method, playlist, options) =>
+  options.defaultSuccess = options.success
   options.method = playlist.method()
   options.params = {"fields": playlist.fields}
 
   options.success = (result, status, xhr) =>
-    old_titles = playlist.pluck('title')
-    options.default_success(result.items, status, xhr)
+    oldTitles = playlist.pluck('title')
+    options.defaultSuccess(result.items, status, xhr)
 
     # changed == new position in playlist
     #            new titles in playlist
@@ -46,45 +46,45 @@ Backbone.playlist_sync = (method, playlist, options) =>
       playlist.current = result.current
       playlist.trigger('changed:playlist')
 
-    new_titles = playlist.pluck('title')
+    newTitles = playlist.pluck('title')
 
-    if _.difference(old_titles, new_titles).length > 0 || old_titles[0] != new_titles[0]
+    if _.difference(oldTitles, newTitles).length > 0 || oldTitles[0] != newTitles[0]
       playlist.trigger('changed:playlist')
     
-    old_state = playlist.state
+    oldState = playlist.state
     
     playlist.state = switch true
       when result.paused  then 'paused' 
       when result.playing then 'playing'
       else 'stopped'
   
-    playlist.trigger('changed:state') if playlist.state != old_state
+    playlist.trigger('changed:state') if playlist.state != oldState
   
-  Backbone.xbmc_call(method, playlist, options)
+  Backbone.xbmcCall(method, playlist, options)
   
 
-Backbone.player_sync = (method, player, options) =>
+Backbone.playerSync = (method, player, options) =>
   options.action ?= 'player_type'
   
   switch options.action
     when 'player_type'
-      Backbone.player_type_sync(method, player, options)
+      Backbone.playerTypeSync(method, player, options)
     else 
       options.method = options.action
       options.success = () ->
-      Backbone.xbmc_call(method, player, options)
+      Backbone.xbmcCall(method, player, options)
 
-Backbone.player_type_sync = (method, player, options) =>
+Backbone.playerTypeSync = (method, player, options) =>
   options.method = 'Player.GetActivePlayers'
 
   options.success = (result) ->    
-    new_state = switch true 
+    newState = switch true 
       when result.audio then 'audio'
       when result.video then 'video'
       when result.picture then 'picture'
       else 'stopped'
     
-    player.set({state: new_state})
+    player.set({state: newState})
     player.playlist.fetch()
 
-  Backbone.xbmc_call(method, player, options)
+  Backbone.xbmcCall(method, player, options)

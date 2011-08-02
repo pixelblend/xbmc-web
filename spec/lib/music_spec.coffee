@@ -8,13 +8,13 @@ describe "Music", () ->
       
   describe "a complete object", () ->
     beforeEach () ->
-      @music = new Music XBMCResponse.audio_playlist.result.items[0]
+      @music = new Music XBMCResponse.audioPlaylist.result.items[0]
   
     it "has a title", () ->
       expect(@music.get('title')).toEqual("Baba O'Riley")
   
     it "generates a thumbnail", () ->
-      expect(@music.thumbnail_url()).toMatch('bba74b1e.tbn')
+      expect(@music.thumbnailUrl()).toMatch('bba74b1e.tbn')
   
     it "produces a view-friendly object", () ->
-      expect(_.keys(@music.to_view())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label', 'thumbnail_url']
+      expect(_.keys(@music.toView())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label', 'thumbnailUrl']

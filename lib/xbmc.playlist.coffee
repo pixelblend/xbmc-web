@@ -1,11 +1,11 @@
 class window.PlaylistCollection extends Backbone.Collection
   method: () ->
     "#{this.media}#{this.url}"
-  now_playing: () ->
+  nowPlaying: () ->
     this.at(this.current)
   model: Media
   url: 'Playlist.GetItems'
-  sync: Backbone.playlist_sync
+  sync: Backbone.playlistSync
   initialize: () ->
     this.state = 'stopped'
     this.current = 0
