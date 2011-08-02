@@ -4,8 +4,9 @@ class window.Popup extends Backbone.View
   events:
     'click #controls a': 'notify_playlist'
   initialize: () =>
-    this.play_template = _.template($("#now-playing").html())
-    this.control_template = _.template($("#controls").html())
+    this.audio_template = _.template($("#audio-template").html())
+    this.video_template = _.template($("#video-template").html())
+    this.control_template = _.template($("#controls-template").html())
     @canvas = $(this.el)
     $('<div />', id: 'controls').appendTo @canvas
     $('<div />', id: 'play-details').appendTo @canvas
@@ -14,11 +15,10 @@ class window.Popup extends Backbone.View
     this.collection.bind('changed:playlist', this.render_playlist)
     this.collection.bind('changed:state', this.render_controls)
   render: () =>
-    this.render_playlist().render_controls()
-    this
+    this.render_controls().render_playlist()
   render_controls: () =>
-    console.log('controls')
-    console.log(this.collection.state)
+    # console.log('controls')
+    # console.log(this.collection.state)
     control_attrs = 
       play_pause_label: if this.collection.state == 'playing' then 'Pause' else 'Play'
     @canvas.find('#controls').html(this.control_template(control_attrs))
@@ -27,8 +27,10 @@ class window.Popup extends Backbone.View
     now_playing = this.collection.now_playing()
     now_playing = new this.collection.model() if !now_playing
     now_playing_attrs = now_playing.to_view()
-
-    @canvas.find('#play-details').html(this.play_template(now_playing_attrs))
+    
+    play_template = this["#{this.collection.media.toLowerCase()}_template"]
+    
+    @canvas.find('#play-details').html(play_template(now_playing_attrs))
 
     this.animate_titles()
     this

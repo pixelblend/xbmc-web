@@ -13,8 +13,7 @@ class window.AppController extends Backbone.Router
   background: () ->
     # console.log('background')
     window.settings = new Settings
-    window.playlist = new AudioPlaylist
-    window.player   = new Player playlist
+    window.player   = new Player
     
     settings.fetch()
     

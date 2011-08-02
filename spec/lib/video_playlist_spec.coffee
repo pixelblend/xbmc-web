@@ -1,31 +1,31 @@
-describe "AudioPlaylist", () ->
+describe "VideoPlaylist", () ->
   beforeEach () ->
-    @playlist = new AudioPlaylist
-    
+    @playlist = new VideoPlaylist
+
   it "has a JSON method", () ->
-    expect(@playlist.method()).toEqual('AudioPlaylist.GetItems')
-  
+    expect(@playlist.method()).toEqual('VideoPlaylist.GetItems')
+
   it "starts with a state of stopped", () ->
     expect(@playlist.state).toEqual('stopped')
-  
+
   describe "Collection", () ->
     beforeEach () ->
       spyOn($, "ajax").andCallFake (options) ->
-        options.success(XBMCResponse.audio_playlist)
-        
+        options.success(XBMCResponse.video_playlist)
+
       @playlist.fetch()
-    
-    describe "playlist", () ->      
+
+    describe "playlist", () ->
       it "fetches playlist", () ->
         expect(@playlist.models.length).toEqual(2)
-          
+
       it "knows the current item in the playlist", () ->
         expect(@playlist.current).toEqual(1)
-    
+
       it "knows the playlist is playing", () ->
         expect(@playlist.state).toEqual('playing')
-  
+
     describe "model", () ->
-      it "creates a playlist of music tracks", () ->
+      it "creates a playlist of video tracks", () ->
         model = _(@playlist.models).first()
-        expect(model.constructor).toEqual(Music)
+        expect(model.constructor).toEqual(Video)

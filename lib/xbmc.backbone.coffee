@@ -76,7 +76,7 @@ Backbone.player_sync = (method, player, options) =>
 
 Backbone.player_type_sync = (method, player, options) =>
   options.method = 'Player.GetActivePlayers'
-  
+
   options.success = (result) ->    
     new_state = switch true 
       when result.audio then 'audio'
@@ -84,7 +84,7 @@ Backbone.player_type_sync = (method, player, options) =>
       when result.picture then 'picture'
       else 'stopped'
     
-    player.set({media: new_state})
+    player.set({state: new_state})
     player.playlist.fetch()
 
   Backbone.xbmc_call(method, player, options)

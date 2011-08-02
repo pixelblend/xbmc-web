@@ -8,6 +8,15 @@ XBMCResponse = {
       "video" : false
     }
   },
+  video_player: {
+    "id" : 1,
+    "jsonrpc" : "2.0",
+    "result" : {
+      "audio" : false,
+      "picture" : false,
+      "video" : true
+    }
+  },
   audio_playlist: {
     "id" : 0,
     "jsonrpc" : "2.0",
@@ -39,6 +48,41 @@ XBMCResponse = {
       "start" : 0,
       "total" : 1
     }
+  },
+  video_playlist: {
+    "id" : 71,
+    "jsonrpc" : "2.0",
+    "result" : {
+      "current" : 1,
+      "end" : 2,
+      "items" : [
+      {
+        "director" : "John Lasseter",
+        "duration" : 93,
+        "fanart" : "special://masterprofile/Thumbnails/Video/Fanart/bf2ab336.tbn",
+        "file" : "/Users/pixelblend/Movies/xbmc-test/Toy Story.mp4",
+        "label" : "Toy Story",
+        "plot" : "Woody the cowboy is young Andy’s favorite toy. Yet this changes when Andy get the new super toy Buzz Lightyear for his birthday. Now that Woody is no longer number one he plans his revenge on Buzz. Toy Story is a milestone in film history for being the first feature film to use entirely computer animation.",
+        "thumbnail" : "special://masterprofile/Thumbnails/Video/b/bf2ab336.tbn",
+        "title" : "Toy Story",
+        "year" : 1995
+      },
+      {
+        "director" : "Quentin Tarantino",
+        "duration" : 93,
+        "fanart" : "special://masterprofile/Thumbnails/Video/Fanart/a379b384.tbn",
+        "file" : "/Users/pixelblend/Movies/xbmc-test/Kill Bill.mp4",
+        "label" : "Kill Bill Vol. 2",
+        "plot" : "The Bride unwaveringly continues on her \"roaring rampage of revenge\" against the band of assassins who had tried to kill her and her unborn child. The woman visits each of her former associates one by one, checking off the victims on her Death List Five until there's nothing left to do … but kill Bill.",
+        "thumbnail" : "special://masterprofile/Thumbnails/Video/a/a379b384.tbn",
+        "title" : "Kill Bill Vol. 2",
+        "year" : 2004
+      }
+      ],
+      "paused" : false,
+      "playing" : true,
+      "start" : 1,
+      "total" : 2
+    }
   }
-
 }
