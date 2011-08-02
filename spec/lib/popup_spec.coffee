@@ -7,20 +7,21 @@ describe 'Popup', () ->
     spyOn(@popup, 'animateTitles')
     
     @track = new Audio
-      title: 'Moondance'
-      artist: 'Van Morrison'
-      thumbnail: 'cover.tbn'
+      title: 'Regular John'
+      artist: 'Queens of the Stone Age'
+      album: 'QOTSA'
+      duration: 183
+      thumbnail: 'qotsa.tbn'
     
   describe "with no media", () ->
     it "renders an empty view", () ->
       @popup.render()
       @canvas = $(@popup.el)
-      
       expect(@popup.el.nodeName).toEqual('DIV')
       expect(@popup.el.id).toBe('now-playing')
       
       expect(@canvas.find('h1').text()).toBe('')
-      expect(@canvas.find('h2').text()).toBe('')
+      expect(@canvas.find('h2')).toBeFalsy
   
   describe "rendered content", () ->
     beforeEach () ->
@@ -48,18 +49,25 @@ describe 'Popup', () ->
     beforeEach () ->   
       @popup.collection.state = 'playing'
       @popup.collection.models = [@track]
-
+      @popup.collection.length = 1
+      
       @popup.render()
       @canvas = $(@popup.el)
     
     it "renders the current title", () ->
-      expect(@canvas.find('h1').text()).toBe('Moondance')
+      expect(@canvas.find('h1').text()).toBe('Regular John')
     
     it "renders the current artist", () ->
-      expect(@canvas.find('h2').text()).toBe('Van Morrison')
+      expect(@canvas.find('h2').text()).toBe('Queens of the Stone Age')
+      
+    it "renders the current album", () ->
+      expect(@canvas.find('h3').text()).toBe('QOTSA')
+      
+    it "renders length of the current track", () ->
+      expect(@canvas.find('h4').text()).toBe('3:03')
     
     it "renders a thumbnail of album cover", () ->
-      expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/cover.tbn')
+      expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/qotsa.tbn')
     
     it "animates the canvas", () ->
       expect(@popup.animateTitles).toHaveBeenCalled();
@@ -76,6 +84,7 @@ describe 'Popup', () ->
       @popup.collection = new VideoPlaylist
       @popup.collection.state = 'playing'
       @popup.collection.models = [@video]
+      @popup.collection.length = 1
 
       @popup.render()
       @canvas = $(@popup.el)
@@ -87,7 +96,7 @@ describe 'Popup', () ->
       expect(@canvas.find('h2').text()).toBe('Dir. Quentin Tarantino')
       
     it "renders the current duration & year", () ->
-      expect(@canvas.find('h3').text()).toBe('2004, 120 minutes')
+      expect(@canvas.find('h3').text()).toBe('2004, 120:22')
   
     it "renders a thumbnail of poster", () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/a379b384.tbn')

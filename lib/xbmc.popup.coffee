@@ -4,8 +4,10 @@ class window.Popup extends Backbone.View
   events:
     'click #controls a': 'notifyPlaylist'
   initialize: () =>
-    this.audioTemplate = _.template($("#audio-template").html())
-    this.videoTemplate = _.template($("#video-template").html())
+    this.musicTemplate = _.template($("#music-template").html())
+    this.filmTemplate = _.template($("#film-template").html())
+    this.tvTemplate = _.template($("#tv-template").html())
+    this.undefinedTemplate = _.template($("#undefined-template").html())
     this.controlTemplate = _.template($("#controls-template").html())
     
     @canvas = $(this.el)
@@ -13,25 +15,29 @@ class window.Popup extends Backbone.View
     $('<div />', id: 'play-details').appendTo @canvas
     @canvas.appendTo('body#popup')
     
-    this.collection.bind('changed:playlist', this.renderPlaylist)
-    this.collection.bind('changed:state', this.renderControls)
+    if this.collection
+      this.collection.bind('changed:playlist', this.renderPlaylist)
+      this.collection.bind('changed:state', this.renderControls)
   render: () =>
     this.renderControls().renderPlaylist()
   renderControls: () =>
-    controlAttrs = 
-      playPauseLabel: if this.collection.state == 'playing' then 'Pause' else 'Play'
-    @canvas.find('#controls').html(this.controlTemplate(controlAttrs))
+    if this.collection
+      controlAttrs = 
+        playPauseLabel: if this.collection.state == 'playing' then 'Pause' else 'Play'
+      @canvas.find('#controls').html(this.controlTemplate(controlAttrs))
+    else
+      @canvas.find('#controls').html('')
     this
   renderPlaylist: () =>
-    nowPlaying = this.collection.nowPlaying()
-    nowPlaying = new this.collection.model() if !nowPlaying
-    nowPlayingAttrs = nowPlaying.toView()
-    
-    playingTemplate = this["#{this.collection.model.name.toLowerCase()}Template"]
-    
-    @canvas.find('#play-details').html(playingTemplate(nowPlayingAttrs))
+    if this.collection && this.collection.length > 0
+      nowPlaying = this.collection.nowPlaying()
+      console.log nowPlaying.get('type')
+      playingTemplate = this["#{nowPlaying.get('type')}Template"]
+      @canvas.find('#play-details').html(playingTemplate(nowPlaying.attributes))
 
-    this.animateTitles()
+      this.animateTitles()
+    else
+      @canvas.find('#play-details').html('stopped')
     this
   animateTitles: () =>
     maxWidth = $('#now-playing-text').width()

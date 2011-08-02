@@ -1,20 +1,28 @@
-describe "Audio", () ->
-  describe "an empty object", () ->
+describe "Audio", () ->    
+  describe "a non-music item", () ->    
     beforeEach () ->
       @audio = new Audio
-    
-    it "has default attributes", () ->
-      expect(_.keys(@audio.attributes)).toEqual ['title', 'artist', 'album', 'thumbnail']
+        label: "AwesomeTrack.mp3"
+
+    it "is not recognised as a music item", () ->
+      expect(@audio.get('type')).toBeUndefined()
       
-  describe "a complete object", () ->
+  describe "a music object", () ->
     beforeEach () ->
-      @audio = new Audio XBMCResponse.audioPlaylist.result.items[0]
-  
+      @music = new Audio
+        album: "Who's Next"
+        artist: "The Who"
+        file: "/Music/The Who/Who's Next/09 Won't Get Fooled Again.mp3"
+        label: "09. The Who - Won't Get Fooled Again"
+        thumbnail: "special://masterprofile/Thumbnails/Music/b/bba74b1e.tbn"
+        title: "Won't Get Fooled Again"
+
     it "has a title", () ->
-      expect(@audio.get('title')).toEqual("Baba O'Riley")
+      expect(@music.get('title')).toEqual("Won't Get Fooled Again")
   
     it "generates a thumbnail", () ->
-      expect(@audio.thumbnailUrl()).toMatch('bba74b1e.tbn')
-  
-    it "produces a view-friendly object", () ->
-      expect(_.keys(@audio.toView())).toEqual  ['title', 'artist', 'album', 'thumbnail', 'fanart', 'file', 'label', 'thumbnailUrl']
+      expect(@music.get('thumbnail')).toMatch('.*(example.com).*(bba74b1e.tbn)')
+    
+    it "is recognised as a music item", () ->
+      expect(@music.get('type')).toBe('music')
+      

@@ -45,13 +45,12 @@ body#popup {
 #now-playing-text {
   float: left;
   width: 50%;
-  height: 50px;
   padding-top: 2px;
   margin: 0 0 0 5px;
   overflow: hidden;
 }
 
-#now-playing h1,h2,h3 {
+#now-playing h1,#now-playing h2,#now-playing h3,#now-playing h4 {
   margin: 0;
   padding: 0;
   font-size: 100%;
@@ -78,8 +77,6 @@ body#popup {
 #now-playing h2 {
   font-style: italic;
 }
-
-
 
 #controls {
   margin-bottom: 5px;

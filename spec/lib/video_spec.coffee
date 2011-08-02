@@ -1,22 +1,28 @@
 describe "Video", () ->
-  describe "an empty object", () ->
-    beforeEach () ->
+  describe "#type", () ->
+    it "recognises a TV show", () ->
       @video = new Video
-    
-    it "has default attributes", () ->
-      expect(_.keys(@video.attributes)).toEqual
-      ['title', 'director', 'duration', 'year', 'thumbnail']
+        episode: 1
+        season: 1
+        title: "Training Day"
+        showtitle: "Archer (2009)"
       
-  describe "a complete object", () ->
-    beforeEach () ->
-      @video = new Video XBMCResponse.videoPlaylist.result.items[0]
-  
-    it "has a title", () ->
-      expect(@video.get('title')).toEqual("Toy Story")
-  
-    it "generates a thumbnail", () ->
-      expect(@video.thumbnailUrl()).toMatch('bf2ab336.tbn')
-  
-    it "produces a view-friendly object", () ->
-      expect(_.keys(@video.toView())).toEqual 
-      ['title', 'director', 'duration', 'year', 'thumbnail', 'fanart', 'file', 'label', 'plot', 'thumbnailUrl']
+      expect(@video.get('type')).toBe('tv')
+      
+    it "recognises a Film", () ->
+      @video = new Video
+        director: 'Quentin Tarantino'
+        duration: 7222
+        thumbnail: 'a379b384.tbn'
+        title: 'Kill Bill Vol. 2'
+        year: 2004
+
+      expect(@video.get('type')).toBe('film')
+    
+    it "cannot recognise a non-library clip", () ->
+      @video = new Video
+        label: "New Music File.mkv"
+        title: null
+        season: null
+      
+      expect(@video.get('type')).toBeUndefined()

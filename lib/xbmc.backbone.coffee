@@ -85,6 +85,6 @@ Backbone.playerTypeSync = (method, player, options) =>
       else 'stopped'
     
     player.set({state: newState})
-    player.playlist.fetch()
+    player.playlist.fetch() if player.playlist
     
   Backbone.xbmcCall(method, player, options)
