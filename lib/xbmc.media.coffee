@@ -11,7 +11,7 @@ class window.Media extends Backbone.Model
     attrs.title = this.attributes.title || this.attributes.label
     attrs
   
-class window.Music extends Media
+class window.Audio extends Media
   defaults: () ->
     title: ''
     artist: ''

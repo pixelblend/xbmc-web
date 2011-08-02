@@ -27,7 +27,7 @@ class window.Popup extends Backbone.View
     nowPlaying = new this.collection.model() if !nowPlaying
     nowPlayingAttrs = nowPlaying.toView()
     
-    playingTemplate = this["#{this.collection.media.toLowerCase()}Template"]
+    playingTemplate = this["#{this.collection.model.name.toLowerCase()}Template"]
     
     @canvas.find('#play-details').html(playingTemplate(nowPlayingAttrs))
 

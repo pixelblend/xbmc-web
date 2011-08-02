@@ -6,7 +6,7 @@ describe 'Popup', () ->
     
     spyOn(@popup, 'animateTitles')
     
-    @track = new Music
+    @track = new Audio
       title: 'Moondance'
       artist: 'Van Morrison'
       thumbnail: 'cover.tbn'
@@ -44,7 +44,7 @@ describe 'Popup', () ->
 
         expect(@canvas.find('a#play-pause').text()).toBe('Play')
       
-  describe "with music playing", () ->
+  describe "with audio playing", () ->
     beforeEach () ->   
       @popup.collection.state = 'playing'
       @popup.collection.models = [@track]

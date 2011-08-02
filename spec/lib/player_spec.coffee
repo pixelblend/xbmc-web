@@ -17,7 +17,7 @@ describe 'Player', () ->
       expect(@player.bindPlaylist.callCount).toBe(1)
     
     it "detects an active audio player", () ->
-      expect(@player.playlist.media).toBe('Audio')
+      expect(@player.playlist.model).toBe(Audio)
       expect(@player.get('state')).toBe('audio')
 
     describe "when detecting a new playlist type", () ->
@@ -28,6 +28,6 @@ describe 'Player', () ->
       it "changes to relevant playlist", () ->
         @player.fetch()
 
+        expect(@player.playlist.model).toBe(Video)        
         expect(@player.get('state')).toBe('video')
-        expect(@player.playlist.media).toBe('Video')        
     

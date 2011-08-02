@@ -26,6 +26,6 @@ describe "AudioPlaylist", () ->
         expect(@playlist.state).toEqual('playing')
   
     describe "model", () ->
-      it "creates a playlist of music tracks", () ->
+      it "creates a playlist of audio tracks", () ->
         model = _(@playlist.models).first()
-        expect(model.constructor).toEqual(Music)
+        expect(model.constructor).toEqual(Audio)
