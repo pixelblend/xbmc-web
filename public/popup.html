@@ -20,14 +20,15 @@
       <a id="next" href="#">Next</a>
   </script>
   <script type="text/template" id="undefined-template">
-    <div id="info-panel">
+    <div id="info-panel" class="undefined">
+      <div id="thumb"><img src="<%= thumbnail %>" /></div>
       <div id="now-playing-text">
         <h1><span><%= label %></span></h1>
       </div>
     </div>
   </script>
   <script type="text/template" id="music-template">
-    <div id="info-panel">
+    <div id="info-panel" class="music">
       <div id="thumb"><img src="<%= thumbnail %>" /></div>
       <div id="now-playing-text">
         <h1><span><%= title %></span></h1>
@@ -38,7 +39,7 @@
     </div>
   </script>
   <script type="text/template" id="tv-template">
-    <div id="info-panel">
+    <div id="info-panel" class="tv">
       <div id="thumb"><img src="<%= thumbnail %>" /></div>
       <div id="now-playing-text">
         <h1><span><%= title %></span></h1>
@@ -48,7 +49,7 @@
     </div>
   </script>
   <script type="text/template" id="film-template">
-    <div id="info-panel">
+    <div id="info-panel" class="film">
       <div id="thumb"><img src="<%= thumbnail %>" /></div>
       <div id="now-playing-text">
         <h1><span><%= title %></span></h1>
