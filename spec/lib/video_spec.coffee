@@ -4,7 +4,8 @@ describe "Video", () ->
       @video = new Video
     
     it "has default attributes", () ->
-      expect(_.keys(@video.attributes)).toEqual ['title', 'director', 'duration', 'year', 'thumbnail']
+      expect(_.keys(@video.attributes)).toEqual
+      ['title', 'director', 'duration', 'year', 'thumbnail']
       
   describe "a complete object", () ->
     beforeEach () ->
@@ -17,4 +18,5 @@ describe "Video", () ->
       expect(@video.thumbnailUrl()).toMatch('bf2ab336.tbn')
   
     it "produces a view-friendly object", () ->
-      expect(_.keys(@video.toView())).toEqual ['title', 'director', 'duration', 'year', 'thumbnail', 'fanart', 'file', 'label', 'plot', 'thumbnailUrl']
+      expect(_.keys(@video.toView())).toEqual 
+      ['title', 'director', 'duration', 'year', 'thumbnail', 'fanart', 'file', 'label', 'plot', 'thumbnailUrl']

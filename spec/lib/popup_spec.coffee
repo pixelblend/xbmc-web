@@ -68,7 +68,7 @@ describe 'Popup', () ->
     beforeEach () ->    
       @video = new Video
         director: 'Quentin Tarantino'
-        duration: 93
+        duration: 7222
         thumbnail: 'a379b384.tbn'
         title: 'Kill Bill Vol. 2'
         year: 2004
@@ -87,7 +87,7 @@ describe 'Popup', () ->
       expect(@canvas.find('h2').text()).toBe('Dir. Quentin Tarantino')
       
     it "renders the current duration & year", () ->
-      expect(@canvas.find('h3').text()).toBe('2004, 93 minutes')
+      expect(@canvas.find('h3').text()).toBe('2004, 120 minutes')
   
     it "renders a thumbnail of poster", () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/a379b384.tbn')

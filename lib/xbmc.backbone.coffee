@@ -86,5 +86,5 @@ Backbone.playerTypeSync = (method, player, options) =>
     
     player.set({state: newState})
     player.playlist.fetch()
-
+    
   Backbone.xbmcCall(method, player, options)

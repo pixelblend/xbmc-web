@@ -4,21 +4,20 @@ class window.Player extends Backbone.Model
   sync: Backbone.playerSync
   initialize: () ->
     this.bind 'change:state', () ->
-      this.playlist = switch this.get('state')
+      currentState = this.get 'state'
+      this.playlist = switch currentState
         when 'audio' 
           new AudioPlaylist 
         when 'video'
           new VideoPlaylist
         when 'stopped'
-          new PlaylistCollection
+          undefined
         else
-          console.error "Player: unknown state #{this.get('state')}"
-          new PlaylistCollection
-      this.bindPlaylist()
+          console.error "Player: unknown state #{currentState}"
+          undefined
 
-  bindPlaylist: () ->
-    currentState = this.get('state')
-    return false if currentState == 'stopped'
+      this.bindPlaylist(currentState) if this.playlist
+  bindPlaylist: (currentState) ->
     this.playlist.bind 'action:prev', () =>
       this.fetch action: currentState+'Player.SkipPrevious'
     this.playlist.bind 'action:next', () =>

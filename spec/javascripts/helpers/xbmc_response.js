@@ -58,7 +58,7 @@ XBMCResponse = {
       "items" : [
       {
         "director" : "John Lasseter",
-        "duration" : 93,
+        "duration" : 5580,
         "fanart" : "special://masterprofile/Thumbnails/Video/Fanart/bf2ab336.tbn",
         "file" : "/Users/pixelblend/Movies/xbmc-test/Toy Story.mp4",
         "label" : "Toy Story",
@@ -69,7 +69,7 @@ XBMCResponse = {
       },
       {
         "director" : "Quentin Tarantino",
-        "duration" : 93,
+        "duration" : 7200,
         "fanart" : "special://masterprofile/Thumbnails/Video/Fanart/a379b384.tbn",
         "file" : "/Users/pixelblend/Movies/xbmc-test/Kill Bill.mp4",
         "label" : "Kill Bill Vol. 2",

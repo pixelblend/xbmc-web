@@ -7,6 +7,7 @@ class window.Popup extends Backbone.View
     this.audioTemplate = _.template($("#audio-template").html())
     this.videoTemplate = _.template($("#video-template").html())
     this.controlTemplate = _.template($("#controls-template").html())
+    
     @canvas = $(this.el)
     $('<div />', id: 'controls').appendTo @canvas
     $('<div />', id: 'play-details').appendTo @canvas

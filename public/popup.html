@@ -35,7 +35,7 @@
       <div id="now-playing-text">
         <h1><span><%= title %></span></h1>
         <h2><span>Dir. <%= director %></span></h2>
-        <h3><span><%= year %>, <%= duration %> minutes</span></h3>
+        <h3><span><%= year %>, <%= Math.floor(duration / 60) %> minutes</span></h3>
       </div>
     </div>
   </script>
