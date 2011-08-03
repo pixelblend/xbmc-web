@@ -37,8 +37,9 @@ module Compile
   def self.haml(*files)
     files = Dir["#{HamlDir}*.haml"] if files.empty?
     
-    @layout ||= File.read('lib/haml/layout.haml')
-    @haml ||= Haml::Engine.new(@layout, {:ugly => true})
+    layout = File.read('lib/haml/layout.haml')
+    haml   = Haml::Engine.new(layout, {:ugly => true})
+    partial_html = ''
     
     files.each do |file_name|
       page_name = file_name.match(/(.*)\/(.*)\.haml$/)[2]
@@ -53,7 +54,7 @@ module Compile
       RakeLog.info file_name
 
       begin
-        html = @haml.render(scope=Object.new) do |content_type|
+        html = haml.render(scope=Object.new) do |content_type|
           case content_type
             when :title
               scope.instance_variable_get("@haml_buffer").buffer << "XBMC: #{page_name}\n"
@@ -67,7 +68,8 @@ module Compile
       rescue Exception => e
         RakeLog.warn "#{file_name}: #{e}"
       end
-
+      
+      File.open("spec/fixtures/#{page_name}.html", 'w') {|f| f.write(partial_html) }
       File.open("public/#{page_name}.html", 'w') {|f| f.write(html) }
     end
   end
