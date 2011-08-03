@@ -2,4 +2,5 @@
 *.swp
 public/scripts/xbmc.*.js
 spec/javascripts/*_spec.js
+public/*.html
 
