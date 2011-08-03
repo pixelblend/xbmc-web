@@ -1,6 +1,6 @@
 .DS_Store
 *.swp
 public/scripts/xbmc.*.js
-spec/javascripts/*_spec.js
+spec/javascripts/*.spec.js
 public/*.html
 spec/fixtures/*.html

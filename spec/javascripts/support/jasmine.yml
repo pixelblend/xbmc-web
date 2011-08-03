@@ -15,15 +15,11 @@ src_files:
   - public/scripts/vendor/jquery.timers-*.js
   - public/scripts/vendor/underscore.js
   - public/scripts/vendor/backbone.js
-  - public/scripts/xbmc.settings.js
-  - public/scripts/xbmc.options.js
-  - public/scripts/xbmc.backbone.js
-  - public/scripts/xbmc.controller.js
-  - public/scripts/xbmc.media.js
-  - public/scripts/xbmc.player.js
-  - public/scripts/xbmc.playlist.js
-  - public/scripts/xbmc.popup.js
-  
+  - public/scripts/xbmc.backbone.js  
+  - public/scripts/xbmc.controller.js  
+  - public/scripts/xbmc.model.*.js  
+  - public/scripts/xbmc.collection.*.js  
+  - public/scripts/xbmc.view.*.js  
 
 # stylesheets
 #

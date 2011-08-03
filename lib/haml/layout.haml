@@ -2,7 +2,7 @@
   %head
     %title
       ="XBMC: #{self[:title]}"
-    - %w{ vendor/jquery-1.6.2 vendor/jquery.timers-1.2 vendor/underscore vendor/backbone xbmc.settings xbmc.controller xbmc.backbone xbmc.media xbmc.playlist xbmc.player xbmc.popup xbmc.options }.each do |js_file|
+    - %w{ vendor/jquery-1.6.2 vendor/jquery.timers-1.2 vendor/underscore vendor/backbone xbmc.backbone xbmc.controller xbmc.model.media xbmc.model.player xbmc.model.settings xbmc.collection.playlist xbmc.view.options xbmc.view.popup }.each do |js_file|
       %script{:type => "text/javascript", :src  => "scripts/#{js_file}.js", :charset => "utf-8"}
     %link(rel="stylesheet" type="text/css" href="stylesheets/application.css")
   %body{:id => self[:title]}

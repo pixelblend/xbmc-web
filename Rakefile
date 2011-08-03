@@ -24,7 +24,7 @@ module Compile
       js_name = file_name.match(/(.*)\/(.*)\.coffee$/)[2]      
       RakeLog.info file_name
       
-      js_dir = js_name =~ /_spec$/ ? 'spec/javascripts' : 'public/scripts'
+      js_dir = js_name =~ /.spec$/ ? 'spec/javascripts' : 'public/scripts'
       begin
         javascript = CoffeeScript.compile File.read(file_name)
         File.open("#{js_dir}/#{js_name}.js", 'w'){|f| f.write javascript}
