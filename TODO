@@ -1,3 +1,5 @@
+* HAML all pages
+* Compile HAML pages into spec/fixtures without layout
 * Apply liberal styling and animation
 * Add playlist manipulation
 * Add library navigation
