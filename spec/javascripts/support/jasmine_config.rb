@@ -2,7 +2,7 @@ module Jasmine
   class Config
 
     # Add your overrides or custom config code here
-
+    attr_reader :jasmine_server_port
   end
 end
 
