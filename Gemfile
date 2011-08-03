@@ -1,3 +1,7 @@
 source 'http://rubygems.org'
 gem 'jasmine'
 gem 'rake'
+gem 'haml'
+gem 'hpricot'
+gem 'bluecloth'
+gem 'coffee-script'
