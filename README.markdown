@@ -3,6 +3,15 @@ ChromeXBMC
 
 ChromeXBMC is a Chrome Extension to remotely control XBMC using the JSON-RPC interface.
 
+Installation
+------------
+1. `bundle install`
+2. `rake compile`
+
+This should place assets in `public/` and tests in `spec/`. You can run tests with `rake jasmine`.
+
+You might think this is a wantonly convoluted installation for a bunch of static html and javascripts. You would be correct.
+
 Setup
 -----
 Select options from the extension menu or by right-cliking the XBMC icon.
