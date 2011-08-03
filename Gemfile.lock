@@ -12,6 +12,7 @@ GEM
     execjs (1.2.1)
       multi_json (~> 1.0)
     ffi (1.0.9)
+    fssm (0.2.7)
     haml (3.1.2)
     hpricot (0.8.4)
     jasmine (1.0.2.1)
@@ -44,6 +45,7 @@ PLATFORMS
 DEPENDENCIES
   bluecloth
   coffee-script
+  fssm
   haml
   hpricot
   jasmine
