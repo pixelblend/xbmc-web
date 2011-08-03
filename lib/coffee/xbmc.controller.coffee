@@ -38,9 +38,9 @@ class window.AppController extends Backbone.Router
       model: settings
     options.render()
   popup: () ->
-    # console.log('popup')
+    console.log('popup')
     window.popup = new Popup
-      collection: chrome.extension.getBackgroundPage().player.playlist
+      player: chrome.extension.getBackgroundPage().player
     popup.render()
 
 $ () ->

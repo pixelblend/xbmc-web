@@ -16,6 +16,7 @@ class window.Player extends Backbone.Model
           console.error "Player: unknown state #{currentState}"
           undefined
 
+      this.trigger('changed:playlist')
       this.bindPlaylist(currentState) if this.playlist
   bindPlaylist: (currentState) ->
     this.playlist.bind 'action:prev', () =>

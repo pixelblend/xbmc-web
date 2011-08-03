@@ -15,9 +15,12 @@ class window.Popup extends Backbone.View
     $('<div />', id: 'play-details').appendTo @canvas
     @canvas.appendTo('body#popup')
     
-    if this.collection
-      this.collection.bind('changed:playlist', this.renderPlaylist)
-      this.collection.bind('changed:state', this.renderControls)
+    this.player = this.options.player
+    
+    if this.player
+      this.player.bind('changed:playlist', this.refreshCollection)
+    
+    this.refreshCollection()
   render: () =>
     this.renderControls().renderPlaylist()
   renderControls: () =>
@@ -54,6 +57,14 @@ class window.Popup extends Backbone.View
               .animate({left:0}, scrollTime).animate({left:0}, holdTime)
       catch error
         console.error(error)
+  refreshCollection: () =>
+    if this.player
+      this.collection = this.player.playlist
+    
+    if this.collection
+      this.collection.bind('changed:playlist', this.renderPlaylist)
+      this.collection.bind('changed:state', this.renderControls)
+    this.render()
   notifyPlaylist: (event) ->
     event.preventDefault()
     clicked = $(event.target)
