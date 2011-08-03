@@ -55,16 +55,16 @@ describe 'Popup', () ->
       @canvas = $(@popup.el)
     
     it "renders the current title", () ->
-      expect(@canvas.find('h1').text()).toBe('Regular John')
+      expect(@canvas.find('h1 span').text()).toBe('Regular John')
     
     it "renders the current artist", () ->
-      expect(@canvas.find('h2').text()).toBe('Queens of the Stone Age')
+      expect(@canvas.find('h2 span').text()).toBe('Queens of the Stone Age')
       
     it "renders the current album", () ->
-      expect(@canvas.find('h3').text()).toBe('QOTSA')
+      expect(@canvas.find('h3 span').text()).toBe('QOTSA')
       
     it "renders length of the current track", () ->
-      expect(@canvas.find('h4').text()).toBe('3:03')
+      expect(@canvas.find('h4 span').text()).toBe('3:03')
     
     it "renders a thumbnail of album cover", () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/qotsa.tbn')
@@ -90,13 +90,13 @@ describe 'Popup', () ->
       @canvas = $(@popup.el)
   
     it "renders the current title", () ->
-      expect(@canvas.find('h1').text()).toBe('Kill Bill Vol. 2')
+      expect(@canvas.find('h1 span').text()).toBe('Kill Bill Vol. 2')
   
     it "renders the current director", () ->
-      expect(@canvas.find('h2').text()).toBe('Dir. Quentin Tarantino')
+      expect(@canvas.find('h2 span').text()).toBe('Dir. Quentin Tarantino')
       
     it "renders the current duration & year", () ->
-      expect(@canvas.find('h3').text()).toBe('2004, 120:22')
+      expect(@canvas.find('h3 span').text()).toBe('2004, 120:22')
   
     it "renders a thumbnail of poster", () ->
       expect(@canvas.find('img').attr('src')).toBe('http://example.com:8080/vfs/a379b384.tbn')

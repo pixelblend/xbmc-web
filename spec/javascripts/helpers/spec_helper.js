@@ -1,6 +1,5 @@
 beforeEach(function() {
-  // jasmine.getFixtures().fixturesPath = 'layout/';
-  jasmine.getFixtures().fixturesPath = '../../public/';
+  jasmine.getFixtures().fixturesPath = '../../spec/fixtures/';
   window.settings = new Settings;
   this.addMatchers({
     // 

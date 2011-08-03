@@ -31,7 +31,6 @@ class window.Popup extends Backbone.View
   renderPlaylist: () =>
     if this.collection && this.collection.length > 0
       nowPlaying = this.collection.nowPlaying()
-      console.log nowPlaying.get('type')
       playingTemplate = this["#{nowPlaying.get('type')}Template"]
       @canvas.find('#play-details').html(playingTemplate(nowPlaying.attributes))
 

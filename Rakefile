@@ -38,7 +38,9 @@ module Compile
     files = Dir["#{HamlDir}*.haml"] if files.empty?
     
     layout = File.read('lib/haml/layout.haml')
-    haml   = Haml::Engine.new(layout, {:ugly => true})
+    render_attributes = {:escape_attrs => false}
+    
+    haml   = Haml::Engine.new(layout, render_attributes)
     partial_html = ''
     
     files.each do |file_name|
@@ -50,27 +52,22 @@ module Compile
       end
       
       next if page_name == 'layout'
-      
       RakeLog.info file_name
-
+      
+      scope = {:title => page_name}
       begin
-        html = haml.render(scope=Object.new) do |content_type|
-          case content_type
-            when :title
-              scope.instance_variable_get("@haml_buffer").buffer << "XBMC: #{page_name}\n"
-            when :partial
-              partial = File.read(file_name)
-              partial_haml = Haml::Engine.new(partial)
-              partial_html = partial_haml.render
-              scope.instance_variable_get("@haml_buffer").buffer << partial_html
-          end
+        html = haml.render(scope) do |content_type|
+          partial = File.read(file_name)
+          partial_haml = Haml::Engine.new(partial,render_attributes)
+          partial_html = partial_haml.render()
+          scope.instance_variable_get("@haml_buffer").buffer << partial_html
         end
+        
+        File.open("spec/fixtures/#{page_name}.html", 'w') {|f| f.write(partial_html) }
+        File.open("public/#{page_name}.html", 'w') {|f| f.write(html) }
       rescue Exception => e
         RakeLog.warn "#{file_name}: #{e}"
       end
-      
-      File.open("spec/fixtures/#{page_name}.html", 'w') {|f| f.write(partial_html) }
-      File.open("public/#{page_name}.html", 'w') {|f| f.write(html) }
     end
   end
 end

@@ -1,0 +1,51 @@
+%script(type="text/template" id="controls-template")
+  %a(id="prev" href="#") Back
+  %a(id="stop" href="#") Stop
+  %a(id="play-pause" href="#") <%= playPauseLabel %></a>
+  %a(id="next" href="#") Next
+  
+%script(type="text/template" id="undefined-template")
+  #info-panel.undefined
+    #thumb
+      #img(src="<%= thumbnail %>")
+    #now-playing-text
+      %h1
+        %span <%= label %>
+        
+%script(type="text/template" id="music-template")
+  #info-panel.music
+    #thumb
+      %img(src="<%= thumbnail %>")
+    #now-playing-text
+      %h1
+        %span <%= title %>
+      %h2
+        %span <%= artist %>
+      %h3
+        %span <%= album %>
+      %h4
+        %span <%= durationMinutes %>
+
+%script(type="text/template" id="tv-template")
+  #info-panel.tv
+    #thumb
+      %img(src="<%= thumbnail %>")
+    #now-playing-text
+      %h1
+        %span <%= title %>
+      %h2      
+        %span <%= showtitle %>
+      %h3      
+        %span S<%= season %>E<%= episode %>, <%= durationMinutes %>
+
+%script(type="text/template" id="film-template")
+  #info-panel.film
+    #thumb
+      %img(src="<%= thumbnail %>")
+    #now-playing-text
+      %h1
+        %span <%= title %>
+      %h2     
+        %span Dir. <%= director %>
+      %h3     
+        %span <%= year %>, <%= durationMinutes %>

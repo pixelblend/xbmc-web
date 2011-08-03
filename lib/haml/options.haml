@@ -1,0 +1,15 @@
+%script#options-form{:type => "text/template"}
+  %h1
+    XBMC Options
+  %form{:action=>"post", :method=>"#options"}
+    #flash{:style=>"display:none;"} Settings Saved
+    %dl
+      <% _.each(attributes, function(value, key) { %>
+      %dt
+        %label{:for=>"<%= key %>"} <%= key %>
+      %dd
+        %input{ :id =>"<%= key %>", :name=>"<%= key %>", 
+                :type=>"<%= (key == 'password' ? key : 'text') %>", 
+                :value=>"<%= value %>" }
+      <% }); %>
+    %button{:type=>"submit"} Save
