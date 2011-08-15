@@ -6,6 +6,7 @@ require 'coffee-script'
 require 'haml/html'
 require 'jasmine'
 
+require 'colorize'
 
 RakeLog = Logger.new(STDOUT)
 RakeLog.formatter = proc { |severity, datetime, progname, msg|
@@ -22,14 +23,14 @@ module Compile
     
     files.each do |file_name|
       js_name = file_name.match(/(.*)\/(.*)\.coffee$/)[2]      
-      RakeLog.info file_name
+      RakeLog.info file_name.colorize( :black ).colorize( :background => :green )
       
       js_dir = js_name =~ /.spec$/ ? 'spec/javascripts' : 'public/scripts'
       begin
         javascript = CoffeeScript.compile File.read(file_name)
         File.open("#{js_dir}/#{js_name}.js", 'w'){|f| f.write javascript}
       rescue Exception => e
-        RakeLog.warn "#{file_name}: #{e}"
+        RakeLog.warn "#{file_name}: #{e}".colorize( :black ).colorize( :background => :red )
       end
     end
   end
@@ -52,7 +53,7 @@ module Compile
       end
       
       next if page_name == 'layout'
-      RakeLog.info file_name
+      RakeLog.info file_name.colorize( :black ).colorize( :background => :green )
       
       scope = {:title => page_name}
       begin
@@ -66,7 +67,7 @@ module Compile
         File.open("spec/fixtures/#{page_name}.html", 'w') {|f| f.write(partial_html) }
         File.open("public/#{page_name}.html", 'w') {|f| f.write(html) }
       rescue Exception => e
-        RakeLog.warn "#{file_name}: #{e}"
+        RakeLog.warn "#{file_name}: #{e}".colorize( :black ).colorize( :background => :red )
       end
     end
   end

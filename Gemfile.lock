@@ -8,6 +8,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.1.1)
+    colorize (0.5.8)
     diff-lcs (1.1.2)
     execjs (1.2.1)
       multi_json (~> 1.0)
@@ -46,6 +47,7 @@ PLATFORMS
 DEPENDENCIES
   bluecloth
   coffee-script
+  colorize
   fssm
   haml
   hpricot
