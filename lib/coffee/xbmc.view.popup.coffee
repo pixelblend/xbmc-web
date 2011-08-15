@@ -11,8 +11,8 @@ class window.Popup extends Backbone.View
     this.controlTemplate = _.template($("#controls-template").html())
     
     @canvas = $(this.el)
-    $('<div />', id: 'controls').appendTo @canvas
-    $('<div />', id: 'play-details').appendTo @canvas
+    @canvas.append $('<div />', id: 'controls')
+    @canvas.append $('<div />', id: 'play-details')
     @canvas.appendTo('body#popup')
     
     this.player = this.options.player
