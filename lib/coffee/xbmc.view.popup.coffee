@@ -42,19 +42,35 @@ class window.Popup extends Backbone.View
       @canvas.find('#play-details').html('stopped')
     this
   animateTitles: () =>
-    maxWidth = $('#now-playing-text').width()
+    viewWidth = $('#now-playing-text').width()
+    nowPlayingPanels = $('#now-playing-text span')
+    offset = 5
+    animationLength = 3000
+    
+    #find the longest scrolling time required to keep everything readable
+    maxScrollTime = _(nowPlayingPanels).chain()
+                      .map (s) -> 
+                        $(s).width() / viewWidth * 1000
+                      .max().value()
 
-    $('#now-playing-text span').each () ->
-      try
-        offset = 5
-        scrollTime = 3000
-        holdTime = 1000
+    if maxScrollTime > animationLength
+      # increase the animation length to keep animations in sync
+      animationLength = maxScrollTime + 500
 
-        $(this).everyTime 5, () ->
-          if $(this).width() > maxWidth-offset
-            scrollLength = '-'+(($(this).width()-maxWidth)+offset)
-            $(this).animate({left: scrollLength}, scrollTime).animate({left: scrollLength}, holdTime)
-              .animate({left:0}, scrollTime).animate({left:0}, holdTime)
+    nowPlayingPanels.each () ->
+      try        
+        self = $(this)
+        self.everyTime 5, () ->
+          totalWidth = self.width()
+          if totalWidth > viewWidth - offset
+            scrollLength = (totalWidth - viewWidth) + offset
+            scrollTime = (totalWidth / viewWidth) * 1000
+                        
+            holdTime = animationLength - scrollTime
+            scrollLength = '-'+scrollLength
+            
+            self.animate({left: scrollLength}, scrollTime, 'linear').animate({left: scrollLength}, holdTime)
+              .fadeOut('slow').animate({left:0}, 0).fadeIn('fast')
       catch error
         console.error(error)
   refreshCollection: () =>
